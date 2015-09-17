@@ -1,0 +1,29 @@
+---
+  
+- name: Checkout code from git
+  git: repo={{ git_application_url }}
+       dest={{ application_path }}
+       update=yes
+       version={{ application_branch }}
+  tags: install_access
+
+# To be introduced in Ansible 2.0 (alpha version on September 2015)  
+# - name: Bundle install
+#   bundler: state=present deployment=yes chdir={{ application_path }}/access/Gemfile
+
+- name: Bundle install
+  shell: bash -lc "bundle install" chdir="{{ application_path }}/access"
+  become: yes
+  become_user: "{{ application_user }}"
+  tags:
+    - install_access
+    - install_gems
+       
+- name: Copy secrets.yml
+  template: src=config/secrets.yml.j2 dest={{application_path}}/access/config/secets.yml
+            owner={{ application_user }} group={{ application_user }} mode=0644
+  tags: install_access
+  
+
+# tranfer all the data needed (e.g.database.yml)
+# (maybe) run checks

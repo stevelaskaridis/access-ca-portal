@@ -41,3 +41,11 @@
   tags:
     - rvm_install
     - gemset_configure
+    
+# This is why it's done this way http://stackoverflow.com/questions/22115936/install-bundler-gem-using-ansible
+- name: Install bundler gem
+  command: bash -lc "gem install bundler"
+  become: yes
+  become_user: "{{ application_user }}"
+  tags:
+    - base_gems_install
