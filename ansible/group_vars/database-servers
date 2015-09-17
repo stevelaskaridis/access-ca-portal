@@ -1,0 +1,3 @@
+db_password: some_password_here
+db_name: access-db
+db_username: access

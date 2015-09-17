@@ -1,0 +1,13 @@
+---
+
+- name: Install httpd
+  yum: name=httpd state=latest
+  tags: httpd_install
+
+- name: Install httpd modules
+  yum: name={{ item }} state=latest
+  with_items:
+      - mod_ssl
+  tags:
+    - httpd_install
+    - mod_sll_install
