@@ -1,0 +1,11 @@
+---
+
+- name: Install base packages
+  yum: name={{ item }} state=latest
+  with_items:
+      - vim
+      - git
+  tags: install_base_packages
+  
+- name: Create application user
+  user: name={{ application_user }} system=yes
