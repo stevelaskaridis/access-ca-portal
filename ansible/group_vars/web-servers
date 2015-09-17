@@ -1,1 +1,2 @@
 application_user: access
+application_path: /var/www/access-ca-portal/
