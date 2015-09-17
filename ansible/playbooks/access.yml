@@ -1,0 +1,7 @@
+- hosts: web-servers
+  user: root
+  roles:
+    - common
+    - ruby
+    - httpd
+    - postgres
