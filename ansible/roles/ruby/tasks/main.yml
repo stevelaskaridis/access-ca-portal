@@ -1,0 +1,43 @@
+---
+
+- name: Install rvm and ruby {{ ruby_rvm_version }}
+  shell: gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 && \curl -sSL https://get.rvm.io | bash -s stable --ruby={{ ruby_rvm_version }}
+  args:
+    creates: /usr/local/rvm/bin/rvm
+    tags:
+        - rvm_install
+        - ruby_install
+        
+- name: Register ruby version
+  shell: ruby --version | awk -F " " '{ print $2 }' | awk -F "p" '{print $1}'
+  ignore_errors: True
+  register: ruby_version
+  tags:
+    - rvm_install
+    - ruby_install
+    
+- name: Register default rvm ruby destination (always changed)
+  shell: readlink /usr/local/rvm/environments/default
+  register: default_rvm_version
+  ignore_errors: True
+  tags:
+    - rvm_install
+    - gemset_configure
+
+- name: Add application user to the rvm group
+  user: name={{ application_user }} append=yes groups=rvm
+  tags:
+    - rvm_install
+    - ruby_install
+
+- name: Create rvm gemset for access (access-env)
+  shell: runuser -l {{ application_user }} -c 'rvm use {{ ruby_rvm_version }} && rvm gemset create access-env'
+    - rvm_install
+    - gemset_configure
+  
+- name: Make access-env default gemset
+  shell: runuser -l {{ application_user }} -c "rvm use {{ ruby_rvm_version }}@access-env --default"
+  when: default_rvm_version.stdout != "/usr/local/rvm/environments/ruby-{{ ruby_rvm_version }}@access-env"
+  tags:
+    - rvm_install
+    - gemset_configure
