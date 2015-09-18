@@ -1,0 +1,15 @@
+Listen 80
+
+<VirtualHost *:80>
+    PassengerRoot /usr/local/rvm/gems/{{ruby_rvm_version}}@access-env/gems/passenger-4.0.24
+    PassengerRuby /usr/local/rvm/wrappers/{{ruby_rvm_version}}@access-env
+    ServerName {{ inventory_hostname }}
+    ServerAlias www.{{ inventory_hostname }}
+    DocumentRoot /var/www/{{ inventory_hostname }}/public
+    <Directory /var/www/{{ inventory_hostname }}/public>
+        AllowOverride All
+        Options -Indexes FollowSymLinks
+        Order allow,deny
+        Allow from all
+    </Directory>
+</VirtualHost>

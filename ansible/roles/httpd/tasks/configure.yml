@@ -1,3 +1,6 @@
 ---
-  
-# TODO: Add httpd configuration files for the application. (with j2 templates)
+
+
+- template: src=../templates/etc/httpd/conf.d/access.conf.j2 dest=/etc/httpd/conf.d/access.conf owner=apache group=apache mode=0644
+  tags:
+    -httpd_configuration
