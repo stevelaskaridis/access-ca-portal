@@ -5,8 +5,8 @@ Listen 80
     PassengerRuby /usr/local/rvm/wrappers/{{ruby_rvm_version}}@access-env
     ServerName {{ inventory_hostname }}
     ServerAlias www.{{ inventory_hostname }}
-    DocumentRoot /var/www/{{ inventory_hostname }}/public
-    <Directory /var/www/{{ inventory_hostname }}/public>
+    DocumentRoot {{ application_path }}/public
+    <Directory {{ application_path }}/public>
         AllowOverride All
         Options -Indexes FollowSymLinks
         Order allow,deny
