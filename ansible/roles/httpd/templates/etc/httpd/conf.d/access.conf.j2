@@ -1,12 +1,12 @@
 Listen 80
 
 <VirtualHost *:80>
-    PassengerRoot /usr/local/rvm/gems/{{ruby_rvm_version}}@access-env/gems/passenger-4.0.24
+    PassengerRoot /usr/local/rvm/gems/{{ruby_rvm_version}}@access-env/gems/passenger-5.0.18
     PassengerRuby /usr/local/rvm/wrappers/{{ruby_rvm_version}}@access-env
     ServerName {{ inventory_hostname }}
     ServerAlias www.{{ inventory_hostname }}
-    DocumentRoot {{ application_path }}/public
-    <Directory {{ application_path }}/public>
+    DocumentRoot {{ application_path }}/access/public
+    <Directory {{ application_path }}/access/public>
         AllowOverride All
         Options -Indexes FollowSymLinks
         Order allow,deny
