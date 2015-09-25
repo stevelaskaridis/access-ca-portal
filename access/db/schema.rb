@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150925112400) do
+ActiveRecord::Schema.define(version: 20150925120614) do
 
   create_table "people", force: :cascade do |t|
     t.string   "first_name"
@@ -38,6 +38,12 @@ ActiveRecord::Schema.define(version: 20150925112400) do
 
   add_index "person_translations", ["locale"], name: "index_person_translations_on_locale"
   add_index "person_translations", ["person_id"], name: "index_person_translations_on_person_id"
+
+  create_table "positions", force: :cascade do |t|
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "scientific_field_translations", force: :cascade do |t|
     t.integer  "scientific_field_id", null: false
