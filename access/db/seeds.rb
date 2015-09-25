@@ -5,3 +5,27 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+scientific_fields_list = [   { en: "Other",                                    el: "Άλλο",                                      },
+                             { en: "Astrophysics and Particle Physics",        el: "Αστροφυσική και Σωματιδιακή Αστροφυσική",   },
+                             { en: "Bioinformatics and applied Biomedicine",   el: "Εφαρμογές Βιοϊατρικής και Βιοπληροφορικής", },
+                             { en: "Computational Chemistry",                  el: "Υπολογιστική Χημεία",                       },
+                             { en: "Geological Sciences",                      el: "Γεωεπιστήμες",                              },
+                             { en: "Economics",                                el: "Οικονομικά",                                },
+                             { en: "Fusion",                                   el: "Σύντηξη",                                   },
+                             { en: "Geophysics",                               el: "Γεωφυσική",                                 },
+                             { en: "High-energy Physics",                      el: "Φυσική Υψηλών Ενεργειών",                   },
+                             { en: "Mechanical Physics",                       el: "Μηχανική",                                  },
+                             { en: "Computer Science",                         el: "Επιστήμη Υπολογιστών",                      },
+                             { en: "Mathematics",                              el: "Μαθηματικά",                                },
+                          ]
+
+
+scientific_fields_list.each do |rec|
+  sc_f = ScientificField.new
+  rec.each do |locale, val|
+    I18n.locale = locale
+    sc_f[:description] = val
+  end
+  sc_f.save!
+end
