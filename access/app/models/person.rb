@@ -9,5 +9,5 @@ class Person < ActiveRecord::Base
   validates :position, presence: true
 
 
-  translates :first_name, :last_name, :position, :department
+  translates :first_name, :last_name, :department
 end

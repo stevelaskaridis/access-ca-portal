@@ -40,6 +40,8 @@ class PeopleController < ApplicationController
   # PATCH/PUT /people/1
   # PATCH/PUT /people/1.json
   def update
+    @scientific_fields = ScientificField.all
+    @positions = Position.all
     respond_to do |format|
       if @person.update(person_params)
         format.html { redirect_to @person, notice: 'Person was successfully updated.' }
@@ -69,6 +71,7 @@ class PeopleController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def person_params
-      params.require(:person).permit(:first_name, :last_name, :first_name_latin, :last_name_latin, :email, :position, :department)
+      params.require(:person).permit(:first_name, :last_name, :first_name_latin, :last_name_latin, :email,
+                                     :position_id, :scientific_field_id)
     end
 end

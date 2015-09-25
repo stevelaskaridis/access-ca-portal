@@ -32,13 +32,18 @@
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :position %><br>
-    <%= f.text_field :position %>
-  </div>
-  <div class="field">
     <%= f.label :department %><br>
     <%= f.text_field :department %>
   </div>
+  <div class="field">
+    <%= f.label :position %><br>
+    <%= f.collection_select(:position_id, Position.all, :id, :description) %>
+  </div>
+    <div class="field">
+      <%= f.label :scientific_field %><br>
+      <%= f.collection_select(:scientific_field_id, ScientificField.all, :id, :description) %>
+    </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

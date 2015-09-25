@@ -6,9 +6,9 @@ class CreatePeople < ActiveRecord::Migration
       t.string :first_name_latin
       t.string :last_name_latin
       t.string :email
-      t.string :position
       t.string :department
-      t.belongs_to :scientific_field, index: true
+      t.belongs_to :position, index: true, foreign_key: :position_id
+      t.belongs_to :scientific_field, index: true, foreign_key: :scientific_field_id
 
       t.timestamps null: false
     end

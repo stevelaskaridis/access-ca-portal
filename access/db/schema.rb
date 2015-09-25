@@ -19,11 +19,15 @@ ActiveRecord::Schema.define(version: 20150925121226) do
     t.string   "first_name_latin"
     t.string   "last_name_latin"
     t.string   "email"
-    t.string   "position"
     t.string   "department"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.integer  "position_id"
+    t.integer  "scientific_field_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
+
+  add_index "people", ["position_id"], name: "index_people_on_position_id"
+  add_index "people", ["scientific_field_id"], name: "index_people_on_scientific_field_id"
 
   create_table "person_translations", force: :cascade do |t|
     t.integer  "person_id",  null: false
@@ -32,7 +36,6 @@ ActiveRecord::Schema.define(version: 20150925121226) do
     t.datetime "updated_at", null: false
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "position"
     t.string   "department"
   end
 

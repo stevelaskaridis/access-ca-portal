@@ -27,12 +27,17 @@
 
 <p>
   <strong>Position:</strong>
-  <%= @person.position %>
+  <%= @person.position.description %>
 </p>
 
 <p>
   <strong>Department:</strong>
   <%= @person.department %>
+</p>
+
+<p>
+  <strong>Scientific Field:</strong>
+  <%= @person.scientific_field.description %>
 </p>
 
 <%= link_to 'Edit', edit_person_path(@person) %> |

@@ -3,7 +3,6 @@ class CreatePersonTranslations < ActiveRecord::Migration
     Person.create_translation_table!({
                                          first_name: :string,
                                          last_name: :string,
-                                         position: :string,
                                          department: :string
                                      },
     {
