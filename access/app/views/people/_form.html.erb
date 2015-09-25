@@ -11,6 +11,16 @@
     </div>
   <% end %>
 
+    <div class="field">
+      <%= f.label :email %><br>
+      <%= f.text_field :email %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password %><br>
+      <%= f.password_field :password %>
+    </div>
+
   <div class="field">
     <%= f.label :first_name %><br>
     <%= f.text_field :first_name %>
@@ -27,10 +37,7 @@
     <%= f.label :last_name_latin %><br>
     <%= f.text_field :last_name_latin %>
   </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
+
   <div class="field">
     <%= f.label :department %><br>
     <%= f.text_field :department %>
