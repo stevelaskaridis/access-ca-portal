@@ -8,6 +8,7 @@ class CreatePeople < ActiveRecord::Migration
       t.string :email
       t.string :position
       t.string :department
+      t.belongs_to :scientific_field, index: true
 
       t.timestamps null: false
     end

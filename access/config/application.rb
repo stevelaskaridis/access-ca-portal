@@ -25,5 +25,6 @@ module Access
 
     config.i18n.fallbacks = true
     config.i18n.available_locales = [:en, :el]
+    config.i18n.default_locale = :en
   end
 end

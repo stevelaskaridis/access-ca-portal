@@ -4,4 +4,6 @@ class Person < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true, email: true
 
   translates :first_name, :last_name, :position, :department
+
+  belongs_to :scientific_field
 end
