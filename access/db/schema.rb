@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150925160526) do
+ActiveRecord::Schema.define(version: 20150925121226) do
 
   create_table "people", force: :cascade do |t|
     t.string   "first_name"
@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 20150925160526) do
     t.integer  "scientific_field_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-    t.string   "password_digest"
   end
 
   add_index "people", ["position_id"], name: "index_people_on_position_id"

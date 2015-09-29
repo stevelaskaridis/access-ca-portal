@@ -16,11 +16,6 @@
       <%= f.text_field :email %>
     </div>
 
-    <div class="field">
-      <%= f.label :password %><br>
-      <%= f.password_field :password %>
-    </div>
-
   <div class="field">
     <%= f.label :first_name %><br>
     <%= f.text_field :first_name %>
@@ -46,10 +41,10 @@
     <%= f.label :position %><br>
     <%= f.collection_select(:position_id, Position.all, :id, :description) %>
   </div>
-    <div class="field">
-      <%= f.label :scientific_field %><br>
-      <%= f.collection_select(:scientific_field_id, ScientificField.all, :id, :description) %>
-    </div>
+  <div class="field">
+    <%= f.label :scientific_field %><br>
+    <%= f.collection_select(:scientific_field_id, ScientificField.all, :id, :description) %>
+  </div>
 
   <div class="actions">
     <%= f.submit %>
