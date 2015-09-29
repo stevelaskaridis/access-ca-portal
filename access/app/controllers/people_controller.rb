@@ -25,7 +25,7 @@ class PeopleController < ApplicationController
   # POST /people.json
   def create
     @person = Person.new(person_params)
-
+    @person.alternative_emails = parse_alternative_emails(params[:alternative_emails])
     respond_to do |format|
       if @person.save
         format.html { redirect_to @person, notice: 'Person was successfully created.' }
@@ -42,6 +42,7 @@ class PeopleController < ApplicationController
   def update
     @scientific_fields = ScientificField.all
     @positions = Position.all
+    @person.alternative_emails = parse_alternative_emails(params[:alternative_emails])
     respond_to do |format|
       if @person.update(person_params)
         format.html { redirect_to @person, notice: 'Person was successfully updated.' }
@@ -72,6 +73,15 @@ class PeopleController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def person_params
       params.require(:person).permit(:first_name, :last_name, :first_name_latin, :last_name_latin, :email,
-                                     :position_id, :scientific_field_id)
+                                     :position_id, :scientific_field_id, :alternative_emails)
+    end
+
+    def parse_alternative_emails(alternative_emails_unparsed)
+      alternative_emails = []
+      emails = alternative_emails_unparsed.split
+      emails.each do |email|
+        alternative_emails << AlternativeEmail.new(email: email)
+      end
+      alternative_emails
     end
 end

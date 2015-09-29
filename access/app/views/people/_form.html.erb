@@ -46,6 +46,11 @@
     <%= f.collection_select(:scientific_field_id, ScientificField.all, :id, :description) %>
   </div>
 
+  <div class="field">
+    <%= f.label :alternative_emails %><br>
+    <%= text_area_tag(:alternative_emails, @person.get_alternative_emails) %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
