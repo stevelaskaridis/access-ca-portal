@@ -1,15 +1,15 @@
-Listen 80
+Listen 8080
 
-<VirtualHost *:80>
-    PassengerRoot /usr/local/rvm/gems/{{ruby_rvm_version}}@access-env/gems/passenger-5.0.18
-    PassengerRuby /usr/local/rvm/wrappers/{{ruby_rvm_version}}@access-env
+<VirtualHost *:8080>
+    PassengerRoot /usr/local/rvm/gems/ruby-{{ruby_rvm_version}}@access-env/gems/passenger-5.0.20
+    PassengerRuby /usr/local/rvm/wrappers/ruby-{{ruby_rvm_version}}@access-env/ruby
+    RailsEnv development
     ServerName {{ inventory_hostname }}
     ServerAlias www.{{ inventory_hostname }}
     DocumentRoot {{ application_path }}/access/public
     <Directory {{ application_path }}/access/public>
-        AllowOverride All
-        Options -Indexes FollowSymLinks
-        Order allow,deny
-        Allow from all
+    Options -MultiViews
+    AllowOverride All
+    options -Indexes
     </Directory>
 </VirtualHost>
