@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
-  root 'people#index'
-  resources :people
-
-  get '/signup' => 'people#new'
-  get '/login' => 'sessions#new'
-  post '/login' => 'sessions#create'
-  get '/logout' => 'sessions#destroy'
-
+  get '/:locale' => 'people#index'
+  scope ":locale", locale: /#{APP_CONFIG['available_locales'].join('|')}/ do
+      resources :people
+      root 'people#index'
+      get '/signup' => 'people#new'
+      get '/login' => 'sessions#new'
+      post '/login' => 'sessions#create'
+      get '/logout' => 'sessions#destroy'
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

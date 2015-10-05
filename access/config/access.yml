@@ -1,0 +1,18 @@
+---
+
+## This file contains configuration for the access application, depending on the preferences of the user.
+
+default: &default
+  available_locales: # first locale is the default one
+    - en
+    - el
+
+###### E-mail ######
+development:
+  <<: *default
+
+production:
+  <<: *default
+
+test:
+  <<: *default

@@ -24,7 +24,11 @@ module Access
     config.active_record.raise_in_transactional_callbacks = true
 
     config.i18n.fallbacks = true
-    config.i18n.available_locales = [:en, :el]
-    config.i18n.default_locale = :en
+    config.i18n.available_locales = config_for(:access)['available_locales'].map { |locale| locale.to_sym }
+    # [:en, :el] # this should be configured by ansible
+    config.i18n.default_locale = config_for(:access)['available_locales'][0].to_sym
+
+    # Look for nested dictionaries for translation
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
   end
 end
