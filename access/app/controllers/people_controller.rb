@@ -24,10 +24,16 @@ class PeopleController < ApplicationController
   # POST /people
   # POST /people.json
   def create
+    invalid_flag = false
     @person = Person.new(person_params)
-    @person.alternative_emails = parse_alternative_emails(params[:alternative_emails])
+    begin
+      @person.alternative_emails = parse_alternative_emails(params[:alternative_emails])
+    rescue ActiveRecord::RecordNotSaved
+      @person.errors.add(params[:alternative_emails], "invalid alternative e-mail.")
+      invalid_flag = true
+    end
     respond_to do |format|
-      if @person.save
+      if @person.save && !invalid_flag
         format.html { redirect_to @person, notice: 'Person was successfully created.' }
         format.json { render :show, status: :created, location: @person }
       else
@@ -42,9 +48,15 @@ class PeopleController < ApplicationController
   def update
     @scientific_fields = ScientificField.all
     @positions = Position.all
-    @person.alternative_emails = parse_alternative_emails(params[:alternative_emails])
+    invalid_flag = false
+    begin
+      @person.alternative_emails = parse_alternative_emails(params[:alternative_emails])
+    rescue ActiveRecord::RecordNotSaved
+      @person.errors.add(:alternative_emails, "invalid alternative e-mail.")
+      invalid_flag = true
+    end
     respond_to do |format|
-      if @person.update(person_params)
+      if @person.update(person_params) && !invalid_flag
         format.html { redirect_to @person, notice: 'Person was successfully updated.' }
         format.json { render :show, status: :ok, location: @person }
       else
