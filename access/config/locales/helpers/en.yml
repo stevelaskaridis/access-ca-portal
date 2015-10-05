@@ -1,0 +1,17 @@
+en:
+  helpers:
+    label:
+      person:
+        first_name: Name
+        last_name: Surname
+        first_name_latin: Name (in Latin characters)
+        last_name_latin: Surname (in Latin characters)
+        email: E-mail
+        department: Department
+        position: Position
+        scientific_field: Scientific Field
+        alternative_emails: Alternative e-mails
+    submit:
+      person:
+        create: Submit
+        update: Update Info

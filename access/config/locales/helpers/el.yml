@@ -1,0 +1,17 @@
+el:
+  helpers:
+    label:
+      person:
+        first_name: Όνομα
+        last_name: Επώνυμο
+        first_name_latin: Όνομα (με λατινικούς χαρακτήρες)
+        last_name_latin: Επώνυμο (με λατινικούς χαρακτήρες)
+        email: E-mail
+        department: Τμήμα
+        position: Ιδιότητα
+        scientific_field: Επιστημονικό Πεδίο
+        alternative_emails: Εναλλακτικά E-mails
+    submit:
+          person:
+            create: Υποβολή
+            update: Ενημέρωση Στοιχείων

@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
+  root 'people#index', locale: :en
   get '/:locale' => 'people#index'
   scope ":locale", locale: /#{APP_CONFIG['available_locales'].join('|')}/ do
       resources :people
-      root 'people#index'
       get '/signup' => 'people#new'
       get '/login' => 'sessions#new'
       post '/login' => 'sessions#create'
