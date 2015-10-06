@@ -11,6 +11,7 @@ el:
         position: Ιδιότητα
         scientific_field: Επιστημονικό Πεδίο
         alternative_emails: Εναλλακτικά E-mails
+        organization: Οργανισμός
     show: Προβολή
     list_people: Λίστα Χρηστών
     edit: Επεξεργασία

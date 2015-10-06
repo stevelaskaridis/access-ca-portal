@@ -13,6 +13,7 @@
       <th><%= I18n.t "views.label.person.position" %></th>
       <th><%= I18n.t "views.label.person.department" %></th>
       <th><%= I18n.t "views.label.person.scientific_field" %></th>
+      <th><%= I18n.t "views.label.person.organization" %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -28,6 +29,7 @@
         <td><%= person.position.description %></td>
         <td><%= person.department %></td>
         <td><%= person.scientific_field.description %></td>
+        <td><%= person.organization.name %></td>
         <td><%= link_to I18n.t("views.show"), person %></td>
         <td><%= link_to I18n.t("views.edit"), edit_person_path(person) %></td>
         <td><%= link_to I18n.t("views.destroy"), person, method: :delete,

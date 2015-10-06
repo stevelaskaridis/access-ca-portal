@@ -45,6 +45,10 @@
     <%= f.label :scientific_field %><br>
     <%= f.collection_select(:scientific_field_id, ScientificField.all, :id, :description) %>
   </div>
+    <div class="field">
+      <%= f.label :organization %><br>
+      <%= f.collection_select(:organization_id, Organization.all, :id, :name) %>
+    </div>
 
   <div class="field">
     <%= f.label :alternative_emails %><br>

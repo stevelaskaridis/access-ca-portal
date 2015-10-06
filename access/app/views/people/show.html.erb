@@ -47,5 +47,10 @@
   <%= @person.scientific_field.description %>
 </p>
 
+<p>
+  <strong><%= I18n.t "views.label.person.organization" %>:</strong>
+  <%= @person.organization.name %>
+</p>
+
 <%= link_to I18n.t('views.edit'), edit_person_path(@person) %> |
 <%= link_to I18n.t('views.back'), people_path %>

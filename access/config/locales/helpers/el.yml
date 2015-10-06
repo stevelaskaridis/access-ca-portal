@@ -10,6 +10,7 @@ el:
         department: Τμήμα
         position: Ιδιότητα
         scientific_field: Επιστημονικό Πεδίο
+        organization: Οργανισμός
         alternative_emails: Εναλλακτικά E-mails
     submit:
           person:

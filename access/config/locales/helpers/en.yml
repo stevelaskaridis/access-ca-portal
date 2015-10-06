@@ -10,6 +10,7 @@ en:
         department: Department
         position: Position
         scientific_field: Scientific Field
+        organization: Οrganization
         alternative_emails: Alternative e-mails
     submit:
       person:
