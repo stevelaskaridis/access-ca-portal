@@ -14,6 +14,7 @@ class Person < ActiveRecord::Base
   validates :scientific_field, presence: true
   validates :position, presence: true
   validates :organization, presence: true
+  validates :phone_number, presence: true, phone: true
 
 
   translates :first_name, :last_name, :department

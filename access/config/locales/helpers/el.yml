@@ -7,12 +7,13 @@ el:
         first_name_latin: Όνομα (με λατινικούς χαρακτήρες)
         last_name_latin: Επώνυμο (με λατινικούς χαρακτήρες)
         email: E-mail
+        phone_number: Αριθμός Τηλεφώνου
         department: Τμήμα
         position: Ιδιότητα
         scientific_field: Επιστημονικό Πεδίο
         organization: Οργανισμός
         alternative_emails: Εναλλακτικά E-mails
     submit:
-          person:
-            create: Υποβολή
-            update: Ενημέρωση Στοιχείων
+      person:
+        create: Υποβολή
+        update: Ενημέρωση Στοιχείων

@@ -26,6 +26,11 @@
 </p>
 
 <p>
+  <strong><%= I18n.t "views.label.person.phone_number" %>:</strong>
+  <%= @person.phone_number %>
+</p>
+
+<p>
   <strong><%= I18n.t "views.label.person.alternative_emails" %>:</strong>
   <% @person.alternative_emails.each do |email| %>
   <li><%= email.email %></li>

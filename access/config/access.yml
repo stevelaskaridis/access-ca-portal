@@ -6,6 +6,7 @@ default: &default
   available_locales: # first locale is the default one
     - en
     - el
+  default_phone_country: en
 
 ###### E-mail ######
 development:

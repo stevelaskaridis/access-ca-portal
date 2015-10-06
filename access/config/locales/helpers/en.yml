@@ -7,6 +7,7 @@ en:
         first_name_latin: Name (in Latin characters)
         last_name_latin: Surname (in Latin characters)
         email: E-mail
+        phone_number: Phone Number
         department: Department
         position: Position
         scientific_field: Scientific Field

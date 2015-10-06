@@ -5,11 +5,12 @@
 <table>
   <thead>
     <tr>
-      <th><%= I18n.t "views.label.person.first_name" %></th>
-      <th><%= I18n.t "views.label.person.last_name" %></th>
+      <!--<th><%= I18n.t "views.label.person.first_name" %></th>-->
+      <!--<th><%= I18n.t "views.label.person.last_name" %></th>-->
       <th><%= I18n.t "views.label.person.first_name_latin" %></th>
       <th><%= I18n.t "views.label.person.last_name_latin" %></th>
       <th><%= I18n.t "views.label.person.email" %></th>
+      <th><%= I18n.t "views.label.person.phone_number" %></th>
       <th><%= I18n.t "views.label.person.position" %></th>
       <th><%= I18n.t "views.label.person.department" %></th>
       <th><%= I18n.t "views.label.person.scientific_field" %></th>
@@ -21,11 +22,12 @@
   <tbody>
     <% @people.each do |person| %>
       <tr>
-        <td><%= person.first_name %></td>
-        <td><%= person.last_name %></td>
+        <!--<td><%= person.first_name %></td>-->
+        <!--<td><%= person.last_name %></td>-->
         <td><%= person.first_name_latin %></td>
         <td><%= person.last_name_latin %></td>
         <td><%= person.email %></td>
+        <td><%= person.phone_number %></td>
         <td><%= person.position.description %></td>
         <td><%= person.department %></td>
         <td><%= person.scientific_field.description %></td>

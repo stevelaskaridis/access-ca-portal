@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20151006102834) do
     t.string   "first_name_latin"
     t.string   "last_name_latin"
     t.string   "email"
+    t.string   "phone_number"
     t.string   "department"
     t.integer  "position_id"
     t.integer  "scientific_field_id"
