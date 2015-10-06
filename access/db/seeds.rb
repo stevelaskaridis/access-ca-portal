@@ -46,3 +46,31 @@ positions_list.each do |rec|
   end
   pos.save!
 end
+
+organizations_list = [
+    {
+      name:        { en: "Aristotle University of Thessaloniki", el: "Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης"},
+      description: { en: "AUTh description",                     el: "Περιγραφή ΑΠΘ"                         },
+      domain:      "auth.gr"
+    },
+    {
+      name:        { en: "GRNET",                                 el: "ΕΔΕΤ"                                   },
+      description: { en: "GRNET description" ,                    el: "Περιγραφή ΕΔΕΤ"                         },
+      domain:      "edet.gr"
+    },
+]
+
+organizations_list.each do |rec|
+  org = Organization.new
+  rec.each do |field, hash_val|
+    if hash_val.is_a? Hash
+      hash_val.each do |locale, val|
+        I18n.locale = locale
+        org[field.to_sym] = val
+      end
+    else
+      org[field.to_sym] = hash_val
+    end
+  end
+  org.save!
+end

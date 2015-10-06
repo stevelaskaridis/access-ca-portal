@@ -2,6 +2,7 @@ class Person < ActiveRecord::Base
   # Associations
   belongs_to :scientific_field
   belongs_to :position
+  belongs_to :organization
   has_many :alternative_emails, dependent: :delete_all
 
   # Validations
@@ -12,6 +13,7 @@ class Person < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true, email: true, email_alternative_email: true
   validates :scientific_field, presence: true
   validates :position, presence: true
+  validates :organization, presence: true
 
 
   translates :first_name, :last_name, :department

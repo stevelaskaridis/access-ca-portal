@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get '/:locale' => 'people#index'
   scope ":locale", locale: /#{APP_CONFIG['available_locales'].join('|')}/ do
       resources :people
+      resources :organizations
       get '/signup' => 'people#new'
       get '/login' => 'sessions#new'
       post '/login' => 'sessions#create'

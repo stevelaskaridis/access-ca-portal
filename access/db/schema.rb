@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150929141711) do
+ActiveRecord::Schema.define(version: 20151006102834) do
 
   create_table "alternative_emails", force: :cascade do |t|
     t.integer  "person_id",                          null: false
@@ -24,6 +24,26 @@ ActiveRecord::Schema.define(version: 20150929141711) do
 
   add_index "alternative_emails", ["person_id"], name: "index_alternative_emails_on_person_id"
 
+  create_table "organization_translations", force: :cascade do |t|
+    t.integer  "organization_id", null: false
+    t.string   "locale",          null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "name"
+    t.text     "description"
+  end
+
+  add_index "organization_translations", ["locale"], name: "index_organization_translations_on_locale"
+  add_index "organization_translations", ["organization_id"], name: "index_organization_translations_on_organization_id"
+
+  create_table "organizations", force: :cascade do |t|
+    t.string   "name"
+    t.string   "domain"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "people", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -33,10 +53,12 @@ ActiveRecord::Schema.define(version: 20150929141711) do
     t.string   "department"
     t.integer  "position_id"
     t.integer  "scientific_field_id"
+    t.integer  "organization_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
 
+  add_index "people", ["organization_id"], name: "index_people_on_organization_id"
   add_index "people", ["position_id"], name: "index_people_on_position_id"
   add_index "people", ["scientific_field_id"], name: "index_people_on_scientific_field_id"
 
