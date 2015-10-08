@@ -22,5 +22,13 @@ module Access
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    config.i18n.fallbacks = true
+    config.i18n.available_locales = config_for(:access)['available_locales'].map { |locale| locale.to_sym }
+    # [:en, :el] # this should be configured by ansible
+    config.i18n.default_locale = config_for(:access)['available_locales'][0].to_sym
+
+    # Look for nested dictionaries for translation
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
   end
 end
