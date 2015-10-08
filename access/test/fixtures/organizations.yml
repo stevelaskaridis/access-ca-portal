@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  domain: MyString
-  description: MyText
+auth:
+  name: Aristotle University of Thessaloniki
+  domain: auth.gr
+  description: AUTh
 
-two:
-  name: MyString
-  domain: MyString
-  description: MyText
+grnet:
+  name: GRNET
+  domain: edet.gr
+  description: Edet

@@ -1,7 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  description: MyString
 
-two:
-  description: MyString
+other:
+  description: other
+
+field1:
+  description: field1
+
+field2:
+  description: field2
