@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151006102834) do
+ActiveRecord::Schema.define(version: 20151006140256) do
 
   create_table "alternative_emails", force: :cascade do |t|
     t.integer  "person_id",                          null: false
@@ -62,6 +62,24 @@ ActiveRecord::Schema.define(version: 20151006102834) do
   add_index "people", ["organization_id"], name: "index_people_on_organization_id"
   add_index "people", ["position_id"], name: "index_people_on_position_id"
   add_index "people", ["scientific_field_id"], name: "index_people_on_scientific_field_id"
+
+  create_table "person_editable_fields", force: :cascade do |t|
+    t.boolean  "first_name_editable"
+    t.boolean  "last_name_editable"
+    t.boolean  "first_name_latin_editable"
+    t.boolean  "last_name_latin_editable"
+    t.boolean  "email_editable"
+    t.boolean  "phone_number_editable"
+    t.boolean  "department_editable"
+    t.boolean  "position_id_editable"
+    t.boolean  "scientific_field_id_editable"
+    t.boolean  "organization_id_editable"
+    t.integer  "person_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "person_editable_fields", ["person_id"], name: "index_person_editable_fields_on_person_id"
 
   create_table "person_translations", force: :cascade do |t|
     t.integer  "person_id",  null: false

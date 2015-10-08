@@ -4,6 +4,7 @@ class Person < ActiveRecord::Base
   belongs_to :position
   belongs_to :organization
   has_many :alternative_emails, dependent: :delete_all
+  has_one :person_editable_field
 
   # Validations
   validates :first_name_latin, presence: true
@@ -18,6 +19,12 @@ class Person < ActiveRecord::Base
 
 
   translates :first_name, :last_name, :department
+
+  after_create do
+    pef = PersonEditableField.new(person_id: self.id)
+    pef.save
+    self.person_editable_field = pef
+  end
 
   def get_alternative_emails
     self.alternative_emails.map { |obj| obj.email }.join("\n")
