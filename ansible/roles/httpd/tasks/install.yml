@@ -11,3 +11,15 @@
   tags:
     - httpd_install
     - mod_sll_install
+
+- name: Firewall ports
+  shell: firewall-cmd --permanent --add-port=80/tcp
+  tags: httpd_install
+
+- name: Firewall ports
+  shell: firewall-cmd --permanent --add-port=443/tcp
+  tags: httpd_install
+
+- name: Firewall ports
+  shell: firewall-cmd --reload
+  tags: httpd_install
