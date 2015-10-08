@@ -80,17 +80,6 @@
   tags:
     - generating_passenger.conf_file
 
-- name: installing epel release
-  shell: yes '' | yum install epel-release
-  tags:
-    - install_nodejs
-
-- name: installing nodejs
-  shell: yes '' | yum install nodejs
-  tags:
-    - install_nodejs
-
-- name: changing folder permissions
-  shell: chmod 1777 /tmp; chmod 0664 {{ application_path }}access/log/development.log
-  tags:
-    - permissions
+- name: httpd_start
+  shell: systemctl restart httpd.service
+  tags: httpd_start
