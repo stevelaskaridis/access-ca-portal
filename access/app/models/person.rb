@@ -29,4 +29,9 @@ class Person < ActiveRecord::Base
   def get_alternative_emails
     self.alternative_emails.map { |obj| obj.email }.join("\n")
   end
+
+  def self.find_by_verification_token(token)
+    alt_mail = AlternativeEmail.find_by_verification_token token
+    return alt_mail.person, alt_mail
+  end
 end

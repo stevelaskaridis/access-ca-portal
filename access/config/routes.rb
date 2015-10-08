@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get '/:locale' => 'people#index'
   scope ":locale", locale: /#{APP_CONFIG['available_locales'].join('|')}/ do
       resources :people
+      get '/people/confirm_email/:token' => 'people#verify_email'
+
       resources :organizations
       get '/signup' => 'people#new'
       get '/login' => 'sessions#new'
