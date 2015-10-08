@@ -9,6 +9,8 @@ john_appleseed:
   position: position1
   department: ""
   scientific_field: field1
+  organization: auth
+  phone_number: +306948001232
 
 john_stevenson:
   first_name: Bob
@@ -19,4 +21,5 @@ john_stevenson:
   position: position2
   department: ""
   scientific_field: other
-
+  organization: grnet
+  phone_number: +306948001231

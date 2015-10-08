@@ -10,8 +10,10 @@ class PersonTest < ActiveSupport::TestCase
       last_name_latin: 'Jobs',
       email: 'jobs@apple.com',
       department: 'Technology',
-      scientific_field: ScientificField.all[0],
-      position: Position.all[0]
+      scientific_field: ScientificField.first,
+      position: Position.first,
+      organization: Organization.first,
+      phone_number: '+306932123123'
     }
   end
 
@@ -21,7 +23,8 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   def test_person_without_compulsory_field
-    compulsory_fields = [:email, :first_name_latin, :last_name_latin, :position, :scientific_field]
+    compulsory_fields = [:email, :first_name_latin, :last_name_latin, :position, :scientific_field, :phone_number,
+    :organization]
     compulsory_fields.each do |cf|
       invalid_params = valid_params.clone
       invalid_params.delete cf
@@ -75,6 +78,16 @@ class PersonTest < ActiveSupport::TestCase
         invalid_person = Person.new(invalid_params)
         refute invalid_person.valid?, "Name should be in the form of first letter capital only. (#{name} is not)"
       end
+    end
+  end
+
+  def test_person_with_invalid_phone
+    wrong_phone_numbers = ['123', 'asdv', '6123312412']
+    wrong_phone_numbers.each do |p|
+      invalid_params = valid_params.clone
+      invalid_params[:phone_number] = p
+      invalid_person = Person.new(invalid_params)
+      refute invalid_person.valid?, "Phone #{p} should be invalid."
     end
   end
 end
