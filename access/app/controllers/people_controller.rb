@@ -27,7 +27,7 @@ class PeopleController < ApplicationController
     invalid_flag = false
     @person = Person.new(person_params)
     begin
-      @person.alternative_emails = parse_alternative_emails(params[:alternative_emails])
+      @person.alternative_emails = parse_alternative_emails(@person, params[:alternative_emails])
     rescue ActiveRecord::RecordNotSaved
       @person.errors.add(params[:alternative_emails], "invalid alternative e-mail.")
       invalid_flag = true
@@ -50,7 +50,7 @@ class PeopleController < ApplicationController
     @positions = Position.all
     invalid_flag = false
     begin
-      @person.alternative_emails = parse_alternative_emails(params[:alternative_emails])
+      @person.alternative_emails = parse_alternative_emails(@person, params[:alternative_emails])
     rescue ActiveRecord::RecordNotSaved
       @person.errors.add(:alternative_emails, "invalid alternative e-mail.")
       invalid_flag = true
@@ -90,10 +90,20 @@ class PeopleController < ApplicationController
       )
     end
 
-    def parse_alternative_emails(alternative_emails_unparsed)
-      alternative_emails = []
+    def parse_alternative_emails(person, alternative_emails_unparsed)
+      if person.nil?
+        alternative_emails = []
+      else
+        alternative_emails = person.alternative_emails
+      end
       emails = alternative_emails_unparsed.split
-      emails.each do |email|
+      emails_to_add = emails - (alternative_emails.map {|email_obj| email_obj.email})
+      emails_to_del = (alternative_emails.map {|email_obj| email_obj.email}) - emails
+      emails_to_del.each do |email|
+        AlternativeEmail.find_by_email(email).delete()
+      end
+      alternative_emails = alternative_emails - emails_to_del
+      emails_to_add.each do |email|
         alternative_emails << AlternativeEmail.new(email: email)
       end
       alternative_emails
