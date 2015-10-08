@@ -1,0 +1,9 @@
+---
+el:
+  mailers:
+    user_mailer:
+      confirmation_mail_subject: E-mail επιβεβαίωσης για το χρήστη
+      email_confirmation_subject: E-mail επιβεβαίωσης εναλλακτικής διεύθυνσης e-mail για το χρήστη
+      Dear: Αγαπητέ/ή
+      new_user_registration_confirmation_body: Ευχαριστούμε για την εγγραφή. Για την επιβεβαίωση της εγγραφής πατήστε το παρακάτω σύνδεσμο.
+      new_alt_mail_confirmation_body: Μόλις εισάγατε ένα εναλλακτικό e-mail. Για την επιβεβαίωση της νέας διεύθυνσης πατήστε το παρακάτω σύνδεσμο.
