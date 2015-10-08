@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= I18n.t('views.list_people') %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <!--<th><%= I18n.t "views.label.person.first_name" %></th>-->
+      <!--<th><%= I18n.t "views.label.person.last_name" %></th>-->
+      <th><%= I18n.t "views.label.person.first_name_latin" %></th>
+      <th><%= I18n.t "views.label.person.last_name_latin" %></th>
+      <th><%= I18n.t "views.label.person.email" %></th>
+      <th><%= I18n.t "views.label.person.phone_number" %></th>
+      <th><%= I18n.t "views.label.person.position" %></th>
+      <th><%= I18n.t "views.label.person.department" %></th>
+      <th><%= I18n.t "views.label.person.scientific_field" %></th>
+      <th><%= I18n.t "views.label.person.organization" %></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @people.each do |person| %>
+      <tr>
+        <!--<td><%= person.first_name %></td>-->
+        <!--<td><%= person.last_name %></td>-->
+        <td><%= person.first_name_latin %></td>
+        <td><%= person.last_name_latin %></td>
+        <td><%= person.email %></td>
+        <td><%= person.phone_number %></td>
+        <td><%= person.position.description %></td>
+        <td><%= person.department %></td>
+        <td><%= person.scientific_field.description %></td>
+        <td><%= person.organization.name %></td>
+        <td><%= link_to I18n.t("views.show"), person %></td>
+        <td><%= link_to I18n.t("views.edit"), edit_person_path(person) %></td>
+        <td><%= link_to I18n.t("views.destroy"), person, method: :delete,
+                        data: { confirm: I18n.t("views.delete_confirmation") } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to I18n.t('views.new_person'), new_person_path %>

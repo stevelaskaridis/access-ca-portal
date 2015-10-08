@@ -23,8 +23,16 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+# Globalize gem for models translation
+gem 'globalize', '~> 5.0.0'
+# Ruby gem for phone validation and formatting using google libphonenumber library data
+gem 'phonelib'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+
+# Use Sidekiq for async event queues
+# gem 'sidekiq', '~> 3.5.0'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

@@ -1,0 +1,92 @@
+<%= form_for(@person) do |f| %>
+    <% if @person.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@person.errors.count, "error") %> prohibited this person from being saved:</h2>
+
+          <ul>
+            <% @person.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <% if @person.person_editable_field.nil? || @person.person_editable_field.email_editable %>
+        <div class="field">
+          <%= f.label :email %><br>
+          <%= f.text_field :email %>
+        </div>
+    <% end %>
+
+    <% if @person.person_editable_field.nil? || @person.person_editable_field.first_name_editable%>
+        <div class="field">
+          <%= f.label :first_name %><br>
+          <%= f.text_field :first_name %>
+        </div>
+    <% end %>
+
+    <% if @person.person_editable_field.nil? || @person.person_editable_field.last_name_editable %>
+        <div class="field">
+          <%= f.label :last_name %><br>
+          <%= f.text_field :last_name %>
+        </div>
+    <% end %>
+
+    <% if @person.person_editable_field.nil? || @person.person_editable_field.first_name_latin_editable %>
+        <div class="field">
+          <%= f.label :first_name_latin %><br>
+          <%= f.text_field :first_name_latin %>
+        </div>
+    <% end %>
+
+    <% if @person.person_editable_field.nil? || @person.person_editable_field.last_name_latin_editable %>
+        <div class="field">
+          <%= f.label :last_name_latin %><br>
+          <%= f.text_field :last_name_latin %>
+        </div>
+    <% end %>
+
+    <% if @person.person_editable_field.nil? || @person.person_editable_field.phone_number_editable %>
+        <div class="field">
+          <%= f.label :phone_number %><br>
+          <%= f.text_field :phone_number %>
+        </div>
+    <% end %>
+
+    <% if @person.person_editable_field.nil? || @person.person_editable_field.department_editable %>
+        <div class="field">
+          <%= f.label :department %><br>
+          <%= f.text_field :department %>
+        </div>
+    <% end %>
+
+    <% if @person.person_editable_field.nil? || @person.person_editable_field.position_id_editable %>
+        <div class="field">
+          <%= f.label :position %><br>
+          <%= f.collection_select(:position_id, Position.all, :id, :description) %>
+        </div>
+    <% end %>
+
+    <% if @person.person_editable_field.nil? || @person.person_editable_field.scientific_field_id_editable %>
+        <div class="field">
+          <%= f.label :scientific_field %><br>
+          <%= f.collection_select(:scientific_field_id, ScientificField.all, :id, :description) %>
+        </div>
+    <% end %>
+
+    <% if @person.person_editable_field.nil? || @person.person_editable_field.organization_id_editable %>
+        <div class="field">
+          <%= f.label :organization %><br>
+          <%= f.collection_select(:organization_id, Organization.all, :id, :name) %>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :alternative_emails %><br>
+      <%= text_area_tag(:alternative_emails, @person.get_alternative_emails) %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

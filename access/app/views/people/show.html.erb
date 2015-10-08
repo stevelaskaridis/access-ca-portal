@@ -1,0 +1,61 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= I18n.t "views.label.person.first_name" %>:</strong>
+  <%= @person.first_name %>
+</p>
+
+<p>
+  <strong><%= I18n.t "views.label.person.last_name" %>:</strong>
+  <%= @person.last_name %>
+</p>
+
+<p>
+  <strong><%= I18n.t "views.label.person.first_name_latin" %>:</strong>
+  <%= @person.first_name_latin %>
+</p>
+
+<p>
+  <strong><%= I18n.t "views.label.person.last_name_latin" %>:</strong>
+  <%= @person.last_name_latin %>
+</p>
+
+<p>
+  <strong><%= I18n.t "views.label.person.email" %>:</strong>
+  <%= @person.email %>
+</p>
+
+<p>
+  <strong><%= I18n.t "views.label.person.phone_number" %>:</strong>
+  <%= @person.phone_number %>
+</p>
+
+<p>
+  <strong><%= I18n.t "views.label.person.alternative_emails" %>:</strong>
+  <% @person.alternative_emails.each do |email| %>
+  <li><%= email.email %></li>
+  <% end %>
+</p>
+
+<p>
+  <strong><%= I18n.t "views.label.person.position" %>:</strong>
+  <%= @person.position.description %>
+</p>
+
+<p>
+  <strong><%= I18n.t "views.label.person.department" %>:</strong>
+  <%= @person.department %>
+</p>
+
+<p>
+  <strong><%= I18n.t "views.label.person.scientific_field" %>:</strong>
+  <%= @person.scientific_field.description %>
+</p>
+
+<p>
+  <strong><%= I18n.t "views.label.person.organization" %>:</strong>
+  <%= @person.organization.name %>
+</p>
+
+<%= link_to I18n.t('views.edit'), edit_person_path(@person) %> |
+<%= link_to I18n.t('views.back'), people_path %>
