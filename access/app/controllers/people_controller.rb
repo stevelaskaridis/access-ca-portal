@@ -77,18 +77,40 @@ class PeopleController < ApplicationController
   end
 
   def verify_email
-    user, mail = Person.find_by_verification_token(params[:token])
-    if user
-      mail.activate_email
-      flash[:success] = 'Your e-mail has been confirmed'
-      redirect_to root_url
-    else
-      flash[:error] = 'User does not exist'
+    flag = false
+    flag ||= verify_main_email
+    flag ||= verify_alternative_email
+    if !flag
+      flash[:error] = 'Token not recognized'
       redirect_to root_url
     end
   end
 
   private
+    def verify_main_email
+      user = Person.find_by_verification_token(params[:token])
+      if user
+        user.activate_email
+        flash[:success] = 'Your e-mail has been confirmed'
+        redirect_to root_url
+        return true
+      else
+        return false
+      end
+    end
+
+    def verify_alternative_email
+      user, mail = Person.find_by_alt_verification_token(params[:token])
+      if user
+        mail.activate_email
+        flash[:success] = 'Your e-mail has been confirmed'
+        redirect_to root_url
+        return true
+      else
+        return false
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_person
       @person = Person.find(params[:id])

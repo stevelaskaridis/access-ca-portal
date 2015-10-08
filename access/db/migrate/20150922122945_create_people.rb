@@ -6,6 +6,8 @@ class CreatePeople < ActiveRecord::Migration
       t.string :first_name_latin
       t.string :last_name_latin
       t.string :email
+      t.boolean :verified, default: false, null: false
+      t.string :verification_token
       t.string :phone_number
       t.string :department
       t.belongs_to :position, index: true, foreign_key: :position_id
