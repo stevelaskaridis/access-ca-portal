@@ -1,19 +1,25 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  first_name: MyString
-  last_name: MyString
-  first_name_latin: MyString
-  last_name_latin: MyString
-  email: MyString
-  position: MyString
-  department: MyString
+john_appleseed:
+  first_name: John
+  last_name: Appleseed
+  first_name_latin: John
+  last_name_latin: Appleseed
+  email: johnappleseed@example.com
+  position: position1
+  department: ""
+  scientific_field: field1
+  organization: auth
+  phone_number: +306948001232
 
-two:
-  first_name: MyString
-  last_name: MyString
-  first_name_latin: MyString
-  last_name_latin: MyString
-  email: MyString
-  position: MyString
-  department: MyString
+john_stevenson:
+  first_name: Bob
+  last_name: Stevenson
+  first_name_latin: Bob
+  last_name_latin: Stevenson
+  email: bob_stevenson@example.com
+  position: position2
+  department: ""
+  scientific_field: other
+  organization: grnet
+  phone_number: +306948001231
