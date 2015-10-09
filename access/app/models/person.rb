@@ -6,6 +6,8 @@ class Person < ActiveRecord::Base
   has_many :alternative_emails, dependent: :delete_all
   has_one :person_editable_field
 
+  before_create :confirm_token
+
   # Validations
   validates :first_name_latin, presence: true
   validates_format_of :first_name_latin, :with => /\A[A-Z][a-z]*\Z/
@@ -28,5 +30,22 @@ class Person < ActiveRecord::Base
 
   def get_alternative_emails
     self.alternative_emails.map { |obj| obj.email }.join("\n")
+  end
+
+  def self.find_by_alt_verification_token(token)
+    alt_mail = AlternativeEmail.find_by_verification_token token
+    return alt_mail.person, alt_mail
+  end
+
+  def activate_email
+    self.verified = true
+    self.verification_token = nil
+    save!
+  end
+
+  def confirm_token
+    if self.verification_token.blank?
+      self.verification_token = SecureRandom.urlsafe_base64.to_s
+    end
   end
 end

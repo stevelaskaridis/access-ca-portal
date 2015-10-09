@@ -7,6 +7,8 @@ default: &default
     - en
     - el
   default_phone_country: en
+  email:
+    default_from: no-reply@access.hellasgrid.gr
 
 ###### E-mail ######
 development:
