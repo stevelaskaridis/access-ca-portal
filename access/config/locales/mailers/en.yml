@@ -1,0 +1,9 @@
+---
+en:
+  mailers:
+    user_mailer:
+      confirmation_mail_subject: Confirmation e-mail for the user
+      email_confirmation_subject: Confirm alternative email for the user
+      Dear: Dear
+      new_user_registration_confirmation_body: Thanks for registering! To confirm your registration click the URL below.
+      new_alt_mail_confirmation_body: You just added a new alternative e-mail. To verify your new e-mail address, click the URL below.

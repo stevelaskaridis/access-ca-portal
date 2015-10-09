@@ -50,13 +50,15 @@ ActiveRecord::Schema.define(version: 20151006140256) do
     t.string   "first_name_latin"
     t.string   "last_name_latin"
     t.string   "email"
+    t.boolean  "verified",            default: false, null: false
+    t.string   "verification_token"
     t.string   "phone_number"
     t.string   "department"
     t.integer  "position_id"
     t.integer  "scientific_field_id"
     t.integer  "organization_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   add_index "people", ["organization_id"], name: "index_people_on_organization_id"
@@ -69,6 +71,8 @@ ActiveRecord::Schema.define(version: 20151006140256) do
     t.boolean  "first_name_latin_editable"
     t.boolean  "last_name_latin_editable"
     t.boolean  "email_editable"
+    t.boolean  "verified_editable"
+    t.boolean  "verification_token_editable"
     t.boolean  "phone_number_editable"
     t.boolean  "department_editable"
     t.boolean  "position_id_editable"

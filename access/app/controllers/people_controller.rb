@@ -27,13 +27,15 @@ class PeopleController < ApplicationController
     invalid_flag = false
     @person = Person.new(person_params)
     begin
-      @person.alternative_emails = parse_alternative_emails(@person, params[:alternative_emails])
+      @person.alternative_emails, new_mails = parse_alternative_emails(@person, params[:alternative_emails])
     rescue ActiveRecord::RecordNotSaved
       @person.errors.add(params[:alternative_emails], "invalid alternative e-mail.")
       invalid_flag = true
     end
     respond_to do |format|
       if @person.save && !invalid_flag
+        UserMailer.new_user_registration_confirmation(@person)
+        @person.alternative_emails.each { |alt_mail| UserMailer.new_alt_mail_confirmation(alt_mail)}
         format.html { redirect_to @person, notice: 'Person was successfully created.' }
         format.json { render :show, status: :created, location: @person }
       else
@@ -50,13 +52,14 @@ class PeopleController < ApplicationController
     @positions = Position.all
     invalid_flag = false
     begin
-      @person.alternative_emails = parse_alternative_emails(@person, params[:alternative_emails])
+      @person.alternative_emails, new_mails = parse_alternative_emails(@person, params[:alternative_emails])
     rescue ActiveRecord::RecordNotSaved
       @person.errors.add(:alternative_emails, "invalid alternative e-mail.")
       invalid_flag = true
     end
     respond_to do |format|
       if @person.update(person_params) && !invalid_flag
+        new_mails.each { |alt_mail| UserMailer.new_alt_mail_confirmation(alt_mail)}
         format.html { redirect_to @person, notice: 'Person was successfully updated.' }
         format.json { render :show, status: :ok, location: @person }
       else
@@ -76,7 +79,41 @@ class PeopleController < ApplicationController
     end
   end
 
+  def verify_email
+    flag = false
+    flag ||= verify_main_email
+    flag ||= verify_alternative_email
+    if !flag
+      flash[:error] = 'Token not recognized'
+      redirect_to root_url
+    end
+  end
+
   private
+    def verify_main_email
+      user = Person.find_by_verification_token(params[:token])
+      if user
+        user.activate_email
+        flash[:success] = 'Your e-mail has been confirmed'
+        redirect_to root_url
+        return true
+      else
+        return false
+      end
+    end
+
+    def verify_alternative_email
+      user, mail = Person.find_by_alt_verification_token(params[:token])
+      if user
+        mail.activate_email
+        flash[:success] = 'Your e-mail has been confirmed'
+        redirect_to root_url
+        return true
+      else
+        return false
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_person
       @person = Person.find(params[:id])
@@ -106,6 +143,6 @@ class PeopleController < ApplicationController
       emails_to_add.each do |email|
         alternative_emails << AlternativeEmail.new(email: email)
       end
-      alternative_emails
+      return alternative_emails, emails_to_add
     end
 end

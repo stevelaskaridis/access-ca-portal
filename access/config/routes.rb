@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   root 'people#index', locale: :en
-  get '/:locale' => 'people#index'
+  get '/:locale' => 'people#index', as: 'verify_email'
   scope ":locale", locale: /#{APP_CONFIG['available_locales'].join('|')}/ do
       resources :people
+      get '/people/confirm_email/:token' => 'people#verify_email'
+
       resources :organizations
       get '/signup' => 'people#new'
       get '/login' => 'sessions#new'
