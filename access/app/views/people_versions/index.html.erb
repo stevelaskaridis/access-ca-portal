@@ -1,0 +1,44 @@
+<table>
+  <tr>
+    <th><%= I18n.t "views.label.person.first_name" %></th>
+    <th><%= I18n.t "views.label.person.last_name" %></th>
+    <th><%= I18n.t "views.label.person.first_name_latin" %></th>
+    <th><%= I18n.t "views.label.person.last_name_latin" %></th>
+    <th><%= I18n.t "views.label.person.email" %></th>
+    <th><%= I18n.t "views.label.person.phone_number" %></th>
+    <th><%= I18n.t "views.label.person.position" %></th>
+    <th><%= I18n.t "views.label.person.department" %></th>
+    <th><%= I18n.t "views.label.person.scientific_field" %></th>
+    <th><%= I18n.t "views.label.person.organization" %></th>
+    <th>Update type</th>
+    <th colspan="3"></th>
+  </tr>
+<% @person_versions.each do |change|%>
+    <tr>
+        <td><%= change.reify.first_name %></td>
+        <td><%= change.reify.last_name %></td>
+        <td><%= change.reify.first_name_latin %></td>
+        <td><%= change.reify.last_name_latin %></td>
+        <td><%= change.reify.email %></td>
+        <td><%= change.reify.phone_number %></td>
+        <td><%= change.reify.position.description %></td>
+        <td><%= change.reify.department %></td>
+        <td><%= change.reify.scientific_field.description %></td>
+        <td><%= change.reify.organization.name %></td>
+        <td><%= change.event%></td>
+    </tr>
+<% end %>
+  <tr>
+    <td><%= @person.first_name %></td>
+    <td><%= @person.last_name %></td>
+    <td><%= @person.first_name_latin %></td>
+    <td><%= @person.last_name_latin %></td>
+    <td><%= @person.email %></td>
+    <td><%= @person.phone_number %></td>
+    <td><%= @person.position.description %></td>
+    <td><%= @person.department %></td>
+    <td><%= @person.scientific_field.description %></td>
+    <td><%= @person.organization.name %></td>
+    <td>Final @ <%= @person.updated_at%></td>
+  </tr>
+</table>
