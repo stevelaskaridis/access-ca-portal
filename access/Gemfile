@@ -27,6 +27,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'globalize', '~> 5.0.0'
 # Ruby gem for phone validation and formatting using google libphonenumber library data
 gem 'phonelib'
+# Versioning with paper-trail
+gem 'paper_trail', '~> 4.0.0'
+# Globalized versioning
+gem 'globalize-versioning', :git => 'https://github.com/globalize/globalize-versioning.git', :branch => "paper-trail-4"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
