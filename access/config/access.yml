@@ -9,6 +9,7 @@ default: &default
   default_phone_country: en
   email:
     default_from: no-reply@access.hellasgrid.gr
+  snapshot_limit: 20
 
 ###### E-mail ######
 development:

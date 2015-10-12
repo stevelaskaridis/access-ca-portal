@@ -20,7 +20,10 @@ class Person < ActiveRecord::Base
   validates :phone_number, presence: true, phone: true
 
 
-  translates :first_name, :last_name, :department
+  translates :first_name, :last_name, :department, versioning: :paper_trail
+
+  has_paper_trail
+
 
   after_create do
     pef = PersonEditableField.new(person_id: self.id)
