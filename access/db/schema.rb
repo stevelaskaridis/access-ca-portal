@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151012182419) do
+ActiveRecord::Schema.define(version: 20151013124725) do
 
   create_table "alternative_emails", force: :cascade do |t|
     t.integer  "person_id",                          null: false
@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 20151012182419) do
     t.string   "whodunnit"
     t.text     "object",     limit: 1073741823
     t.datetime "created_at"
+    t.string   "locale"
   end
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"

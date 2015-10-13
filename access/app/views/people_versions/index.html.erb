@@ -13,21 +13,23 @@
     <th>Update type</th>
     <th colspan="3"></th>
   </tr>
-<% @person_versions.each do |change|%>
-    <tr>
-        <td><%= change.reify.first_name %></td>
-        <td><%= change.reify.last_name %></td>
-        <td><%= change.reify.first_name_latin %></td>
-        <td><%= change.reify.last_name_latin %></td>
-        <td><%= change.reify.email %></td>
-        <td><%= change.reify.phone_number %></td>
-        <td><%= change.reify.position.description %></td>
-        <td><%= change.reify.department %></td>
-        <td><%= change.reify.scientific_field.description %></td>
-        <td><%= change.reify.organization.name %></td>
-        <td><%= change.event%></td>
-    </tr>
-<% end %>
+  <% @person_versions.each do |change| %>
+      <% unless change.reify.nil? %>
+          <tr>
+            <td><%= change.reify.first_name %></td>
+            <td><%= change.reify.last_name %></td>
+            <td><%= change.reify.first_name_latin %></td>
+            <td><%= change.reify.last_name_latin %></td>
+            <td><%= change.reify.email %></td>
+            <td><%= change.reify.phone_number %></td>
+            <td><%= change.reify.position.description %></td>
+            <td><%= change.reify.department %></td>
+            <td><%= change.reify.scientific_field.description %></td>
+            <td><%= change.reify.organization.name %></td>
+            <td><%= change.event %></td>
+          </tr>
+      <% end %>
+  <% end %>
   <tr>
     <td><%= @person.first_name %></td>
     <td><%= @person.last_name %></td>
@@ -39,6 +41,6 @@
     <td><%= @person.department %></td>
     <td><%= @person.scientific_field.description %></td>
     <td><%= @person.organization.name %></td>
-    <td>Final @ <%= @person.updated_at%></td>
+    <td>Final @ <%= @person.updated_at %></td>
   </tr>
 </table>
