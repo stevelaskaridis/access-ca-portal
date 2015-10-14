@@ -1,0 +1,2 @@
+module HostsVersionsControllerHelper
+end

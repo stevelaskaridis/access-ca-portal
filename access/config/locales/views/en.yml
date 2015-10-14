@@ -13,6 +13,9 @@ en:
         scientific_field: Scientific Field
         alternative_emails: Alternative e-mails
         organization: Organization
+      host:
+        admin: Administrator
+        organization: Organization
     show: Show
     list_people: List People
     edit: Edit

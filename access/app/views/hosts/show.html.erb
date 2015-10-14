@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>FQDN:</strong>
+  <%= @host.fqdn %>
+</p>
+
+<p>
+  <strong><%= I18n.t "views.label.host.admin" %>:</strong>
+  <%= @host.person.email %>
+</p>
+
+<p>
+  <strong><%= I18n.t "views.label.host.organization" %>:</strong>
+    <%= @host.organization.name %>
+</p>
+
+<%= link_to 'Edit', edit_host_path(@host) %> |
+<%= link_to 'Back', hosts_path %>

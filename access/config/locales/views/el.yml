@@ -13,6 +13,9 @@ el:
         scientific_field: Επιστημονικό Πεδίο
         alternative_emails: Εναλλακτικά E-mails
         organization: Οργανισμός
+        host:
+          admin: Διαχειριστής
+          organization: Οργανισμός
     show: Προβολή
     list_people: Λίστα Χρηστών
     edit: Επεξεργασία

@@ -1,0 +1,25 @@
+<table>
+  <tr>
+    <th>FQDN</th>
+    <th><%= I18n.t "views.label.host.admin" %></th>
+    <th><%= I18n.t "views.label.host.organization" %></th>
+    <th>Update type</th>
+    <th colspan="3"></th>
+  </tr>
+  <% @host_versions.each do |change| %>
+      <% unless change.reify.nil? %>
+          <tr>
+            <td><%= change.reify.fqdn %></td>
+            <td><%= change.reify.person.email %></td>
+            <td><%= change.reify.organization.name %></td>
+            <td><%= change.event %></td>
+          </tr>
+      <% end %>
+  <% end %>
+  <tr>
+    <td><%= @host.fqdn %></td>
+    <td><%= @host.person.email %></td>
+    <td><%= @host.organization.name %></td>
+    <td>Final @ <%= @host.updated_at %></td>
+  </tr>
+</table>

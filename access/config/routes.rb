@@ -8,6 +8,9 @@ Rails.application.routes.draw do
       get '/people/confirm_email/:token' => 'people#verify_email'
 
       resources :organizations
+      resources :hosts do
+        get 'versions' => 'hosts_versions#index'
+      end
       get '/signup' => 'people#new'
       get '/login' => 'sessions#new'
       post '/login' => 'sessions#create'
