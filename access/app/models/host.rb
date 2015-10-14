@@ -2,6 +2,7 @@ class Host < ActiveRecord::Base
   # Associations
   belongs_to :person
   belongs_to :organization
+  has_many :distinguished_names, as: :owner
 
   # Validations
   validates :person, presence: true
