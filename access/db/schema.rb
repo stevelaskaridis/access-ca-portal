@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151014210635) do
+ActiveRecord::Schema.define(version: 20151014212801) do
 
   create_table "alternative_emails", force: :cascade do |t|
     t.integer  "person_id",                          null: false
@@ -35,6 +35,15 @@ ActiveRecord::Schema.define(version: 20151014210635) do
     t.integer  "organization_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "certificates", force: :cascade do |t|
+    t.text     "body"
+    t.string   "status"
+    t.integer  "certificate_request_uuid"
+    t.integer  "distinguished_name_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "distinguished_names", force: :cascade do |t|
