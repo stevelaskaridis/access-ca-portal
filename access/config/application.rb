@@ -30,5 +30,8 @@ module Access
 
     # Look for nested dictionaries for translation
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+
+    # How many snapshots PaperTrails to retain
+    PaperTrail.config.version_limit = config_for(:access)['snapshot_limit']
   end
 end
