@@ -7,3 +7,4 @@
     - ruby
     - postgres
     - access
+    - SELinux
