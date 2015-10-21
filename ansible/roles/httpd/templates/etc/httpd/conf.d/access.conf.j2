@@ -13,6 +13,8 @@
     AllowOverride All
     options -Indexes
     </Directory>
+    PassengerUserSwitching on
+    PassengerUser {{application_user}}
 </VirtualHost>
 
 
@@ -23,7 +25,7 @@
     ServerName {{ inventory_hostname }}
     ServerAlias www.{{ inventory_hostname }}
     DocumentRoot {{ application_path }}/access/public
-    
+
     <Directory {{ application_path }}/access/public>
       AllowOverride all
       Options -MultiViews
@@ -33,6 +35,6 @@
     SSLOptions +StrictRequire
     SSLCertificateFile /etc/pki/tls/certs/localhost.crt
     SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
-
+    PassengerUserSwitching on
+    PassengerUser {{application_user}}
 </VirtualHost>
-
