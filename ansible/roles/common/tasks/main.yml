@@ -5,6 +5,7 @@
   with_items:
       - vim
       - git
+      - net-tools
   tags: install_base_packages
   
 - name: Create application user
