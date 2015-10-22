@@ -5,6 +5,8 @@
   with_items:
       - vim
       - git
+      - tar
+      - sudo
   tags: install_base_packages
   
 - name: Create application user
