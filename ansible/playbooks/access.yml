@@ -2,7 +2,9 @@
   user: root
   roles:
     - common
-    - ruby
     - httpd
+    - nodejs
+    - ruby
     - postgres
     - access
+    - SELinux

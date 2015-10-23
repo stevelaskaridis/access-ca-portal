@@ -1,0 +1,41 @@
+
+<VirtualHost *:80>
+    PassengerRoot /usr/local/rvm/gems/ruby-{{ruby_rvm_version}}@access-env/gems/passenger-5.0.20
+    PassengerRuby /usr/local/rvm/wrappers/ruby-{{ruby_rvm_version}}@access-env/ruby
+    RailsEnv development
+    ServerName {{ inventory_hostname }}
+    ServerAlias www.{{ inventory_hostname }}
+    DocumentRoot {{ application_path }}/access/public
+    RewriteEngine on
+    RewriteRule ^/ https://{{ inventory_hostname }}
+    <Directory {{ application_path }}/access/public>
+    Options -MultiViews
+    AllowOverride All
+    options -Indexes
+    </Directory>
+    PassengerUserSwitching on
+    PassengerUser {{application_user}}
+    
+</VirtualHost>
+
+
+<VirtualHost *:443>
+    PassengerRoot /usr/local/rvm/gems/ruby-{{ruby_rvm_version}}@access-env/gems/passenger-5.0.20
+    PassengerRuby /usr/local/rvm/wrappers/ruby-{{ruby_rvm_version}}@access-env/ruby
+    RailsEnv development
+    ServerName {{ inventory_hostname }}
+    ServerAlias www.{{ inventory_hostname }}
+    DocumentRoot {{ application_path }}/access/public
+
+    <Directory {{ application_path }}/access/public>
+      AllowOverride all
+      Options -MultiViews
+    </Directory>
+
+    SSLEngine on
+    SSLOptions +StrictRequire
+    SSLCertificateFile /etc/pki/tls/certs/localhost.crt
+    SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
+    PassengerUserSwitching on
+    PassengerUser {{application_user}}
+</VirtualHost>

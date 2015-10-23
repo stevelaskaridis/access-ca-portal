@@ -7,7 +7,7 @@
     tags:
         - rvm_install
         - ruby_install
-        
+
 - name: Register ruby version
   shell: ruby --version | awk -F " " '{ print $2 }' | awk -F "p" '{print $1}'
   ignore_errors: True
@@ -15,7 +15,7 @@
   tags:
     - rvm_install
     - ruby_install
-    
+
 - name: Register default rvm ruby destination (always changed)
   shell: readlink /usr/local/rvm/environments/default
   register: default_rvm_version
@@ -34,14 +34,14 @@
   shell: runuser -l {{ application_user }} -c 'rvm use {{ ruby_rvm_version }} && rvm gemset create access-env'
     - rvm_install
     - gemset_configure
-  
+
 - name: Make access-env default gemset
   shell: runuser -l {{ application_user }} -c "rvm use {{ ruby_rvm_version }}@access-env --default"
   when: default_rvm_version.stdout != "/usr/local/rvm/environments/ruby-{{ ruby_rvm_version }}@access-env"
   tags:
     - rvm_install
     - gemset_configure
-    
+
 # This is why it's done this way http://stackoverflow.com/questions/22115936/install-bundler-gem-using-ansible
 - name: Install bundler gem
   command: bash -lc "gem install bundler"
@@ -49,3 +49,37 @@
   become_user: "{{ application_user }}"
   tags:
     - base_gems_install
+
+
+- name: Install passenger gem
+  command: bash -lc "gem install passenger"
+  become: yes
+  become_user: "{{ application_user }}"
+  tags:
+    - passenger_gem_install
+
+- name: install passenger dependency packages
+  action: yum name={{item}} state=installed
+  with_items:
+    - gcc
+    - gcc-c++
+    - curl-devel
+    - openssl-devel
+    - zlib-devel
+    - httpd-devel
+  tags:
+    - passenger_gem_install
+
+- name: install passenger-install-apache2-module
+  shell: yes '' | passenger-install-apache2-module --auto creates=/usr/local/rvm/gems/{{ruby_rvm_version}}@access-env/gems/passenger-5.0.20/buildout/apache2/mod_passenger.so
+  tags:
+    - passenger_apache2_module_install
+
+- name: generate passenger.conf file
+  shell: passenger-install-apache2-module --snippet > /etc/httpd/conf.d/passenger.conf
+  tags:
+    - generating_passenger.conf_file
+
+- name: httpd_start
+  shell: systemctl restart httpd.service
+  tags: httpd_start
