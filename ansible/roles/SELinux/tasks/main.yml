@@ -10,18 +10,34 @@
   tags:
     - Creating_SELinux_Policies
 
+- name: Creates folder log
+  file: path={{ application_path }}access/log state=directory
+  tags:
+    - Creating_SELinux_Policies
+
+- name: Creates file development.log
+  file: path={{ application_path }}access/log/development.log state=touch
+  tags:
+    - Creating_SELinux_Policies
+
 - name: Install Required packages
   shell: yum install -y policycoreutils-python
   tags:
     - Creating_SELinux_Policies
 
 - name: Changing folder permissions
-  shell: chown {{application_user}}:{{application_user}} {{ application_path }}access/tmp ;chmod 775 {{ application_path }}access/tmp
+  shell: chown {{application_user}}:{{application_user}} {{ application_path }}access/tmp ; chown {{application_user}}:{{application_user}} {{ application_path }}access/tmp/cache ;chmod 775 {{ application_path }}access/tmp
   tags:
     - Creating_SELinux_Policies
 
+- name: Changing file permissions
+  shell: chown {{application_user}}:{{application_user}} {{ application_path }}access/log ; chown {{application_user}}:{{application_user}} {{ application_path }}access/log/development.log ;chmod 0644 {{ application_path }}access/log/development.log
+  tags:
+    - Creating_SELinux_Policies
+
+
 - name: Create a policy to assign the httpd_log_t context to the logging directories
-  shell: semanage fcontext -a -t httpd_log_t "{{ application_path }}acccess/logs(/.*)?"
+  shell: semanage fcontext -a -t httpd_log_t "{{ application_path }}acccess/log(/.*)?"
   tags:
     - Creating_SELinux_Policies
 
@@ -35,7 +51,14 @@
   tags:
     - Creating_SELinux_Policies
 
+
+
+- name: migrate
+  shell: bash -lc "rake db:migrate" chdir="{{ application_path }}/access"
+  tags:
+    - Creating_SELinux_Policies
+
 - name: Restarting httpd service
   shell: service httpd restart
   tags:
-    - Restart_httpd
+    - Creating_SELinux_Policies
