@@ -1,0 +1,31 @@
+---
+- name: Install postgresql-server
+  yum: name=postgresql-server.x86_64
+  tags: postgres_install
+  
+- name: Install postgres-devel
+  yum: name=postgresql-devel.x86_64
+  tags: postgres_install
+  
+- name: Install postgresql-libs
+  yum: name=postgresql-libs
+  tags:
+    - postgres_install
+    - postgres_configure
+    
+- name: Install psycopg2 # used for ansible to manage postgres
+  yum: name=python-psycopg2
+  tags:
+    - postgres_install
+    - postgres_configure
+  
+- name: Initialize the database
+  shell: postgresql-setup initdb
+  args:
+    creates: /var/lib/pgsql/data/pg_hba.conf
+  tags: postgres_install
+    
+- name: Enable postgresql service
+  service: name=postgresql enabled=yes state=started
+  tags: postgres_install
+

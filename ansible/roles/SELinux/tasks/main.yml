@@ -1,0 +1,41 @@
+---
+
+- name: Creates folder tmp
+  file: path={{ application_path }}access/tmp state=directory
+  tags:
+    - Creating_SELinux_Policies
+
+- name: Creates folder cache
+  file: path={{ application_path }}access/tmp/cache state=directory
+  tags:
+    - Creating_SELinux_Policies
+
+- name: Install Required packages
+  shell: yum install -y policycoreutils-python
+  tags:
+    - Creating_SELinux_Policies
+
+- name: Changing folder permissions
+  shell: chown {{application_user}}:{{application_user}} {{ application_path }}access/tmp ;chmod 775 {{ application_path }}access/tmp
+  tags:
+    - Creating_SELinux_Policies
+
+- name: Create a policy to assign the httpd_log_t context to the logging directories
+  shell: semanage fcontext -a -t httpd_log_t "{{ application_path }}acccess/logs(/.*)?"
+  tags:
+    - Creating_SELinux_Policies
+
+- name: Create a policy to assign the httpd_cache_t context to our cache directories.
+  shell: semanage fcontext -a -t httpd_cache_t "{{ application_path }}access/tmp/cache(/.*)?"
+  tags:
+    - Creating_SELinux_Policies
+
+- name: Applying the SELinux Policy
+  shell: restorecon -Rv {{ application_path }}access
+  tags:
+    - Creating_SELinux_Policies
+
+- name: Restarting httpd service
+  shell: service httpd restart
+  tags:
+    - Restart_httpd
