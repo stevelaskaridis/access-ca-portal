@@ -3,7 +3,6 @@
   roles:
     - common
     - httpd
-    - nodejs
     - ruby
     - postgres
     - access
