@@ -1,0 +1,9 @@
+- hosts: web-servers
+  user: root
+  roles:
+    - common
+    - httpd
+    - ruby
+    - postgres
+    - access
+    - SELinux

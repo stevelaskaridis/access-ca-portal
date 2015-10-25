@@ -1,0 +1,19 @@
+git_application_url: https://github.com/grnet/access-ca-portal.git
+application_branch: devel
+
+database:
+  development:
+    host: localhost
+    name: access-db-development
+    username: access
+    password: some_password_here
+  production:
+    host: localhost
+    name: access-db-production
+    username: access
+    password: some_password_here
+  test:
+    host: localhost
+    name: access-db-test
+    username: access
+    password: some_password_here
