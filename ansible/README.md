@@ -18,6 +18,21 @@ On the **deployment machine**:
 
 More information about Ansible requirements can be found [here](http://docs.ansible.com/ansible/intro_installation.html).
 
+### Memory requirements for passenger
+
+In order to be able to run passenger with httpd, the machine must have at least 1GB of memory.
+You can create a swap partition as follows:
+```bash
+sudo dd if=/dev/zero of=/swap bs=1M count=1024
+
+sudo mkswap /swap
+
+sudo swapon /swap
+
+```
+
+More information can be found [here](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/3/html/System_Administration_Guide/s1-swap-adding.html).
+
 ## Run ansible playbook
 
 The wrapper playbook for all the application and its requirements is **ansible/playbooks/access.yml** which includes the relevant roles.
