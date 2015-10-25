@@ -70,8 +70,15 @@
   tags:
     - passenger_gem_install
 
+- name: register passenger module version
+  shell: gem list passenger | awk -F'[(,)]' '{print $2}'
+  register: passenger_version
+  ignore_errors: True
+  tags:
+    - passenger_apache2_module_install
+
 - name: install passenger-install-apache2-module
-  shell: yes '' | passenger-install-apache2-module --auto creates=/usr/local/rvm/gems/{{ruby_rvm_version}}@access-env/gems/passenger-5.0.20/buildout/apache2/mod_passenger.so
+  shell: yes '' | passenger-install-apache2-module --auto creates=/usr/local/rvm/gems/ruby-{{ ruby_rvm_version }}@access-env/gems/passenger-{{ passenger_version.stdout }}/buildout/apache2/mod_passenger.so
   tags:
     - passenger_apache2_module_install
 
@@ -79,7 +86,3 @@
   shell: passenger-install-apache2-module --snippet > /etc/httpd/conf.d/passenger.conf
   tags:
     - generating_passenger.conf_file
-
-- name: httpd_start
-  shell: systemctl restart httpd.service
-  tags: httpd_start
