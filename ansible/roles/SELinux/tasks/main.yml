@@ -1,25 +1,5 @@
 ---
 
-- name: Creates folder tmp
-  file: path={{ application_path }}access/tmp state=directory
-  tags:
-    - Creating_SELinux_Policies
-
-- name: Creates folder cache
-  file: path={{ application_path }}access/tmp/cache state=directory
-  tags:
-    - Creating_SELinux_Policies
-
-- name: Creates folder log
-  file: path={{ application_path }}access/log state=directory
-  tags:
-    - Creating_SELinux_Policies
-
-- name: Creates file development.log
-  file: path={{ application_path }}access/log/development.log state=touch
-  tags:
-    - Creating_SELinux_Policies
-
 - name: Install Required packages
   shell: yum install -y policycoreutils-python
   tags:
@@ -35,7 +15,6 @@
   tags:
     - Creating_SELinux_Policies
 
-
 - name: Create a policy to assign the httpd_log_t context to the logging directories
   shell: semanage fcontext -a -t httpd_log_t "{{ application_path }}acccess/log(/.*)?"
   tags:
@@ -48,17 +27,5 @@
 
 - name: Applying the SELinux Policy
   shell: restorecon -Rv {{ application_path }}access
-  tags:
-    - Creating_SELinux_Policies
-
-
-
-- name: migrate
-  shell: bash -lc "rake db:migrate" chdir="{{ application_path }}/access"
-  tags:
-    - Creating_SELinux_Policies
-
-- name: Restarting httpd service
-  shell: service httpd restart
   tags:
     - Creating_SELinux_Policies
