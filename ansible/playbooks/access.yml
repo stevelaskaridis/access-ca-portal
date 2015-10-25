@@ -6,4 +6,4 @@
     - ruby
     - postgres
     - access
-    - SELinux
+    - { role: SELinux, when: ansible_selinux.status == 'enabled' }
