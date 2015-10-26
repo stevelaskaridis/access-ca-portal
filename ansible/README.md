@@ -45,3 +45,14 @@ To run the playbook, type the following command:
 ```
 
 You can also specify task groups to run, by using the `--tags tag0,tag1,...`.
+
+## Seeding data
+
+After running the ansible playbook, there is one more step to take, before running
+your application; seeding initial data to your database.
+
+The aforementioned can be accomplished by running the following command:
+```
+rake db:seed
+```
+from the **access/** directory.
