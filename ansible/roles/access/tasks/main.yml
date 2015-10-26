@@ -58,10 +58,12 @@
   tags:
     - rake_db_tasks
 
-- name: rake db:seed
-  shell: bash -lc "rake db:seed" chdir="{{ application_path }}/access"
-  tags:
-    - rake_db_tasks
+# This task is to be run once. If the data have already been seeded and the seed
+# file has changed, the process of updating has to be done manually.
+# - name: rake db:seed
+#   shell: bash -lc "rake db:seed" chdir="{{ application_path }}/access"
+#   tags:
+#     - rake_db_tasks
 
 # tranfer all the data needed (e.g.database.yml)
 # (maybe) run checks
