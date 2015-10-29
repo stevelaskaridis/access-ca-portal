@@ -16,6 +16,13 @@ en:
       host:
         admin: Administrator
         organization: Organization
+      certificate_request:
+        uuid: Unique Identifier
+        body: Body
+        requestor: Requestor
+        owner: Owner
+        organization: Organization
+        status: Status
     show: Show
     list_people: List People
     edit: Edit

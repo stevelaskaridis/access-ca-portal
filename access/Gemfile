@@ -33,6 +33,8 @@ gem 'phonelib'
 gem 'paper_trail', '~> 4.0.0'
 # Globalized versioning
 gem 'globalize-versioning', :git => 'https://github.com/globalize/globalize-versioning.git', :branch => "paper-trail-4"
+# CA operations handling with certificate_authority
+gem 'certificate_authority', :git => 'https://github.com/cchandler/certificate_authority.git'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

@@ -16,6 +16,13 @@ el:
         host:
           admin: Διαχειριστής
           organization: Οργανισμός
+        certificate_request:
+          uuid: Αναγνωριστικό
+          body: Σώμα
+          requestor: Αιτών
+          owner: Κάτοχος
+          organization: Οργανισμός
+          status: Κατάσταση
     show: Προβολή
     list_people: Λίστα Χρηστών
     edit: Επεξεργασία

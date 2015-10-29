@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :hosts do
         get 'versions' => 'hosts_versions#index'
       end
+      resources :certificate_requests, except: [:edit]
       get '/signup' => 'people#new'
       get '/login' => 'sessions#new'
       post '/login' => 'sessions#create'

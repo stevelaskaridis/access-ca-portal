@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= I18n.t "views.label.certificate_request.uuid" %>:</strong>
+  <%= @certificate_request.uuid %>
+</p>
+
+<p>
+  <strong><%= I18n.t "views.label.certificate_request.body" %>:</strong>
+  <%= @certificate_request.body %>
+</p>
+
+<p>
+  <strong><%= I18n.t "views.label.certificate_request.requestor" %>:</strong>
+  <%= @certificate_request.requestor %>
+</p>
+
+<p>
+  <strong><%= I18n.t "views.label.certificate_request.owner" %>:</strong>
+  <%= @certificate_request.owner_dn.subject_dn %>
+</p>
+
+<p>
+  <strong><%= I18n.t "views.label.certificate_request.organization" %>:</strong>
+  <%= @certificate_request.organization.name %>
+</p>
+
+<p>
+  <strong><%= I18n.t "views.label.certificate_request.status" %>:</strong>
+  <%= @certificate_request.status %>
+</p>
+
+<%= link_to 'Back', certificate_requests_path %>
