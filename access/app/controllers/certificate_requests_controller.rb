@@ -34,6 +34,11 @@ class CertificateRequestsController < ApplicationController
         format.html { redirect_to certificate_requests_url, notice: 'Certificate request was successfully created.' }
         format.json { render :show, status: :created, location: @certificate_request }
       else
+        if (@certificate_request.errors['body'])
+          @certificate_request.errors.each do |k,v|
+            @certificate_request.errors.delete(k) unless k == :body
+          end
+        end
         format.html { render :new }
         format.json { render json: @certificate_request.errors, status: :unprocessable_entity }
       end
