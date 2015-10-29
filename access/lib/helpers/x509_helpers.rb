@@ -1,7 +1,11 @@
 class X509Helpers
   def self.valid_csr?(csr)
     begin
-      CertificateAuthority::SigningRequest.from_x509_csr(csr)
+      if csr
+        CertificateAuthority::SigningRequest.from_x509_csr(csr)
+      else
+        return false
+      end
     rescue OpenSSL::X509::RequestError
       return false
     end
@@ -34,5 +38,35 @@ class X509Helpers
     rescue OpenSSL::X509::RequestError
       return
     end
+  end
+
+  private
+  @@signing_profile = {
+      "extensions" => {
+          "basicConstraints" => {"ca" => false},
+          "crlDistributionPoints" => {"uri" => "#{APP_CONFIG['CA']['crl_distribution_point']}"},
+          "subjectKeyIdentifier" => {},
+          "authorityKeyIdentifier" => {},
+          "authorityInfoAccess" => {"ocsp" => ["#{APP_CONFIG['CA']['ocsp_endpoint']}"]},
+          "keyUsage" => {"usage" => APP_CONFIG['CA']['key_usages']},
+          "extendedKeyUsage" => {"usage" => APP_CONFIG['CA']['extended_key_usages']},
+          "subjectAltName" => {"uris" => [""]},
+          "certificatePolicies" => {
+              "policy_identifier" => "#{APP_CONFIG['CA']['policy_id']}", "cps_uris" => APP_CONFIG['CA']['cps_uris'],
+              "user_notice" => {
+                  "explicit_text" => "#{APP_CONFIG['CA']['user_notice']['explicit_text']}",
+                  "organization" => "#{APP_CONFIG['CA']['user_notice']['organization']}",
+                  "notice_numbers" => "#{APP_CONFIG['CA']['user_notice']['notice_numbers']}"
+              }
+          }
+      }
+  }
+
+  def self.sign_csr(csr, ca_cert)
+    cert_to_sign = CertificateAuthority::SigningRequest.from_x509_csr(csr).to_cert
+    cert_to_sign = CertificateAuthority::Certificate.from_x509_cert(ca_cert)
+    cert_to_sign.parent = ca_cert
+    cert_to_sign.sign!(@@signing_profile)
+    return cert_to_sign.key_material.public_key
   end
 end

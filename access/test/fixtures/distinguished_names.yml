@@ -6,8 +6,8 @@
 #
 john_appleseed_dn:
   subject_dn: "/C=GR/O=HellasGrid/OU=auth.gr/CN=John Appleseed"
-  owner_id: 1
+  owner: john_appleseed (Person)
 
 john_stevenson_dn:
   subject_dn: "/C=GR/O=HellasGrid/OU=edet.gr/CN=John Stevenson"
-  owner_id: 2
+  owner: john_stevenson (Person)
