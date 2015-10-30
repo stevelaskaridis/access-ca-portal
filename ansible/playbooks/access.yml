@@ -1,9 +1,0 @@
-- hosts: web-servers
-  user: root
-  roles:
-    - common
-    - httpd
-    - ruby
-    - postgres
-    - access
-    - { role: SELinux, when: ansible_selinux.status == 'enabled' }
