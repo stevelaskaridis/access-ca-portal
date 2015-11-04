@@ -1,4 +1,7 @@
 class X509Helpers
+
+  ############################ CSR related ############################
+  #####################################################################
   def self.valid_csr?(csr)
     begin
       if csr
@@ -62,11 +65,22 @@ class X509Helpers
       }
   }
 
+  ######################## Certificate related ########################
+  #####################################################################
   def self.sign_csr(csr, ca_cert)
     cert_to_sign = CertificateAuthority::SigningRequest.from_x509_csr(csr).to_cert
     cert_to_sign = CertificateAuthority::Certificate.from_x509_cert(ca_cert)
     cert_to_sign.parent = ca_cert
     cert_to_sign.sign!(@@signing_profile)
-    return cert_to_sign.key_material.public_key
+    cert_to_sign.key_material.public_key
+  end
+
+  def self.valid_cert?(certificate)
+    dummy_private_key = OpenSSL::PKey::RSA.new(1024)
+    cert = CertificateAuthority::Certificate.from_x509_cert(certificate)
+    cert.instance_eval do
+      self.key_material.private_key = dummy_private_key
+    end
+    cert.valid?
   end
 end

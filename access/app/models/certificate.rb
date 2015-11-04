@@ -1,16 +1,20 @@
 class Certificate < ActiveRecord::Base
+  include ActiveModel::Validations
+
   # Associations
-  belongs_to :certificate_request_uuid,
+  belongs_to :certificate_request,
              class_name: 'CertificateRequest',
-             primary_key: 'uuid'
+             foreign_key: 'certificate_request_uuid'
 
   belongs_to :owner_dn,
              class_name: 'DistinguishedName',
-             foreign_key: 'owner'
+             foreign_key: 'distinguished_name_id'
 
   # Validations
-  validates :body, presence: true
+  validates :body, presence: true, cert: true
   validates :status, presence: true
-  validates :certificate_request_uuid, presence: true
+  validates_inclusion_of :status, in: %w(revoked not_accepted expired valid)
+  validates :certificate_request_uuid, presence: true, uniqueness: true
   validates :distinguished_name_id, presence: true
+  validates_with CertificateValidator
 end
