@@ -13,7 +13,7 @@ This **Dockerfile** contains instructins for building a [Docker](https://www.doc
 
 1. Install [Docker](https://www.docker.com/).
 
-2. Build an image from Dockerfile: `docker build -t centos6-ruby2.2.3`
+2. Build an image from Dockerfile: `docker build -t centos6-ruby2.2.3 .`
 
 
 #### Run `ruby`
