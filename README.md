@@ -1,4 +1,4 @@
-# access-ca-portal
+# Access CA Portal [![Build Status](https://jenkins.admin.grnet.gr/job/access-ca-portal_devel/badge/icon)](https://jenkins.admin.grnet.gr/job/access-ca-portal_devel)
 
 ## Overview
 
