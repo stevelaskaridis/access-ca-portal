@@ -3,3 +3,17 @@
 - name: Copy access.conf
   template: src=../templates/etc/httpd/conf.d/access.conf.j2 dest=/etc/httpd/conf.d/access.conf owner=apache group=apache mode=0644
   tags: httpd_configuration
+
+- name: Firewall ports
+  shell: firewall-cmd --permanent --add-port=80/tcp
+  notify: reload firewall
+  tags:
+    - httpd_install
+    - firewall_configure
+
+- name: Firewall ports
+  shell: firewall-cmd --permanent --add-port=443/tcp
+  notify: reload firewall
+  tags:
+    - httpd_install
+    - firewall_configure
