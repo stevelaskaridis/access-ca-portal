@@ -76,11 +76,19 @@ class X509Helpers
   end
 
   def self.valid_cert?(certificate)
-    dummy_private_key = OpenSSL::PKey::RSA.new(1024)
-    cert = CertificateAuthority::Certificate.from_x509_cert(certificate)
-    cert.instance_eval do
-      self.key_material.private_key = dummy_private_key
+    begin
+      if certificate
+        dummy_private_key = OpenSSL::PKey::RSA.new(1024)
+        cert = CertificateAuthority::Certificate.from_x509_cert(certificate)
+        cert.instance_eval do
+          self.key_material.private_key = dummy_private_key
+        end
+        return cert.valid?
+      else
+        return false
+      end
+    rescue OpenSSL::X509::CertificateError
+      return false
     end
-    cert.valid?
   end
 end
