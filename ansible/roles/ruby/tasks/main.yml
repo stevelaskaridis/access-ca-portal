@@ -97,3 +97,8 @@
   lineinfile: dest=/etc/httpd/conf/httpd.conf line="PassengerInstanceRegistryDir /var/lib/passenger-instreg"
   tags:
     - passenger_install
+
+- name: Export passenger registry directory in env var
+  lineinfile: dest=.bash_profile line="export PASSENGER_INSTANCE_REGISTRY_DIR=/var/lib/passenger-instreg"
+  tags:
+    - passenger_install
