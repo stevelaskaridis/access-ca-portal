@@ -4,6 +4,7 @@
     - common
     - httpd
     - ruby
+    - nodejs
     - postgres
     - access
     - { role: SELinux, when: ansible_selinux.status == 'enabled' }
