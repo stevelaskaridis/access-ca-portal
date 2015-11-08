@@ -11,7 +11,10 @@ Rails.application.routes.draw do
       resources :hosts do
         get 'versions' => 'hosts_versions#index'
       end
-      resources :certificate_requests, except: [:edit]
+      resources :certificate_requests, except: [:edit] do
+        post 'approve' => 'certificate_requests#approve_csr', as: 'approve'
+        post 'reject' => 'certificate_requests#reject_csr', as: 'reject'
+      end
       get '/signup' => 'people#new'
       get '/login' => 'sessions#new'
       post '/login' => 'sessions#create'

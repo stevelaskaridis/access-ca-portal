@@ -28,6 +28,8 @@ el:
     list_csr: Λίστα Αιτήσεων για Πιστοποιητικό
     edit: Επεξεργασία
     destroy: Διαγραφή
+    accept: Αποδοχή
+    reject: Απόρριψη
     delete_confirmation: Είστε σίγουρος/η;
     new_person: Νέος χρήστης
     new_csr: Νέα άιτηση

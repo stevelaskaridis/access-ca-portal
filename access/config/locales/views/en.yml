@@ -28,6 +28,8 @@ en:
     list_csr: List Certificate Requests
     edit: Edit
     destroy: Destroy
+    accept: Accept
+    reject: Reject
     delete_confirmation: Are you sure?
     new_person: New Person
     new_csr: New Request

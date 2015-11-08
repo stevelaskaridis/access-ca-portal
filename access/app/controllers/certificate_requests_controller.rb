@@ -69,6 +69,16 @@ class CertificateRequestsController < ApplicationController
     end
   end
 
+  def approve_csr
+    flash[:notice] = 'called approve'
+    redirect_to certificate_requests_url
+  end
+
+  def reject_csr
+    flash[:notice] = 'called reject'
+    redirect_to certificate_requests_url
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_certificate_request
