@@ -1,21 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  status: string
-  comments: string
-  body: string
-  uuid: string
-  csr_type: string
-  requestor_id: 1
-  owner_dn_id: 1
-  organization: string
-
-two:
-  status: string
-  comments: string
-  body: string
-  uuid: string
-  csr_type: string
-  requestor_id: 1
-  owner_dn_id: 1
-  organization: string
+john_appleseed_csr:
+  status: signed
+  comments: ""
+  body: "-----BEGIN CERTIFICATE REQUEST-----\nMIICkjCCAXoCAQAwTTELMAkGA1UEBhMCR1IxEzARBgNVBAoTCkhlbGxhc0dyaWQx\nEDAOBgNVBAsTB2F1dGguZ3IxFzAVBgNVBAMTDkpvaG4gQXBwbGVzZWVkMIIBIjAN\nBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtvSSIq4T2ndJ6nFA84eN1VTqUut1\ns42CHc1NxJZiM1rwrkJESEt4pCS2Wc1sDbKUYEGRvpvgkcGpl1zEMNNsL9rOuN6g\nlF8LrzAgcLuXZMCv5Oov1rqBU/pvnsMClYP5Qni6LgxwBm5y+31LocNTxhoXsRLp\nDa0tITv9O3dPeTEt4kIn6oRSR9vIcJ5dX+QrtEBNPCb7+BRZXz3phLDYeqEt7ziH\nUzWyibnvWVrTN5gtcjso1yph2YvhLivvrxSu3qCFgzkZySe8DJs8K7koxGeJlG32\na3//RCE3mRr/yvdMPJdWwobvaAWUtQ8zpXdBIasuq2okOpAp2If82VphYwIDAQAB\noAAwDQYJKoZIhvcNAQEFBQADggEBAEWTtxkXtcqA8nDoYIhdo9kCovSGXHY9SmCd\nZw7ffSXll8hZHMcBtbdr2KQwacFE0Kd3Ow2+gEMDIG/riCDzlwYbFP//RB7gMFsJ\n1gxNAl664Xnd2QsYRJ2OwnvlSTtliGlSyULdx1OxlFkw06XDJPozQNmVIw9uUn7D\nCFpjbZnYKJj2/fXNf22Y38B3LNQC0r/oGWVMJrSNOMYSDZImUgslf4w544SElzH7\nwWuNDq4+n9AfN0Wv6TYpEFfE1QQJ2FV5t6zBw7O1JXvdQpETp75DLJo3DIGJ1822\n0USMAPspp1mnQpnr10SPX0ENF/aomEDRBO+bawVUCXE5uge05JI=\n-----END CERTIFICATE REQUEST-----\n"
+  uuid: a06fdcbbf0fce0c1cf05
+  csr_type: classic
+  requestor: john_appleseed
+  owner_dn: john_appleseed
+  organization: auth
