@@ -5,6 +5,11 @@
   tags:
     - Creating_SELinux_Policies
 
+- name: Security context of passenger registry directory
+  shell: chcon -t var_run_t /var/lib/passenger-instreg
+  tags:
+    - passenger_install
+
 - name: Changing folder permissions
   shell: chown {{application_user}}:{{application_user}} {{ application_path }}access/tmp ; chown {{application_user}}:{{application_user}} {{ application_path }}access/tmp/cache ;chmod 775 {{ application_path }}access/tmp
   tags:
