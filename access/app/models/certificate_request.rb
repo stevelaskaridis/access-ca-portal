@@ -1,3 +1,5 @@
+require 'exceptions/invalid_action'
+
 class CertificateRequest < ActiveRecord::Base
   # Associations
   belongs_to :requestor,
@@ -21,4 +23,23 @@ class CertificateRequest < ActiveRecord::Base
   validates :owner_dn_id, presence: true, uniqueness: true
   validates :organization, presence: true
 
+  def self.approve_csr(csr_id)
+    csr = CertificateRequest.find(csr_id)
+    if csr.status == 'pending'
+      csr.status = 'approved'
+      csr.save!
+    else
+      raise InvalidActionError.new("#{I18n.t "exceptions.invalid_action.approve_csr"} #{csr.status}")
+    end
+  end
+
+  def self.reject_csr(csr_id)
+    csr = CertificateRequest.find(csr_id)
+    if csr.status == 'pending'
+      csr.status = 'rejected'
+      csr.save!
+    else
+      raise InvalidActionError.new("#{I18n.t "exceptions.invalid_action.reject_csr"} #{csr.status}")
+    end
+  end
 end

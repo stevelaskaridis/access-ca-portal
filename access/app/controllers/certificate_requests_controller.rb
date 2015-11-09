@@ -69,6 +69,26 @@ class CertificateRequestsController < ApplicationController
     end
   end
 
+  def approve_csr
+    begin
+      CertificateRequest.approve_csr(params[:certificate_request_id])
+    rescue InvalidActionError => e
+      redirect_to certificate_requests_url, flash: { error: "#{e.message}" }
+      return
+    end
+    redirect_to certificate_requests_url, notice: "Updated!"
+  end
+
+  def reject_csr
+    begin
+      CertificateRequest.reject_csr(params[:certificate_request_id])
+    rescue InvalidActionError => e
+      redirect_to certificate_requests_url, flash: { error: "#{e.message}" }
+      return
+    end
+    redirect_to certificate_requests_url, notice: "Updated!"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_certificate_request
