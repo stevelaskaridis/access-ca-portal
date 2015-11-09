@@ -5,6 +5,7 @@ class Person < ActiveRecord::Base
   belongs_to :organization
   has_many :alternative_emails, dependent: :delete_all
   has_one :person_editable_field
+  has_many :distinguished_names, as: :owner
 
   before_create :confirm_token
 

@@ -13,10 +13,22 @@ en:
         scientific_field: Scientific Field
         alternative_emails: Alternative e-mails
         organization: Organization
+      host:
+        admin: Administrator
+        organization: Organization
+      certificate_request:
+        uuid: Unique Identifier
+        body: Body
+        requestor: Requestor
+        owner: Owner
+        organization: Organization
+        status: Status
     show: Show
     list_people: List People
+    list_csr: List Certificate Requests
     edit: Edit
     destroy: Destroy
     delete_confirmation: Are you sure?
     new_person: New Person
+    new_csr: New Request
     back: Back

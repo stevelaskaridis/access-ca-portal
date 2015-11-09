@@ -1,0 +1,29 @@
+<%= form_for(@certificate_request) do |f| %>
+    <% if @certificate_request.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@certificate_request.errors.count, "error") %> prohibited this certificate_request from
+            being saved:</h2>
+
+          <ul>
+            <% @certificate_request.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= label_tag I18n.t("views.label.certificate_request.owner") %>
+      <%= select_tag(:owner_id, options_from_collection_for_select(Person.all, :id, :email)) %>
+    </div>
+
+    <div class="field">
+      <%= f.label :body %>
+      <%= f.text_area :body %>
+    </div>
+
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/cchandler/certificate_authority.git
+  revision: 156c81c2167e0e286994fa487cbb0519085857de
+  specs:
+    certificate_authority (0.2.0)
+      activemodel (>= 3.0.6)
+      activesupport (>= 3.0.6)
+
+GIT
   remote: https://github.com/globalize/globalize-versioning.git
   revision: b1e2417d8aa93bd19aae7b17ca098d3aa2710fa8
   branch: paper-trail-4
@@ -84,7 +92,7 @@ GEM
       mime-types (>= 1.16, < 3)
     mime-types (2.6.2)
     mini_portile (0.6.2)
-    minitest (5.8.1)
+    minitest (5.8.2)
     multi_json (1.11.2)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
@@ -174,6 +182,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  certificate_authority!
   coffee-rails (~> 4.1.0)
   globalize (~> 5.0.0)
   globalize-versioning!

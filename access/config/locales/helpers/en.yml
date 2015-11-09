@@ -13,7 +13,16 @@ en:
         scientific_field: Scientific Field
         organization: Οrganization
         alternative_emails: Alternative e-mails
+      certificate_request:
+        uuid: Unique Identifier
+        body: Body
+        requestor: Requestor
+        owner: Owner
+        organization: Organization
+        status: Status
     submit:
       person:
         create: Submit
         update: Update Info
+      certificate_request:
+        create: Submit

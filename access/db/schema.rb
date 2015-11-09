@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013124725) do
+ActiveRecord::Schema.define(version: 20151014212801) do
 
   create_table "alternative_emails", force: :cascade do |t|
     t.integer  "person_id",                          null: false
@@ -23,6 +23,47 @@ ActiveRecord::Schema.define(version: 20151013124725) do
   end
 
   add_index "alternative_emails", ["person_id"], name: "index_alternative_emails_on_person_id"
+
+  create_table "certificate_requests", force: :cascade do |t|
+    t.string   "status"
+    t.text     "comments"
+    t.text     "body"
+    t.string   "uuid"
+    t.string   "csr_type"
+    t.integer  "requestor_id"
+    t.integer  "owner_dn_id"
+    t.integer  "organization_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "certificates", force: :cascade do |t|
+    t.text     "body"
+    t.string   "status"
+    t.integer  "certificate_request_uuid"
+    t.integer  "distinguished_name_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  create_table "distinguished_names", force: :cascade do |t|
+    t.string   "subject_dn"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "hosts", force: :cascade do |t|
+    t.string   "fqdn"
+    t.integer  "person_id"
+    t.integer  "organization_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "hosts", ["organization_id"], name: "index_hosts_on_organization_id"
+  add_index "hosts", ["person_id"], name: "index_hosts_on_person_id"
 
   create_table "organization_translations", force: :cascade do |t|
     t.integer  "organization_id", null: false
