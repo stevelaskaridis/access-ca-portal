@@ -20,4 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 el:
-  hello: "Γεια"
+  exceptions:
+    invalid_action:
+      approve_csr: Δεν είναι δυνατή η υπογραφή της αίτησης για πιστοποιητικό σε κατάσταση
+      reject_csr: Δεν είναι δυνατή η απόρριψη της αίτησης για πιστοποιητικό σε κατάσταση

@@ -70,13 +70,23 @@ class CertificateRequestsController < ApplicationController
   end
 
   def approve_csr
-    flash[:notice] = 'called approve'
-    redirect_to certificate_requests_url
+    begin
+      CertificateRequest.approve_csr(params[:certificate_request_id])
+    rescue InvalidActionError => e
+      redirect_to certificate_requests_url, flash: { error: "#{e.message}" }
+      return
+    end
+    redirect_to certificate_requests_url, notice: "Updated!"
   end
 
   def reject_csr
-    flash[:notice] = 'called reject'
-    redirect_to certificate_requests_url
+    begin
+      CertificateRequest.reject_csr(params[:certificate_request_id])
+    rescue InvalidActionError => e
+      redirect_to certificate_requests_url, flash: { error: "#{e.message}" }
+      return
+    end
+    redirect_to certificate_requests_url, notice: "Updated!"
   end
 
   private

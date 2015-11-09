@@ -20,4 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  exceptions:
+    invalid_action:
+      approve_csr: Cannot approve CSR with status
+      reject_csr: Cannot reject CSR with status
+
