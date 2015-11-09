@@ -13,7 +13,16 @@ el:
         scientific_field: Επιστημονικό Πεδίο
         organization: Οργανισμός
         alternative_emails: Εναλλακτικά E-mails
+      certificate_request:
+        uuid: Αναγνωριστικό
+        body: Σώμα
+        requestor: Αιτών
+        owner: Κάτοχος
+        organization: Οργανισμός
+        status: Κατάσταση
     submit:
       person:
         create: Υποβολή
         update: Ενημέρωση Στοιχείων
+      certificate_request:
+        create: Υποβολή

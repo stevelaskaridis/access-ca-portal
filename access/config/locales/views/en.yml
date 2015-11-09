@@ -25,8 +25,10 @@ en:
         status: Status
     show: Show
     list_people: List People
+    list_csr: List Certificate Requests
     edit: Edit
     destroy: Destroy
     delete_confirmation: Are you sure?
     new_person: New Person
+    new_csr: New Request
     back: Back

@@ -1,14 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Certificate Requests</h1>
+<h1><%= I18n.t('views.list_csr') %></h1>
 
 <table>
   <thead>
     <tr>
-      <th>UUID</th>
-      <th>Status</th>
-      <th>Owner</th>
-      <th>Organization</th>
+      <th><%= I18n.t "views.label.certificate_request.uuid"%></th>
+      <th><%= I18n.t "views.label.certificate_request.status"%></th>
+      <th><%= I18n.t "views.label.certificate_request.owner"%></th>
+      <th><%= I18n.t "views.label.certificate_request.organization"%></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,8 +20,8 @@
         <td><%= certificate_request.status %>></td>
         <td><%= certificate_request.owner_dn.subject_dn %>></td>
         <td><%= certificate_request.organization.name %>></td>
-        <td><%= link_to 'Show', certificate_request %></td>
-        <td><%= link_to 'Destroy', certificate_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to I18n.t("views.show"), certificate_request %></td>
+        <td><%= link_to I18n.t("views.destroy"), certificate_request, method: :delete, data: { confirm: I18n.t("views.delete_confirmation") } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -29,4 +29,4 @@
 
 <br>
 
-<%= link_to 'New Certificate request', new_certificate_request_path %>
+<%= link_to I18n.t('views.new_csr'), new_certificate_request_path %>

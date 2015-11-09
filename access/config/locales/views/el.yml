@@ -13,20 +13,22 @@ el:
         scientific_field: Επιστημονικό Πεδίο
         alternative_emails: Εναλλακτικά E-mails
         organization: Οργανισμός
-        host:
-          admin: Διαχειριστής
-          organization: Οργανισμός
-        certificate_request:
-          uuid: Αναγνωριστικό
-          body: Σώμα
-          requestor: Αιτών
-          owner: Κάτοχος
-          organization: Οργανισμός
-          status: Κατάσταση
+      host:
+        admin: Διαχειριστής
+        organization: Οργανισμός
+      certificate_request:
+        uuid: Αναγνωριστικό
+        body: Σώμα
+        requestor: Αιτών
+        owner: Κάτοχος
+        organization: Οργανισμός
+        status: Κατάσταση
     show: Προβολή
     list_people: Λίστα Χρηστών
+    list_csr: Λίστα Αιτήσεων για Πιστοποιητικό
     edit: Επεξεργασία
     destroy: Διαγραφή
     delete_confirmation: Είστε σίγουρος/η;
     new_person: Νέος χρήστης
+    new_csr: Νέα άιτηση
     back: Επιστροφή
