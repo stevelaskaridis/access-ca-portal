@@ -3,29 +3,31 @@
 - name: Install Required packages
   shell: yum install -y policycoreutils-python
   tags:
-    - Creating_SELinux_Policies
+    - selinux_policies
 
-- name: Changing folder permissions
-  shell: chown {{application_user}}:{{application_user}} {{ application_path }}access/tmp ; chown {{application_user}}:{{application_user}} {{ application_path }}access/tmp/cache ;chmod 775 {{ application_path }}access/tmp
+- name: Security context of passenger registry directory
+  shell: chcon -t var_run_t /var/lib/passenger-instreg
   tags:
-    - Creating_SELinux_Policies
+    - passenger_install
+    - selinux_policies
 
-- name: Changing file permissions
-  shell: chown {{application_user}}:{{application_user}} {{ application_path }}access/log ; chown {{application_user}}:{{application_user}} {{ application_path }}access/log/development.log ;chmod 0644 {{ application_path }}access/log/development.log
+- name: Security context for tmp/ rails directory
+  shell: chcon -R -t httpd_sys_rw_content_t {{ application_path}}/access/tmp
   tags:
-    - Creating_SELinux_Policies
+    - create_rails_directories
+    - selinux_policies
 
 - name: Create a policy to assign the httpd_log_t context to the logging directories
   shell: semanage fcontext -a -t httpd_log_t "{{ application_path }}acccess/log(/.*)?"
   tags:
-    - Creating_SELinux_Policies
+    - selinux_policies
 
 - name: Create a policy to assign the httpd_cache_t context to our cache directories.
   shell: semanage fcontext -a -t httpd_cache_t "{{ application_path }}access/tmp/cache(/.*)?"
   tags:
-    - Creating_SELinux_Policies
+    - selinux_policies
 
 - name: Applying the SELinux Policy
   shell: restorecon -Rv {{ application_path }}access
   tags:
-    - Creating_SELinux_Policies
+    - selinux_policies

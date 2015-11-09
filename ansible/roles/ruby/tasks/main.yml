@@ -68,6 +68,7 @@
     - zlib-devel
     - httpd-devel
   tags:
+    - passenger_install
     - passenger_gem_install
 
 - name: register passenger module version
@@ -75,14 +76,29 @@
   register: passenger_version
   ignore_errors: True
   tags:
-    - passenger_apache2_module_install
+    - passenger_install
 
 - name: install passenger-install-apache2-module
   shell: yes '' | passenger-install-apache2-module --auto creates=/usr/local/rvm/gems/ruby-{{ ruby_rvm_version }}@access-env/gems/passenger-{{ passenger_version.stdout }}/buildout/apache2/mod_passenger.so
   tags:
-    - passenger_apache2_module_install
+    - passenger_install
 
 - name: generate passenger.conf file
   shell: passenger-install-apache2-module --snippet > /etc/httpd/conf.d/passenger.conf
   tags:
-    - generating_passenger.conf_file
+    - passenger_install
+
+- name: Create passenger registry directory
+  file: path=/var/lib/passenger-instreg state=directory
+  tags:
+    - passenger_install
+
+- name: Declare passenger registry directory in httpd config
+  lineinfile: dest=/etc/httpd/conf/httpd.conf line="PassengerInstanceRegistryDir /var/lib/passenger-instreg"
+  tags:
+    - passenger_install
+
+- name: Export passenger registry directory in env var
+  lineinfile: dest=.bash_profile line="export PASSENGER_INSTANCE_REGISTRY_DIR=/var/lib/passenger-instreg"
+  tags:
+    - passenger_install

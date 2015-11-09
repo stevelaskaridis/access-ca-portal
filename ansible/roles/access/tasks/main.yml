@@ -28,25 +28,37 @@
   tags: install_access
 
 ##########################################################
+############ Change owner of the application  ############
+##########################################################
+
+- name: Change owner of config.ru (otherwise it will run as apache user)
+  file: path={{ application_path }}/access/config.ru owner={{ application_user }}
+        group={{ application_user }}
+  notify: restart apache
+  tags: install_access
+
+##########################################################
 ########### Create necessary rails directories ###########
 ##########################################################
-- name: Creates folder tmp
-  file: path={{ application_path }}access/tmp state=directory
+- name: Create folders tmp, cache
+  file: path={{ application_path }}access/tmp/cache state=directory owner={{ application_user }}
+        group={{ application_user }}
   tags:
     - create_rails_directories
 
-- name: Creates folder cache
-  file: path={{ application_path }}access/tmp/cache state=directory
+- name: Create folder log
+  file: path={{ application_path }}access/log state=directory owner={{ application_user }}
+        group={{ application_user }}
   tags:
     - create_rails_directories
 
-- name: Creates folder log
-  file: path={{ application_path }}access/log state=directory
-  tags:
-    - create_rails_directories
-
-- name: Creates file development.log
-  file: path={{ application_path }}access/log/development.log state=touch
+- name: Create file {production,development,test}.log
+  file: path={{ application_path }}access/log/{{ item }}.log state=touch owner={{ application_user }}
+        group={{ application_user }}
+  with_items:
+    - production
+    - development
+    - test
   tags:
     - create_rails_directories
 
