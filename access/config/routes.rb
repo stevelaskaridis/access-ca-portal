@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root 'people#index', locale: :en
   get '/:locale' => 'people#index', as: 'verify_email'
+  get '/:locale/:user_id/csr' => 'csr_gen#mozilla_csr'
+  post '/:locale/:user_id/submit' => 'csr_gen#csr_submission'
   scope ":locale", locale: /#{APP_CONFIG['available_locales'].join('|')}/ do
       resources :people do
         get 'versions' => 'people_versions#index'
