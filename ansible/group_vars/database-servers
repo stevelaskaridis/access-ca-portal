@@ -1,3 +1,6 @@
+db_type: postgresql
 db_password: some_password_here
 db_name: access-db
 db_username: access
+db_name_development: access-db-development
+db_name_test: access-db-test

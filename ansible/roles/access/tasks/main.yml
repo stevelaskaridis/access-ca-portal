@@ -22,8 +22,14 @@
     - install_gems
 
 - name: Copy secrets.yml
-  template: src=config/secrets.yml.j2 dest={{application_path}}/access/config/secrets.yml
+  template: src=config/secrets.yml.j2 dest={{ application_path }}/access/config/secrets.yml
             owner={{ application_user }} group={{ application_user }} mode=0644
+  notify: restart apache
+  tags: install_access
+
+- name: Copy database.yml
+  template: src=config/database.yml.j2 dest={{ application_path }}/access/config/database.yml
+            owner={{ application_user }} group={{ application_user }} mode=0640
   notify: restart apache
   tags: install_access
 

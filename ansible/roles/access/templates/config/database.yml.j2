@@ -1,0 +1,23 @@
+  production:
+  adapter: {{ db_type }}
+  encoding: unicode
+  database: {{ db_name }}
+  pool: 5
+  username: {{ db_username }}
+  password: {{ db_password }}
+
+development:
+  adapter: {{ db_type }}
+  encoding: unicode
+  database: {{ db_name_development }}
+  pool: 5
+  username: {{ db_username }}
+  password: {{ db_password }}
+
+test:
+  adapter: {{ db_type }}
+  encoding: unicode
+  database: {{ db_name_test }}
+  pool: 5
+  username: {{ db_username }}
+  password: {{ db_password }}
