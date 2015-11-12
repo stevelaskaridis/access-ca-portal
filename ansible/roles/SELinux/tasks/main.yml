@@ -6,13 +6,13 @@
     - selinux_policies
 
 - name: Security context of passenger registry directory
-  shell: chcon -t var_run_t /var/lib/passenger-instreg
+  shell: semanage fcontext -a -t var_run_t /var/lib/passenger-instreg
   tags:
     - passenger_install
     - selinux_policies
 
 - name: Security context for tmp/ rails directory
-  shell: chcon -R -t httpd_sys_rw_content_t {{ application_path}}/access/tmp
+  shell: semanage fcontext -a -t httpd_sys_rw_content_t "{{ application_path}}access/tmp"
   tags:
     - create_rails_directories
     - selinux_policies
