@@ -72,7 +72,7 @@
 ########### Rake db tasks ###########
 #####################################
 - name: rake db:migrate
-  shell: bash -lc "rake db:migrate" chdir="{{ application_path }}/access"
+  shell: bash -lc "rake db:schema:load" chdir="{{ application_path }}/access"
   tags:
     - rake_db_tasks
 
@@ -83,5 +83,3 @@
 #   tags:
 #     - rake_db_tasks
 
-# tranfer all the data needed (e.g.database.yml)
-# (maybe) run checks
