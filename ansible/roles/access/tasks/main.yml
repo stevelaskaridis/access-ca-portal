@@ -21,11 +21,17 @@
     - install_access
     - install_gems
 
+- name: restart apache
+  service: name=httpd state=restarted enabled=yes
+
 - name: Copy secrets.yml
   template: src=config/secrets.yml.j2 dest={{application_path}}/access/config/secrets.yml
             owner={{ application_user }} group={{ application_user }} mode=0644
   notify: restart apache
   tags: install_access
+
+- name: restart apache
+  service: name=httpd state=restarted enabled=yes
 
 ##########################################################
 ############ Change owner of the application  ############
@@ -36,6 +42,9 @@
         group={{ application_user }}
   notify: restart apache
   tags: install_access
+
+- name: restart apache
+  service: name=httpd state=restarted enabled=yes
 
 ##########################################################
 ########### Create necessary rails directories ###########
@@ -62,6 +71,7 @@
   tags:
     - create_rails_directories
 
+
 #####################################
 ########### Rake db tasks ###########
 #####################################
@@ -69,6 +79,25 @@
   shell: bash -lc "rake db:migrate" chdir="{{ application_path }}/access"
   tags:
     - rake_db_tasks
+
+##########################################################
+###### Change owner of certain directories/files  ########
+##########################################################
+
+- name: Change owner of db folder
+  file: path={{ application_path }}/access/db owner={{ application_user }}
+        group={{ application_user }}
+  notify: restart apache
+  tags: install_access
+
+- name: Change owner of database
+  file: path={{ application_path }}/access/db/development.sqlite3 owner={{ application_user }}
+        group={{ application_user }}
+  notify: restart apache
+  tags: install_access
+
+- name: restart apache
+  service: name=httpd state=restarted enabled=yes
 
 # This task is to be run once. If the data have already been seeded and the seed
 # file has changed, the process of updating has to be done manually.
