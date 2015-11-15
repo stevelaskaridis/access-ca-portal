@@ -14,13 +14,13 @@
   tags: postgres_configure
 
 - name: Create access application database
-  postgresql_db: name={{ db_name }} encoding='UTF-8' owner={{ db_username }}
+  postgresql_db: name={{ production.db_name }} encoding='UTF-8' owner={{ db_username }}
   become: yes
   become_user: postgres
   tags: postgres_configure
 
 - name: Create access development application database
-  postgresql_db: name={{ db_name_development }} encoding='UTF-8' owner={{ db_username }}
+  postgresql_db: name={{ development.db_name }} encoding='UTF-8' owner={{ db_username }}
   become: yes
   become_user: postgres
   tags: postgres_configure

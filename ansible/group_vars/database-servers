@@ -1,6 +1,14 @@
-db_type: postgresql
-db_password: some_password_here
-db_name: access-db
 db_username: access
-db_name_development: access-db-development
-db_name_test: access-db-test
+db_password: some_password_here
+production:
+  name: production
+  db_type: postgresql
+  db_name: access-db
+development:
+  name: development
+  db_type: sqlite3
+  db_name: db/development.sqlite3
+test:
+  name: test
+  db_type: postgresql
+  db_name: access-db-test

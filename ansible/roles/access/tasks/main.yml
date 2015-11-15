@@ -82,4 +82,3 @@
 #   shell: bash -lc "rake db:seed" chdir="{{ application_path }}/access"
 #   tags:
 #     - rake_db_tasks
-
