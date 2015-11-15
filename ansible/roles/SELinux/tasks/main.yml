@@ -1,20 +1,19 @@
 ---
 
 - name: Install Required packages
-  shell: yum install -y policycoreutils-python
+  yum: name=policycoreutils-python state=present
   tags:
     - selinux_policies
 
 - name: Security context of passenger registry directory
-  shell: chcon -t var_run_t /var/lib/passenger-instreg
+  shell: semanage fcontext -a -t var_run_t "/var/lib/passenger-instreg(/.*)?"
   tags:
     - passenger_install
     - selinux_policies
 
-- name: Security context for tmp/ rails directory
-  shell: chcon -R -t httpd_sys_rw_content_t {{ application_path}}/access/tmp
+- name: Applying the SELinux Policy
+  shell: restorecon -Rv /var/lib/passenger-instreg
   tags:
-    - create_rails_directories
     - selinux_policies
 
 - name: Create a policy to assign the httpd_log_t context to the logging directories
@@ -31,3 +30,41 @@
   shell: restorecon -Rv {{ application_path }}access
   tags:
     - selinux_policies
+
+- name: Changing the context for the root html directories
+  shell: semanage fcontext -a -t httpd_sys_rw_content_t "{{ application_path }}access(/.*)?"
+  tags:
+    - Creating_SELinux_Policies
+
+- name: Applying the SELinux Policy
+  shell: restorecon -Rv {{ application_path }}access
+  tags:
+    - Creating_SELinux_Policies
+
+- name: Generate new SELinux policy module
+  shell: setenforce 0
+  notify: restart apache
+  tags:
+    - Creating_SELinux_Policies
+
+
+- name: restart apache
+  service: name=httpd state=restarted enabled=yes
+
+
+- name: Generate new SELinux policy module
+  shell: grep httpd /var/log/audit/audit.log | audit2allow -M passenger
+  tags:
+    - Creating_SELinux_Policies
+
+- name: Generate new SELinux policy module
+  shell: semodule -i passenger.pp
+         chdir=/root
+  tags:
+    - Creating_SELinux_Policies
+
+- name: Generate new SELinux policy module
+  shell: setenforce 1
+  notify: restart apache
+  tags:
+    - Creating_SELinux_Policies
