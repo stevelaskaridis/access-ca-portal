@@ -34,37 +34,32 @@
 - name: Changing the context for the root html directories
   shell: semanage fcontext -a -t httpd_sys_rw_content_t "{{ application_path }}access(/.*)?"
   tags:
-    - Creating_SELinux_Policies
+    - selinux_policies
 
 - name: Applying the SELinux Policy
   shell: restorecon -Rv {{ application_path }}access
   tags:
-    - Creating_SELinux_Policies
+    - selinux_policies
 
 - name: Generate new SELinux policy module
   shell: setenforce 0
   notify: restart apache
   tags:
-    - Creating_SELinux_Policies
-
-
-- name: restart apache
-  service: name=httpd state=restarted enabled=yes
-
+    - selinux_policies
 
 - name: Generate new SELinux policy module
   shell: grep httpd /var/log/audit/audit.log | audit2allow -M passenger
   tags:
-    - Creating_SELinux_Policies
+    - selinux_policies
 
 - name: Generate new SELinux policy module
   shell: semodule -i passenger.pp
          chdir=/root
   tags:
-    - Creating_SELinux_Policies
+    - selinux_policies
 
 - name: Generate new SELinux policy module
   shell: setenforce 1
   notify: restart apache
   tags:
-    - Creating_SELinux_Policies
+    - selinux_policies
