@@ -94,13 +94,11 @@
   tags: install_access
 
 - name: Change owner of database
-  file: path={{ application_path }}/access/db/development.sqlite3 owner={{ application_user }}
-        group={{ application_user }}
+  file: path={{ application_path }}/access/db/development.sqlite3 state=touch
+        owner={{ application_user }} group={{ application_user }}
   notify: restart apache
   tags: install_access
-
-- name: restart apache
-  service: name=httpd state=restarted enabled=yes
+  when: development.db_type == 'sqlite3'
 
 # This task is to be run once. If the data have already been seeded and the seed
 # file has changed, the process of updating has to be done manually.
