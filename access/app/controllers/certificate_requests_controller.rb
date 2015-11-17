@@ -2,6 +2,7 @@ require 'helpers/x509_helpers'
 
 class CertificateRequestsController < ApplicationController
   before_action :set_certificate_request, only: [:show, :edit, :update, :destroy]
+  before_filter :authorize!, except: [:create, :new]
 
   # GET /certificate_requests
   # GET /certificate_requests.json
@@ -98,5 +99,12 @@ class CertificateRequestsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def certificate_request_params
       params.require(:certificate_request).permit(:body)
+    end
+
+    def authorize!
+      super
+      if @certificate_request && (@certificate_request.requestor_id != current_user.id) && (!TmpAdmin.is_admin?(current_user))
+        redirect_to certificate_requests_url, alert: "Not authorized!"
+      end
     end
 end
