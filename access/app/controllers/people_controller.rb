@@ -1,6 +1,6 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
-
+  before_filter :authorize!, except: [:create, :new]
   # GET /people
   # GET /people.json
   def index
@@ -144,5 +144,12 @@ class PeopleController < ApplicationController
         alternative_emails << AlternativeEmail.new(email: email)
       end
       return alternative_emails, emails_to_add
+    end
+
+    def authorize!
+      super
+      if @person && (@person != current_user) && (!TmpAdmin.is_admin?(current_user))
+        redirect_to people_url, alert: "Not authorized!"
+      end
     end
 end
