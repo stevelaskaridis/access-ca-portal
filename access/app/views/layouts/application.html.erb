@@ -8,6 +8,20 @@
 </head>
 <body>
 
+<div id="user_header">
+  <% if current_user %>
+      Logged in as <%= current_user.email %>.
+      <%= link_to "Log Out", logout_path %>
+  <% else %>
+      <%= link_to "Sign Up", signup_path %> or
+      <%= link_to "Log In", login_path %>
+  <% end %>
+</div>
+
+<p id="notice"><%= notice %></p>
+<p id="alert"><%= flash[:alert] %></p>
+<p id="error"><%= flash[:error] %></p>
+
 <%= yield %>
 
 </body>
