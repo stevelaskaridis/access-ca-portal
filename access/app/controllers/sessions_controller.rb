@@ -8,9 +8,9 @@ class SessionsController < ApplicationController
     user = Person.find_by_email(params[:email])
     if user
       session[:user_id] = user.id
-      redirect_to root_url
+      redirect_to root_url, notice: 'Welcome!'
     else
-      redirect_to login_url
+      redirect_to login_url, flash: { error: "Invalid e-mail." }
     end
   end
 
