@@ -17,10 +17,10 @@ Rails.application.routes.draw do
         post 'approve' => 'certificate_requests#approve_csr', as: 'approve'
         post 'reject' => 'certificate_requests#reject_csr', as: 'reject'
       end
-      get '/signup' => 'people#new'
-      get '/login' => 'sessions#new'
+      get '/signup' => 'people#new', as: 'signup'
+      get '/login' => 'sessions#new', as: 'login'
       post '/login' => 'sessions#create'
-      get '/logout' => 'sessions#destroy'
+      get '/logout' => 'sessions#destroy', as: 'logout'
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
