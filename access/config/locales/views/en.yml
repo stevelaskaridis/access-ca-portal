@@ -25,6 +25,12 @@ en:
         status: Status
     error:
       csr_gen: An error has been occurred. We couldn't generate your csr or it has been already generated
+    status: status
+    Request_date: Request date
+    Person_information: Person information
+    identification_pending_list: Pending identification applications list
+    rejected_list: Rejected applications list
+    signing_pending_list: Pending singing applications list
     show: Show
     list_people: List People
     list_csr: List Certificate Requests
