@@ -2,7 +2,7 @@
 
 - name: Copy passenger.te
   template: src=../templates/config/passenger.te.j2 dest=~/passenger.te
-  tags: httpd_configuration
+  tags: selinux_policies
 
 - name: Security context of passenger registry directory
   shell: semanage fcontext -a -t var_run_t "/var/lib/passenger-instreg(/.*)?"
