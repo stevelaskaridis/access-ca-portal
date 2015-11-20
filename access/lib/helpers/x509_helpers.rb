@@ -24,11 +24,10 @@ class X509Helpers
       else
         dn = DistinguishedName.new(owner_id: params[:owner_id],
                                    subject_dn: csr.distinguished_name.x509_name.to_s,
-                                   owner_type: :person)
-        dn.save()
+                                   owner_type: 'Person')
+        dn.save!()
       end
       certificate_request.owner_dn = dn
-      certificate_request.requestor = Person.find(params[:owner_id])
       certificate_request.uuid = SecureRandom.hex(10)
       certificate_request.csr_type = 'classic'
       org = Organization.find_by_domain(csr.distinguished_name.organizational_unit)

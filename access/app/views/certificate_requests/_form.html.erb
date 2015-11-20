@@ -13,11 +13,6 @@
     <% end %>
 
     <div class="field">
-      <%= label_tag I18n.t("views.label.certificate_request.owner") %>
-      <%= select_tag(:owner_id, options_from_collection_for_select(Person.all, :id, :email)) %>
-    </div>
-
-    <div class="field">
       <%= f.label :body %>
       <%= f.text_area :body %>
     </div>

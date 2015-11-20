@@ -2,7 +2,7 @@ require 'helpers/x509_helpers'
 
 class CertificateRequestsController < ApplicationController
   before_action :set_certificate_request, only: [:show, :edit, :update, :destroy]
-  before_filter :authorize!, except: [:create, :new]
+  before_filter :authorize!
 
   # GET /certificate_requests
   # GET /certificate_requests.json
@@ -28,6 +28,7 @@ class CertificateRequestsController < ApplicationController
   # POST /certificate_requests.json
   def create
     @certificate_request = CertificateRequest.new(certificate_request_params)
+    @certificate_request.requestor = current_user
     X509Helpers.csr_creation(@certificate_request, params)
 
     respond_to do |format|
