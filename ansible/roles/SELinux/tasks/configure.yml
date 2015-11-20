@@ -1,0 +1,69 @@
+---
+
+- name: Copy passenger.te
+  template: src=../templates/config/passenger.te.j2 dest=~/passenger.te
+  tags: httpd_configuration
+
+- name: Security context of passenger registry directory
+  shell: semanage fcontext -a -t var_run_t "/var/lib/passenger-instreg(/.*)?"
+  tags:
+    - passenger_install
+    - selinux_policies
+
+- name: Applying the SELinux Policy
+  shell: restorecon -Rv /var/lib/passenger-instreg
+  tags:
+    - selinux_policies
+
+- name: Create a policy to assign the httpd_log_t context to the logging directories
+  shell: semanage fcontext -a -t httpd_log_t "{{ application_path }}acccess/log(/.*)?"
+  tags:
+    - selinux_policies
+
+- name: Create a policy to assign the httpd_cache_t context to our cache directories.
+  shell: semanage fcontext -a -t httpd_cache_t "{{ application_path }}access/tmp/cache(/.*)?"
+  tags:
+    - selinux_policies
+
+- name: Applying the SELinux Policy
+  shell: restorecon -Rv {{ application_path }}access
+  tags:
+    - selinux_policies
+
+- name: Changing the context for the root html directories
+  shell: semanage fcontext -a -t httpd_sys_rw_content_t "{{ application_path }}access(/.*)?"
+  tags:
+    - selinux_policies
+
+- name: Applying the SELinux Policy
+  shell: restorecon -Rv {{ application_path }}access
+  tags:
+    - selinux_policies
+
+- name: Generate new SELinux policy module
+  shell: setenforce 0
+  notify: restart apache
+  tags:
+    - selinux_policies
+
+- name: Generate new SELinux policy module
+  shell: checkmodule -M -m -o passenger.mod passenger.te
+  tags:
+    - selinux_policies
+
+- name: Generate new SELinux policy module
+  shell: semodule_package -m passenger.mod -o passenger.pp
+  tags:
+    - selinux_policies
+
+- name: Generate new SELinux policy module
+  shell: semodule -i passenger.pp
+         chdir=/root
+  tags:
+    - selinux_policies
+
+- name: Generate new SELinux policy module
+  shell: setenforce 1
+  notify: restart apache
+  tags:
+    - selinux_policies
