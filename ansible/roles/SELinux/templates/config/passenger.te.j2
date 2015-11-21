@@ -1,0 +1,31 @@
+module passenger 1.0;
+
+require {
+        type var_run_t;
+        type usr_t;
+        type httpd_var_lib_t;
+        type httpd_t;
+        type user_home_t;
+        class sock_file { create unlink getattr setattr };
+        class capability { fowner sys_resource fsetid };
+        class process execmem;
+        class file { read write unlink open setattr };
+        class dir { rmdir setattr };
+}
+
+#============= httpd_t ==============
+allow httpd_t httpd_var_lib_t:sock_file create;
+
+#!!!! This avc can be allowed using one of the these booleans:
+#     httpd_run_stickshift, httpd_setrlimit
+allow httpd_t self:capability { fowner sys_resource fsetid };
+
+#!!!! This avc can be allowed using the boolean 'httpd_execmem'
+allow httpd_t self:process execmem;
+
+#!!!! This avc can be allowed using the boolean 'httpd_read_user_content'
+allow httpd_t user_home_t:file { read open };
+allow httpd_t usr_t:file write;
+allow httpd_t var_run_t:dir { rmdir setattr };
+allow httpd_t var_run_t:file { unlink setattr };
+allow httpd_t var_run_t:sock_file { getattr unlink setattr };
