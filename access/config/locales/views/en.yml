@@ -23,6 +23,10 @@ en:
         owner: Owner
         organization: Organization
         status: Status
+      organization:
+        name: Name
+        description: Description
+        domain: Domain
     error:
       csr_gen: An error has occurred. We couldn't generate your csr or it has been already generated
       error: An error has occurred
@@ -40,6 +44,7 @@ en:
     show: Show
     list_people: List People
     list_csr: List Certificate Requests
+    list_organizations: List Organizations
     edit: Edit
     destroy: Destroy
     accept: Accept
@@ -47,4 +52,5 @@ en:
     delete_confirmation: Are you sure?
     new_person: New Person
     new_csr: New Request
+    new_organization: New Organization
     back: Back

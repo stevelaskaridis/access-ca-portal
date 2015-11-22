@@ -1,19 +1,19 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong><%= I18n.t "views.label.organization.name" %>:</strong>
   <%= @organization.name %>
 </p>
 
 <p>
-  <strong>Domain:</strong>
+  <strong><%= I18n.t "views.label.organization.domain" %>:</strong>
   <%= @organization.domain %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong><%= I18n.t "views.label.organization.description" %>:</strong>
   <%= @organization.description %>
 </p>
 
-<%= link_to 'Edit', edit_organization_path(@organization) %> |
-<%= link_to 'Back', organizations_path %>
+<%= link_to I18n.t('views.edit'), edit_organization_path(@organization) %> |
+<%= link_to I18n.t('views.back'), organizations_path %>

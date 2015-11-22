@@ -20,9 +20,16 @@ el:
         owner: Κάτοχος
         organization: Οργανισμός
         status: Κατάσταση
+      organization:
+        name: Όνομα
+        description: Περιγραφή
+        domain: Domain
     submit:
       person:
         create: Υποβολή
         update: Ενημέρωση Στοιχείων
       certificate_request:
         create: Υποβολή
+      organization:
+        create: Υποβολή
+        update: Ενημέρωση Στοιχείων

@@ -23,6 +23,10 @@ el:
         owner: Κάτοχος
         organization: Οργανισμός
         status: Κατάσταση
+      organization:
+        name: Όνομα
+        description: Περιγραφή
+        domain: Domain
     error:
       csr_gen: Λόγω σφάλματος δεν ήταν δυνατό να δημιουργηθεί αίτηση ψηφιακού πιστοποιητικού ή έχετε ήδη κάνει αίτηση
       error: Συνέβη κάποιο σφάλμα
@@ -40,11 +44,13 @@ el:
     show: Προβολή
     list_people: Λίστα Χρηστών
     list_csr: Λίστα Αιτήσεων για Πιστοποιητικό
+    list_organizations: Λίστα Οργανισμών
     edit: Επεξεργασία
     destroy: Διαγραφή
     accept: Αποδοχή
     reject: Απόρριψη
     delete_confirmation: Είστε σίγουρος/η;
-    new_person: Νέος χρήστης
-    new_csr: Νέα άιτηση
+    new_person: Νέος Χρήστης
+    new_csr: Νέα Άιτηση
+    new_organization: Νέος Οργανισμός
     back: Επιστροφή
