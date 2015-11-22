@@ -1,26 +1,26 @@
 Rails.application.routes.draw do
-  root 'people#index', locale: :en
-  get '/:locale' => 'people#index', as: 'verify_email'
   get '/:locale/:user_id/csr' => 'csr_gen#mozilla_csr'
   post '/:locale/:user_id/submit' => 'csr_gen#csr_submission'
-  scope ":locale", locale: /#{APP_CONFIG['available_locales'].join('|')}/ do
-      resources :people do
-        get 'versions' => 'people_versions#index'
-      end
-      get '/people/confirm_email/:token' => 'people#verify_email'
+  scope "(:locale)", locale: /#{APP_CONFIG['available_locales'].join('|')}/ do
+    root 'people#index'
+    get '/:locale' => 'people#index', as: 'verify_email'
+    resources :people do
+      get 'versions' => 'people_versions#index'
+    end
+    get '/people/confirm_email/:token' => 'people#verify_email'
 
-      resources :organizations
-      resources :hosts do
-        get 'versions' => 'hosts_versions#index'
-      end
-      resources :certificate_requests, except: [:edit] do
-        post 'approve' => 'certificate_requests#approve_csr', as: 'approve'
-        post 'reject' => 'certificate_requests#reject_csr', as: 'reject'
-      end
-      get '/signup' => 'people#new', as: 'signup'
-      get '/login' => 'sessions#new', as: 'login'
-      post '/login' => 'sessions#create'
-      get '/logout' => 'sessions#destroy', as: 'logout'
+    resources :organizations
+    resources :hosts do
+      get 'versions' => 'hosts_versions#index'
+    end
+    resources :certificate_requests, except: [:edit] do
+      post 'approve' => 'certificate_requests#approve_csr', as: 'approve'
+      post 'reject' => 'certificate_requests#reject_csr', as: 'reject'
+    end
+    get '/signup' => 'people#new', as: 'signup'
+    get '/login' => 'sessions#new', as: 'login'
+    post '/login' => 'sessions#create'
+    get '/logout' => 'sessions#destroy', as: 'logout'
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
