@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
   get '/:locale/:user_id/csr' => 'csr_gen#mozilla_csr'
   post '/:locale/:user_id/submit' => 'csr_gen#csr_submission'
+  get '/:locale/error_csr_sub' => 'csr_gen#error_csr_sub'
+  get '/:locale/find_csr' => 'csr_gen#find_csr'
+  post '/:locale/find_csr' => 'csr_gen#csr_value'
+  get '/:locale/find_csr/no_csr' => 'csr_gen#error'
+  get '/:locale/ra/csr_list' => 'ra#csr_list'
+  get '/:locale/ra/csr_pending' => 'ra#csr_pending'
+  get '/:locale/ra/csr_approved' => 'ra#csr_approved'
+  get '/:locale/ra/csr_rejected' => 'ra#csr_rejected'
   scope "(:locale)", locale: /#{APP_CONFIG['available_locales'].join('|')}/ do
     root 'people#index'
     get '/:locale' => 'people#index', as: 'verify_email'

@@ -1,0 +1,6 @@
+---
+
+- name: Install Required packages
+  yum: name=policycoreutils-python state=present
+  tags:
+    - selinux_policies

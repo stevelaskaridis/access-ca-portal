@@ -21,7 +21,7 @@ class CertificateRequest < ActiveRecord::Base
   validates_inclusion_of :csr_type, in: %w(classic spkac classic_ie vista_ie)
   validates :requestor_id, presence: true
   validates :owner_dn_id, presence: true, uniqueness: true
-  validates :organization, presence: true
+  validates :organization_id, presence: true
 
   def self.approve_csr(csr_id)
     csr = CertificateRequest.find(csr_id)
