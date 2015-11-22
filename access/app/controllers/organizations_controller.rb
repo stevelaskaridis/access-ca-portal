@@ -15,6 +15,8 @@ class OrganizationsController < ApplicationController
   # GET /organizations/new
   def new
     @organization = Organization.new
+    @locales = APP_CONFIG['available_locales'].map { |locale| locale.to_sym }
+    @locales -= [params[:locale].to_sym]
   end
 
   # GET /organizations/1/edit
@@ -25,7 +27,21 @@ class OrganizationsController < ApplicationController
   # POST /organizations.json
   def create
     @organization = Organization.new(organization_params)
+    @locales = APP_CONFIG['available_locales'].map { |locale| locale.to_sym }
+    @locales -= [params[:locale].to_sym]
+    org_locales_params = {}
+    @locales.each do |locale|
+      org_locales_params[locale.to_sym] = {name: nil, description: nil}
+      org_locales_params[locale.to_sym][:name] = params["name_#{locale}"] if params["name_#{locale}"]
+      org_locales_params[locale.to_sym][:description] = params["description_#{locale}"] if params["description_#{locale}"]
+    end
 
+    org_locales_params.each do |locale, hash|
+      Globalize.with_locale(locale) do
+        @organization.name = hash[:name] if hash[:name]
+        @organization.description = hash[:description] if hash[:description]
+      end
+    end
     respond_to do |format|
       if @organization.save
         format.html { redirect_to @organization, notice: 'Organization was successfully created.' }

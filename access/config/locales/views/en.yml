@@ -29,6 +29,8 @@ en:
       already_csr: You may already have created a csr
       no_reg: Or you are not registered
       no_csr: You may not have created a csr
+    organizations:
+      other_locales: Other locales
     status: status
     Request_date: Request date
     Person_information: Person information
