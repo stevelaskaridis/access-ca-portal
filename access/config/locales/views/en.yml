@@ -51,3 +51,21 @@ en:
     sign_up: Sign up
     logged_in_as: Logged in as
     or: or
+    homepage:
+      account_related: 'Account related'
+      host_related: 'Host related'
+      certificate_related: 'Certificate related'
+      org_related: 'Organization related'
+      create_account: 'Create new account'
+      account_details: 'View account details'
+      delete_account: 'Delete account'
+      account_changes: 'View account changes'
+      create_host: 'Create new host'
+      view_hosts: 'View hosts'
+      create_csr: 'Create new certificate request'
+      find_csr: 'Find CSR'
+      list_csrs: 'List CSRs'
+      create_org: 'Create organization'
+      list_orgs: 'List organizations'
+      login_or_signup: 'Please log in or create an account.'
+      orgs_admin_only: 'You must be logged in as admin to administer organizations.'
