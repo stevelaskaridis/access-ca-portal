@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get '/:locale/ra/csr_approved' => 'ra#csr_approved'
   get '/:locale/ra/csr_rejected' => 'ra#csr_rejected'
   scope "(:locale)", locale: /#{APP_CONFIG['available_locales'].join('|')}/ do
-    root 'people#index'
+    root 'site#index'
     get '/:locale' => 'people#index', as: 'verify_email'
     resources :people do
       get 'versions' => 'people_versions#index'
