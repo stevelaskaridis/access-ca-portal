@@ -21,12 +21,27 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations/1/edit
   def edit
+    @locales = APP_CONFIG['available_locales'].map { |locale| locale.to_sym }
+    @locales -= [params[:locale].to_sym]
   end
 
   # POST /organizations
   # POST /organizations.json
   def create
     @organization = Organization.new(organization_params)
+    edit_other_locales_params
+    respond_to do |format|
+      if @organization.save
+        format.html { redirect_to @organization, notice: 'Organization was successfully created.' }
+        format.json { render :show, status: :created, location: @organization }
+      else
+        format.html { render :new }
+        format.json { render json: @organization.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def edit_other_locales_params
     @locales = APP_CONFIG['available_locales'].map { |locale| locale.to_sym }
     @locales -= [params[:locale].to_sym]
     org_locales_params = {}
@@ -42,20 +57,12 @@ class OrganizationsController < ApplicationController
         @organization.description = hash[:description] if hash[:description]
       end
     end
-    respond_to do |format|
-      if @organization.save
-        format.html { redirect_to @organization, notice: 'Organization was successfully created.' }
-        format.json { render :show, status: :created, location: @organization }
-      else
-        format.html { render :new }
-        format.json { render json: @organization.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PATCH/PUT /organizations/1
   # PATCH/PUT /organizations/1.json
   def update
+    edit_other_locales_params
     respond_to do |format|
       if @organization.update(organization_params)
         format.html { redirect_to @organization, notice: 'Organization was successfully updated.' }

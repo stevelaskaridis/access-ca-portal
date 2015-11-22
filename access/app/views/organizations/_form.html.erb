@@ -35,11 +35,13 @@
           <td><%= f.label :description %></td>
         </thead>
       <%@locales.each do |locale|%>
-            <tr>
-              <td><%= "#{locale}" %></td>
-              <td><%= text_field_tag("name_#{locale}") %></td>
-              <td><%= text_area_tag("description_#{locale}")%></td>
-            </tr>
+            <% Globalize.with_locale(locale) do %>
+              <tr>
+                <td><%= "#{locale}" %></td>
+                <td><%= text_field_tag("name_#{locale}", @organization.name) %></td>
+                <td><%= text_area_tag("description_#{locale}", @organization.description)%></td>
+              </tr>
+            <% end %>
       <% end %>
       </table>
     </div>
