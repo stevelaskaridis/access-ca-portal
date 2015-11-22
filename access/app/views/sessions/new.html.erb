@@ -1,7 +1,7 @@
-<h1>Login</h1>
+<h1><%= I18n.t "views.log_in" %></h1>
 
 <%= form_tag "login" do %>
     e-mail: <%= text_field_tag :email %>
-    <%= submit_tag "Submit" %>
+    <%= submit_tag "#{I18n.t 'views.log_in'}" %>
 
 <% end %>

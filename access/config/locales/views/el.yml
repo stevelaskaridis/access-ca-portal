@@ -34,3 +34,8 @@ el:
     new_person: Νέος χρήστης
     new_csr: Νέα άιτηση
     back: Επιστροφή
+    log_in: Σύνδεση
+    log_out: Αποσύνδεση
+    sign_up: Εγγραφή
+    logged_in_as: Συνδεδεμένος ως
+    or: ή
