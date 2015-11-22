@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   protected
   def authorize!
-    redirect_to login_url, alert: "Not authorized! Please log in." unless current_user
+    redirect_to login_url, alert: "#{I18n.t 'controllers.authorization.not_logged_in'}" unless current_user
   end
 
 end

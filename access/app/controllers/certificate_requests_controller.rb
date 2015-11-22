@@ -105,7 +105,7 @@ class CertificateRequestsController < ApplicationController
     def authorize!
       super
       if @certificate_request && (@certificate_request.requestor_id != current_user.id) && (!TmpAdmin.is_admin?(current_user))
-        redirect_to certificate_requests_url, alert: "Not authorized!"
+        redirect_to certificate_requests_url, alert: "#{I18n.t 'controllers.authorization.not_authorized'}"
       end
     end
 end

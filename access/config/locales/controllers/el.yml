@@ -1,0 +1,8 @@
+el:
+  controllers:
+    authorization:
+      not_logged_in: "Δεν επιτρέπεται η πρόσβαση. Παρακαλώ συνδεθείτε."
+      not_authorized: "Δεν επιτρέπεται η πρόσβαση. Δεν έχετε τα απαραίτητα δικαιώματα."
+    session:
+      welcome: "Καλώς ορίσατε!"
+      invalid_email: "Το παρόν e-mail δε βρέθηκε."

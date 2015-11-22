@@ -76,7 +76,7 @@ class HostsController < ApplicationController
     def authorize!
       super
       if @host && (@host.person != current_user) && (!TmpAdmin.is_admin?(current_user))
-        redirect_to hosts_url, alert: "Not authorized!"
+        redirect_to hosts_url, alert: "#{I18n.t 'controllers.authorization.not_authorized'}"
       end
     end
 end

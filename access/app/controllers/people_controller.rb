@@ -149,7 +149,7 @@ class PeopleController < ApplicationController
     def authorize!
       super
       if @person && (@person != current_user) && (!TmpAdmin.is_admin?(current_user))
-        redirect_to people_url, alert: "Not authorized!"
+        redirect_to people_url, alert: "#{I18n.t 'controllers.authorization.not_authorized'}"
       end
     end
 end
