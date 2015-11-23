@@ -1,0 +1,48 @@
+<h1>Access CA Portal</h1>
+
+<hr />
+
+<h3> <%= "#{I18n.t "views.homepage.account_related"}" %></h3>
+<ul>
+  <li><%= link_to "#{I18n.t "views.homepage.create_account"}", signup_url %></li>
+  <% if current_user %>
+      <li><%= link_to "#{I18n.t "views.homepage.account_details"}", current_user %></li>
+      <li><%= link_to "#{I18n.t "views.homepage.delete_account"}", current_user, method: :delete, data: {confirm: I18n.t("views.delete_confirmation")} %></li>
+      <li><%= link_to "#{I18n.t "views.homepage.account_changes"}", "/people/#{current_user.id}/versions" %></li>
+  <% end %>
+
+</ul>
+
+<h3> <%= "#{I18n.t "views.homepage.host_related"}" %></h3>
+<ul>
+  <% if current_user %>
+      <li><%= link_to "#{I18n.t "views.homepage.create_host"}", 'hosts/new' %></li>
+      <li><%= link_to "#{I18n.t "views.homepage.view_hosts"}", hosts_url%> </li>
+  <% else %>
+      <p><%= "#{I18n.t "views.homepage.login_or_signup"}" %></p>
+  <% end %>
+</ul>
+
+<h3> <%= "#{I18n.t "views.homepage.certificate_related"}" %></h3>
+<ul>
+  <% if current_user %>
+      <li><%= link_to "#{I18n.t "views.homepage.create_csr"} (terminal)", 'certificate_requests/new' %></li>
+      <li><%= link_to "#{I18n.t "views.homepage.create_csr"} (browser)", "#{params[:locale]}/#{current_user.id}/csr" %></li>
+      <li><%= link_to "#{I18n.t "views.homepage.find_csr"}", "#{params[:locale]}/find_csr"%></li>
+      <% if @admin %>
+          <li><%= link_to "#{I18n.t "views.homepage.list_csrs"}", "#{params[:locale]}/ra/csr_list"%></li>
+      <% end %>
+  <% else %>
+      <p><%= "#{I18n.t "views.homepage.login_or_signup"}" %></p>
+  <% end %>
+</ul>
+
+<h3> <%= "#{I18n.t "views.homepage.org_related"}" %></h3>
+<ul>
+  <% if @admin %>
+      <li><%= link_to "#{I18n.t "views.homepage.create_org"}", "#{params[:locale]}/organizations/new" %></li>
+      <li><%= link_to "#{I18n.t "views.homepage.list_orgs"}", organizations_url %></li>
+  <% else %>
+      <p><%= "#{I18n.t "views.homepage.orgs_admin_only"}" %></p>
+  <% end %>
+</ul>
