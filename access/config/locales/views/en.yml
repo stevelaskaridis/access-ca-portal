@@ -23,12 +23,18 @@ en:
         owner: Owner
         organization: Organization
         status: Status
+      organization:
+        name: Name
+        description: Description
+        domain: Domain
     error:
       csr_gen: An error has occurred. We couldn't generate your csr or it has been already generated
       error: An error has occurred
       already_csr: You may already have created a csr
       no_reg: Or you are not registered
       no_csr: You may not have created a csr
+    organizations:
+      other_locales: Other locales
     status: status
     Request_date: Request date
     Person_information: Person information
@@ -38,6 +44,7 @@ en:
     show: Show
     list_people: List People
     list_csr: List Certificate Requests
+    list_organizations: List Organizations
     edit: Edit
     destroy: Destroy
     accept: Accept
@@ -45,6 +52,7 @@ en:
     delete_confirmation: Are you sure?
     new_person: New Person
     new_csr: New Request
+    new_organization: New Organization
     back: Back
     log_in: Log in
     log_out: Log out

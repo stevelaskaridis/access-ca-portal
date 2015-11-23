@@ -1,29 +1,52 @@
 <%= form_for(@organization) do |f| %>
-  <% if @organization.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@organization.errors.count, "error") %> prohibited this organization from being saved:</h2>
+    <% if @organization.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@organization.errors.count, "error") %> prohibited this organization from being saved:</h2>
 
-      <ul>
-      <% @organization.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+          <ul>
+            <% @organization.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :domain %><br>
+      <%= f.text_field :domain %>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :domain %><br>
-    <%= f.text_field :domain %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :description %><br>
+      <%= f.text_area :description %>
+    </div>
+
+    <div class="other_locales">
+      <h3><%= "#{I18n.t "views.organizations.other_locales"}" %></h3>
+      <table>
+        <thead>
+          <td>Locale</td>
+          <td><%= f.label :name %></td>
+          <td><%= f.label :description %></td>
+        </thead>
+      <%@locales.each do |locale|%>
+            <% Globalize.with_locale(locale) do %>
+              <tr>
+                <td><%= "#{locale}" %></td>
+                <td><%= text_field_tag("name_#{locale}", @organization.name) %></td>
+                <td><%= text_area_tag("description_#{locale}", @organization.description)%></td>
+              </tr>
+            <% end %>
+      <% end %>
+      </table>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
 <% end %>

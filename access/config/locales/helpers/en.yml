@@ -20,9 +20,16 @@ en:
         owner: Owner
         organization: Organization
         status: Status
+      organization:
+        name: Name
+        description: Description
+        domain: Domain
     submit:
       person:
         create: Submit
         update: Update Info
       certificate_request:
         create: Submit
+      organization:
+        create: Submit
+        update: Update Info
