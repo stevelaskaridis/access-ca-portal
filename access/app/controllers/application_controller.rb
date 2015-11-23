@@ -9,16 +9,17 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 
-  def authorize
-    redirect_to login_url unless current_user
-  end
-
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
   end
 
   def default_url_options(options = {})
     { locale: I18n.locale }.merge options
+  end
+
+  protected
+  def authorize!
+    redirect_to login_url, alert: "#{I18n.t 'controllers.authorization.not_logged_in'}" unless current_user
   end
 
 end

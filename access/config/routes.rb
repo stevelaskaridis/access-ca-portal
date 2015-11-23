@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  root 'people#index', locale: :en
-  get '/:locale' => 'people#index', as: 'verify_email'
   get '/:locale/:user_id/csr' => 'csr_gen#mozilla_csr'
   post '/:locale/:user_id/submit' => 'csr_gen#csr_submission'
   get '/:locale/error_csr_sub' => 'csr_gen#error_csr_sub'
@@ -11,24 +9,26 @@ Rails.application.routes.draw do
   get '/:locale/ra/csr_pending' => 'ra#csr_pending'
   get '/:locale/ra/csr_approved' => 'ra#csr_approved'
   get '/:locale/ra/csr_rejected' => 'ra#csr_rejected'
-  scope ":locale", locale: /#{APP_CONFIG['available_locales'].join('|')}/ do
-      resources :people do
-        get 'versions' => 'people_versions#index'
-      end
-      get '/people/confirm_email/:token' => 'people#verify_email'
+  scope "(:locale)", locale: /#{APP_CONFIG['available_locales'].join('|')}/ do
+    root 'people#index'
+    get '/:locale' => 'people#index', as: 'verify_email'
+    resources :people do
+      get 'versions' => 'people_versions#index'
+    end
+    get '/people/confirm_email/:token' => 'people#verify_email'
 
-      resources :organizations
-      resources :hosts do
-        get 'versions' => 'hosts_versions#index'
-      end
-      resources :certificate_requests, except: [:edit] do
-        post 'approve' => 'certificate_requests#approve_csr', as: 'approve'
-        post 'reject' => 'certificate_requests#reject_csr', as: 'reject'
-      end
-      get '/signup' => 'people#new'
-      get '/login' => 'sessions#new'
-      post '/login' => 'sessions#create'
-      get '/logout' => 'sessions#destroy'
+    resources :organizations
+    resources :hosts do
+      get 'versions' => 'hosts_versions#index'
+    end
+    resources :certificate_requests, except: [:edit] do
+      post 'approve' => 'certificate_requests#approve_csr', as: 'approve'
+      post 'reject' => 'certificate_requests#reject_csr', as: 'reject'
+    end
+    get '/signup' => 'people#new', as: 'signup'
+    get '/login' => 'sessions#new', as: 'login'
+    post '/login' => 'sessions#create'
+    get '/logout' => 'sessions#destroy', as: 'logout'
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

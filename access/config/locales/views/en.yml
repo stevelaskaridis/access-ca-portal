@@ -46,3 +46,8 @@ en:
     new_person: New Person
     new_csr: New Request
     back: Back
+    log_in: Log in
+    log_out: Log out
+    sign_up: Sign up
+    logged_in_as: Logged in as
+    or: or

@@ -1,5 +1,6 @@
 class HostsController < ApplicationController
   before_action :set_host, only: [:show, :edit, :update, :destroy]
+  before_filter :authorize!, except: [:create, :new]
 
   # GET /hosts
   # GET /hosts.json
@@ -70,5 +71,12 @@ class HostsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def host_params
       params.require(:host).permit(:fqdn, :person_id, :organization_id)
+    end
+
+    def authorize!
+      super
+      if @host && (@host.person != current_user) && (!TmpAdmin.is_admin?(current_user))
+        redirect_to hosts_url, alert: "#{I18n.t 'controllers.authorization.not_authorized'}"
+      end
     end
 end

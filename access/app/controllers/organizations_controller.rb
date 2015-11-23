@@ -1,5 +1,6 @@
 class OrganizationsController < ApplicationController
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
+  before_filter :authorize!
 
   # GET /organizations
   # GET /organizations.json
@@ -70,5 +71,10 @@ class OrganizationsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def organization_params
       params.require(:organization).permit(:name, :domain, :description)
+    end
+
+    def authorize!
+      super
+      redirect_to root_url, alert: "#{I18n.t 'controllers.authorization.not_authorized'}" unless TmpAdmin.is_admin?(current_user)
     end
 end

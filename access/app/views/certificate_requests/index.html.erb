@@ -1,6 +1,3 @@
-<p id="notice"><%= notice %></p>
-<p id="error"><%= flash[:error] %></p>
-
 <h1><%= I18n.t('views.list_csr') %></h1>
 
 <table>
@@ -24,8 +21,8 @@
         <td><%= certificate_request.organization.name %>></td>
         <td><%= link_to I18n.t("views.show"), certificate_request %></td>
         <td><%= link_to I18n.t("views.destroy"), certificate_request, method: :delete, data: { confirm: I18n.t("views.delete_confirmation") } %></td>
-        <td><%= link_to I18n.t("views.accept"), certificate_request_approve_url(certificate_request), method: :post, data: {confirm: I18n.t("views.delete_confirmation") }%></td>
-        <td><%= link_to I18n.t("views.reject"), certificate_request_reject_url(certificate_request), method: :post, data: { confirm: I18n.t("views.delete_confirmation") } %></td>
+        <td><%= link_to I18n.t("views.accept"), certificate_request_approve_url(certificate_request), method: :post %></td>
+        <td><%= link_to I18n.t("views.reject"), certificate_request_reject_url(certificate_request), method: :post %></td>
       </tr>
     <% end %>
   </tbody>

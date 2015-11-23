@@ -1,0 +1,8 @@
+en:
+  controllers:
+    authorization:
+      not_logged_in: "Not authorized! Please log in."
+      not_authorized: "Not authorized! You don't have the necessary privileges."
+    session:
+      welcome: "Welcome!"
+      invalid_email: "The current e-mail could not be found."

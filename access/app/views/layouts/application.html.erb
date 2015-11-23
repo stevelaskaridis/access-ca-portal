@@ -8,6 +8,20 @@
 </head>
 <body>
 
+<div id="user_header">
+  <% if current_user %>
+      <%= "#{I18n.t "views.logged_in_as"}: #{current_user.email}" %>.
+      <%= link_to "#{I18n.t "views.log_out"}", logout_path %>
+  <% else %>
+      <%= link_to "#{I18n.t "views.sign_up"}", signup_path %> <%= "#{I18n.t "views.or"}"%>
+      <%= link_to "#{I18n.t "views.log_in"}", login_path %>
+  <% end %>
+</div>
+
+<p id="notice"><%= notice %></p>
+<p id="alert"><%= flash[:alert] %></p>
+<p id="error"><%= flash[:error] %></p>
+
 <%= yield %>
 
 </body>
