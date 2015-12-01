@@ -1,5 +1,5 @@
-<h1>New Organization</h1>
+<h1><%= I18n.t "views.new_organization"%></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', organizations_path %>
+<%= link_to "#{I18n.t "views.back"}", organizations_path %>

@@ -45,6 +45,8 @@ en:
     list_people: List People
     list_csr: List Certificate Requests
     list_organizations: List Organizations
+    new_organization: New Organization
+    edit_organization: Edit Organization
     edit: Edit
     destroy: Destroy
     accept: Accept
