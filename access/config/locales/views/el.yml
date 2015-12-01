@@ -45,6 +45,8 @@ el:
     list_people: Λίστα Χρηστών
     list_csr: Λίστα Αιτήσεων για Πιστοποιητικό
     list_organizations: Λίστα Οργανισμών
+    new_organization: Νέος Οργανισμός
+    edit_organization: Επεξεργασία Οργανισμού
     edit: Επεξεργασία
     destroy: Διαγραφή
     accept: Αποδοχή
@@ -52,7 +54,6 @@ el:
     delete_confirmation: Είστε σίγουρος/η;
     new_person: Νέος Χρήστης
     new_csr: Νέα Άιτηση
-    new_organization: Νέος Οργανισμός
     back: Επιστροφή
     log_in: Σύνδεση
     log_out: Αποσύνδεση
