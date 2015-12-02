@@ -8,7 +8,7 @@ class Host < ActiveRecord::Base
   # Validations
   validates :person, presence: true
   validates :organization, presence: true
-  validates :fqdn, presence: true, hostname: true
+  validates :fqdn, presence: true, hostname: true, institutional_hostname: true
 
   # Versioning
   has_paper_trail
