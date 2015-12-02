@@ -7,9 +7,6 @@ class HostnameValidator < ActiveModel::EachValidator
     else
       begin
         IPSocket.getaddress(value)
-        unless is_institutional(value, record.organization)
-
-        end
       rescue SocketError => e
         record.errors[attribute] << ("could not be resolved")
       end

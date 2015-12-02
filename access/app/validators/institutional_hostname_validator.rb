@@ -9,6 +9,10 @@ class InstitutionalHostnameValidator < ActiveModel::EachValidator
 
   private
   def is_institutional(hostname, organization)
-    hostname =~ /#{organization.domain}$/
+    if organization
+      hostname =~ /#{organization.domain}$/
+    else
+      false
+    end
   end
 end
