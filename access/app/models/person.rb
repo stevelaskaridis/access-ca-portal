@@ -10,15 +10,18 @@ class Person < ActiveRecord::Base
   before_create :confirm_token
 
   # Validations
-  validates :first_name_latin, presence: true
+  validates :first_name_latin, presence: true, length: { maximum: 254 }
   validates_format_of :first_name_latin, :with => /\A[A-Z][a-z]*\Z/
-  validates :last_name_latin, presence: true
+  validates :last_name_latin, presence: true, length: { maximum: 254 }
   validates_format_of :last_name_latin, :with => /\A[A-Z][a-z]*\Z/
-  validates :email, presence: true, uniqueness: true, email: true, email_alternative_email: true
+  validates :email, presence: true, uniqueness: true, email: true, email_alternative_email: true, length: { maximum: 254 }
   validates :scientific_field, presence: true
   validates :position, presence: true
   validates :organization, presence: true
   validates :phone_number, presence: true, phone: true
+  validates :first_name, length: { maximum: 254 }
+  validates :last_name, length: { maximum: 254 }
+  validates :department, length: { maximum: 254 }
 
 
   translates :first_name, :last_name, :department, versioning: :paper_trail
