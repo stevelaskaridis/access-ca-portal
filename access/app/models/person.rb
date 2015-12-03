@@ -14,8 +14,9 @@ class Person < ActiveRecord::Base
   validates_format_of :first_name_latin, :with => /\A[A-Z][a-z]*\Z/
   validates :last_name_latin, presence: true, length: { maximum: 254 }
   validates_format_of :last_name_latin, :with => /\A[A-Z][a-z]*\Z/
-  validates :email, presence: true, uniqueness: true, email: true, email_alternative_email: true, length: { maximum: 254 },
-            institutional_email: true
+  validates :email, presence: true, uniqueness: true, email: true, email_alternative_email: true, length: { maximum: 254 }
+  validates :email, institutional_email: true if APP_CONFIG['registration']['accept_only_institutional_mails'] == 'true'
+
   validates :scientific_field, presence: true
   validates :position, presence: true
   validates :organization, presence: true
