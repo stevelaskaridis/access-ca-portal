@@ -15,10 +15,12 @@ class CsrGenController < ApplicationController
     spkac = params[:SPKAC]
     date = Date.today.to_s
     requestor_id = params[:user_id]
-    body = 'C=' + countryName + "\n" + 'O=' + organizationName + "\n" + 'OU=' + organizationalUnitName + "\n" + 'CN=' + commonName + "\n" + "SPKAC=" + spkac
+    body = ['C='+countryName,'O='+organizationName, 'OU='+organizationalUnitName,'CN='+commonName, "SPKAC="+spkac].join('/')
 
     org_id = @person.organization.id
-    @csr = CertificateRequest.new( :created_at => date, :updated_at => date, :body => body, :uuid =>uniqueid, :csr_type => 'spkac', :requestor_id => requestor_id ,  :status => 'pending', :owner_dn_id => requestor_id, :organization_id => org_id )
+    @csr = CertificateRequest.new( :created_at => date, :updated_at => date, :body => body, :uuid =>uniqueid,
+                                   :csr_type => 'spkac', :requestor_id => requestor_id ,  :status => 'pending',
+                                   :owner_dn_id => requestor_id, :organization_id => org_id )
 
     if @csr.save
       render :inline => '<pre><%= @csr.body %></pre>'

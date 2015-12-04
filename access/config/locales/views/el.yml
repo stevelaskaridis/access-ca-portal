@@ -59,6 +59,7 @@ el:
     sign_up: Εγγραφή
     logged_in_as: Συνδεδεμένος ως
     or: ή
+    submit: Υποβολή
     homepage:
       account_related: 'Λογαριασμός'
       host_related: 'Διακομιστές'
