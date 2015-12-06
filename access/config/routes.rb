@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  get '/:locale/ra/csr_list' => 'ra#csr_list'
-  get '/:locale/ra/csr_pending' => 'ra#csr_pending'
-  get '/:locale/ra/csr_approved' => 'ra#csr_approved'
-  get '/:locale/ra/csr_rejected' => 'ra#csr_rejected'
   scope "(:locale)", locale: /#{APP_CONFIG['available_locales'].join('|')}/ do
     root 'site#index'
     get '/:locale' => 'people#index', as: 'verify_email'
@@ -28,6 +24,11 @@ Rails.application.routes.draw do
     get '/find_csr' => 'certificate_requests#find_csr', as: 'find_csr'
     post '/find_csr' => 'certificate_requests#csr_value'
     get '/find_csr/no_csr' => 'certificate_requests#error', as: 'no_csr'
+
+    get '/ra/csr_list' => 'ra#csr_list'
+    get '/ra/csr_pending' => 'ra#csr_pending'
+    get '/ra/csr_approved' => 'ra#csr_approved'
+    get '/ra/csr_rejected' => 'ra#csr_rejected'
 
     get '/signup' => 'people#new', as: 'signup'
     get '/login' => 'sessions#new', as: 'login'
