@@ -1,3 +1,5 @@
+require 'helpers/x509_helpers'
+
 class CsrGenController < ApplicationController
 
   def mozilla_csr
@@ -5,22 +7,8 @@ class CsrGenController < ApplicationController
   end
 
   def csr_submission
-    @person = Person.find(params[:user_id])
-
-    uniqueid = Digest::SHA1::hexdigest Time.now.to_f.to_s
-    countryName = params[:countryName]
-    organizationName = params[:organizationName]
-    organizationalUnitName = params[:organizationalUnitName]
-    commonName = params[:commonName]
-    spkac = params[:SPKAC]
-    date = Date.today.to_s
-    requestor_id = params[:user_id]
-    body = ['C='+countryName,'O='+organizationName, 'OU='+organizationalUnitName,'CN='+commonName, "SPKAC="+spkac].join('/')
-
-    org_id = @person.organization.id
-    @csr = CertificateRequest.new( :created_at => date, :updated_at => date, :body => body, :uuid =>uniqueid,
-                                   :csr_type => 'spkac', :requestor_id => requestor_id ,  :status => 'pending',
-                                   :owner_dn_id => requestor_id, :organization_id => org_id )
+    @csr = CertificateRequest.new(requestor_id: current_user.id)
+    X509Helpers.csr_spkac_creation(@csr, params)
 
     if @csr.save
       render :inline => '<pre><%= @csr.body %></pre>'
