@@ -10,7 +10,7 @@ class Certificate < ActiveRecord::Base
              class_name: 'DistinguishedName',
              foreign_key: 'distinguished_name_id'
 
-  belongs_to :alternative_name, polymorphic: true
+  has_many :alternative_names
 
   # Validations
   validates :body, presence: true, cert: true
