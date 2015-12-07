@@ -2,10 +2,10 @@ require 'socket'
 
 class HostnameValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    unless hostname_format_valid? value
+    unless HostnameValidator.hostname_format_valid? value
       record.errors[attribute] << (options[:message] || "is not a hostname")
     else
-      unless hostname_dns_valid? value
+      unless HostnameValidator.hostname_dns_valid? value
         record.errors[attribute] << ("could not be resolved")
       end
     end
