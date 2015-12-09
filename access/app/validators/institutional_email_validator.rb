@@ -8,7 +8,7 @@ class InstitutionalEmailValidator < ActiveModel::EachValidator
   private
   def is_institutional(email)
     orgs = Organization.all.map {|d| d.domain}
-    orgs << %w(cern.ch upnet.gr)
+    (orgs += APP_CONFIG['registration']['additional_orgs_for_mails']) if APP_CONFIG['registration']['additional_orgs_for_mails']
     orgs.each do |o|
       if email =~ /#{o}$/
         return true
