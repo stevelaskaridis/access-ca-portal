@@ -7,7 +7,11 @@
     <input name="commonName" value="<%=[@person.first_name_latin.capitalize, @person.last_name_latin.capitalize].join(' ') %>" readonly><br />
 
     <h2>Organization Name(O)</h2>
-    <input name="organizationName" value=""><br />
+    <%if @organization%>
+      <input name="organizationName" value="<%= @organization %>" readonly><br />
+    <% else %>
+      <input name="organizationName" value=""><br />
+    <% end %>
     
     <h2>Organizational Unit Name(OU)</h2>
     <input name="organizationalUnitName" value="<%= @person.organization.domain %>" readonly><br />

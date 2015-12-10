@@ -17,6 +17,7 @@ default: &default
       - "cern.ch"
       - "upnet.ch"
     accept_csr_only_from_country: "GR"
+    default_organization: "HellasGrid"
   CA:
     crl_distribution_point: http://crl.grid.auth.gr/hellasgrid-ca-2006/82b36fca.crl
     ocsp_endpoint: ""
