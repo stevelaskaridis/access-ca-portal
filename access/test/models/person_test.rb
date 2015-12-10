@@ -8,7 +8,7 @@ class PersonTest < ActiveSupport::TestCase
       last_name: 'Jobs',
       first_name_latin: 'Steve',
       last_name_latin: 'Jobs',
-      email: 'jobs@apple.com',
+      email: "jobs@#{Organization.first.domain}",
       department: 'Technology',
       scientific_field: ScientificField.first,
       position: Position.first,
@@ -36,6 +36,7 @@ class PersonTest < ActiveSupport::TestCase
 
   def test_person_with_invalid_email
     invalid_emails = ['foo', '@bar', 'foo@bar']
+    invalid_emails << 'foo@somenonorgdomain.com' if APP_CONFIG['registration']['accept_only_institutional_mails'] == 'true'
     invalid_emails.each do |ie|
       invalid_params = valid_params.clone
       invalid_params[:email] = ie

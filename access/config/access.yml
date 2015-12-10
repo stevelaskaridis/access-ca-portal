@@ -10,6 +10,13 @@ default: &default
   email:
     default_from: no-reply@access.hellasgrid.gr
   snapshot_limit: 20
+  registration:
+    accept_only_institutional_mails: "true"
+    # The variable below is checked only if accept_only_institutional_mails == "true"
+    additional_orgs_for_mails:
+      - "cern.ch"
+      - "upnet.ch"
+    accept_csr_only_from_country: "GR"
   CA:
     crl_distribution_point: http://crl.grid.auth.gr/hellasgrid-ca-2006/82b36fca.crl
     ocsp_endpoint: ""

@@ -15,13 +15,23 @@ class X509Helpers
     return true
   end
 
+  def self.valid_spkac_csr?(body)
+    info, spkac = body.split(/SPKAC=/)
+    begin
+      if spkac
+        CertificateAuthority::SigningRequest.from_netscape_spkac(spkac)
+      else
+        return false
+      end
+    end
+    true
+  end
+
   def self.csr_creation(certificate_request, params)
     begin
       csr = CertificateAuthority::SigningRequest.from_x509_csr(params['certificate_request']['body'])
       dn = DistinguishedName.find_by_subject_dn(csr.distinguished_name.x509_name.to_s)
-      if dn
-        certificate_request.owner_dn = dn
-      else
+      unless dn
         dn = DistinguishedName.new(owner_id: params[:owner_id],
                                    subject_dn: csr.distinguished_name.x509_name.to_s,
                                    owner_type: 'Person')
@@ -39,6 +49,37 @@ class X509Helpers
       certificate_request.status = 'pending'
     rescue OpenSSL::X509::RequestError
       return
+    end
+  end
+
+  def self.csr_spkac_creation(certificate_request, params)
+    begin
+    spkac = params[:SPKAC].gsub(/\n/, '').gsub(/\r/, '')
+    csr = CertificateAuthority::SigningRequest.from_netscape_spkac(spkac)
+    subject_dn = ['/C='+params[:countryName],'O='+params[:organizationName],
+                  'OU='+params[:organizationalUnitName],'CN='+params[:commonName]].join("/")
+    csr.distinguished_name = subject_dn
+    dn = DistinguishedName.find_by_subject_dn(subject_dn)
+    unless dn
+      dn = DistinguishedName.new(owner_id: params[:user_id],
+                                 subject_dn: subject_dn,
+                                 owner_type: 'Person')
+      dn.save!
+
+    end
+    certificate_request.owner_dn = dn
+    certificate_request.uuid = SecureRandom.hex(10)
+    certificate_request.csr_type = 'spkac'
+    certificate_request.body = subject_dn + "/SPKAC=#{spkac}"
+    org = Organization.find_by_domain(dn.subject_dn.split('/')[3].split('OU=')[1])
+    if org
+      certificate_request.organization = org
+    else
+      raise Exception()
+    end
+    certificate_request.status = 'pending'
+    rescue OpenSSL::X509::RequestError
+
     end
   end
 

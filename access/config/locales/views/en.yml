@@ -61,6 +61,7 @@ en:
     sign_up: Sign up
     logged_in_as: Logged in as
     or: or
+    submit: Submit
     homepage:
       account_related: 'Account related'
       host_related: 'Host related'

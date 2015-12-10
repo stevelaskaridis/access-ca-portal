@@ -5,7 +5,7 @@ john_appleseed:
   last_name: Appleseed
   first_name_latin: John
   last_name_latin: Appleseed
-  email: johnappleseed@example.com
+  email: johnappleseed@auth.gr
   position: position1
   department: ""
   scientific_field: field1
@@ -17,7 +17,7 @@ john_stevenson:
   last_name: Stevenson
   first_name_latin: Bob
   last_name_latin: Stevenson
-  email: bob_stevenson@example.com
+  email: bob_stevenson@edet.gr
   position: position2
   department: ""
   scientific_field: other
