@@ -95,6 +95,7 @@ class CertificateRequestsController < ApplicationController
   ################################################################
 
   def mozilla_csr
+    @country = APP_CONFIG['registration']['accept_csr_only_from_country']
     @person = Person.find(params[:user_id])
   end
 
