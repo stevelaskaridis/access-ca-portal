@@ -15,7 +15,9 @@ class CertificateRequest < ActiveRecord::Base
   # Validations
   validates :status, presence: true, allow_nil: false
   validates_inclusion_of :status, in: %w(pending rejected signed approved)
-  validates :body, presence: true, csr: true
+  validates :body, presence: true
+  validates :body, csr: true,
+            unless: Proc.new {|obj| obj.body.nil?}
   validates :body, hostname_dn: true,
             if: Proc.new { |obj|
               if obj.owner_dn_id

@@ -33,7 +33,7 @@ class X509Helpers
       dn = DistinguishedName.find_by_subject_dn(csr.distinguished_name.x509_name.to_s)
       unless dn
         dn = DistinguishedName.new(owner_id: params[:owner_id],
-                                   subject_dn: csr.distinguished_name.x509_name.to_s,
+                                   subject_dn: csr.distinguished_name.x509_name.to_s.split('/subjectAltName')[0],
                                    owner_type: 'Person')
         dn.save!()
       end
