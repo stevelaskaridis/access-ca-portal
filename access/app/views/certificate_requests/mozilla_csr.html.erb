@@ -1,20 +1,27 @@
 <%= form_tag 'submit' do %>
     <h2>E-mail:</h2>
-    <input name="emailAddress" value="<%= @person.email %>"><br />
+    <input name="emailAddress" value="<%= @person.email %>" readonly><br />
 
     <h2>Common Νame(CN)</h2>
     <% person_cn = @person.first_name_latin.capitalize + " " + @person.last_name_latin.capitalize %>
-    <input name="commonName" value="<%=[@person.first_name_latin.capitalize, @person.last_name_latin.capitalize].join(' ') %>"><br />
+    <input name="commonName" value="<%=[@person.first_name_latin.capitalize, @person.last_name_latin.capitalize].join(' ') %>" readonly><br />
 
     <h2>Organization Name(O)</h2>
-    <input name="organizationName" value=""><br />
+    <%if @organization%>
+      <input name="organizationName" value="<%= @organization %>" readonly><br />
+    <% else %>
+      <input name="organizationName" value=""><br />
+    <% end %>
     
     <h2>Organizational Unit Name(OU)</h2>
-    <input name="organizationalUnitName" value="<%= @person.organization.domain %>" ><br />
+    <input name="organizationalUnitName" value="<%= @person.organization.domain %>" readonly><br />
     
     <h2>Country Name(C)</h2>
-    <input name="countryName" value=""><br />
-    
+    <%if @country%>
+      <input name="countryName" value="<%=@country%>" readonly><br />
+    <%else%>
+      <input name="countryName" value=""><br />
+    <% end %>
     <label for="SPKAC"><h2>Key_size:</h2></label><br />
     <keygen name="SPKAC" class="textbox" keytype="rsa"></keygen><br />
     <input type="submit" value="<%="#{I18n.t "views.submit"}"%>" class="textbox"><br /><br />
