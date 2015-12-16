@@ -1,1 +1,2 @@
-json.extract! @certificate_request, :id, :created_at, :updated_at
+json.partial! 'certificate_requests/csr', certificate_request: @certificate_request
+json.status @certificate_request.status

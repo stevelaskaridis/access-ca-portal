@@ -30,6 +30,8 @@ Rails.application.routes.draw do
     get '/ra/csr_approved' => 'ra#csr_approved'
     get '/ra/csr_rejected' => 'ra#csr_rejected'
 
+    get 'ca/list_approved' => 'ca#list_approved'
+
     get '/signup' => 'people#new', as: 'signup'
     get '/login' => 'sessions#new', as: 'login'
     post '/login' => 'sessions#create'

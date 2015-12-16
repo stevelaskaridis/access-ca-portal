@@ -1,4 +1,5 @@
 require 'exceptions/invalid_action'
+require 'json'
 
 class CertificateRequest < ActiveRecord::Base
   # Associations
@@ -52,5 +53,45 @@ class CertificateRequest < ActiveRecord::Base
     else
       raise InvalidActionError.new("#{I18n.t "exceptions.invalid_action.reject_csr"} #{csr.status}")
     end
+  end
+
+  def export_xml
+    construct_request_hash.to_xml
+  end
+
+  def export_json
+    construct_request_hash.to_json
+  end
+
+  def extract_alternative_names(show_order=false)
+    dn = ""
+    if self.csr_type == 'classic'
+      dn = CertificateAuthority::SigningRequest.from_x509_csr(self.body).distinguished_name.x509_name.to_s
+    elsif self.csr_type == 'spkac'
+      dn = self.body.split("/SPKAC=")[0]
+    end
+    if (/subjectAltName/ =~ self.body)
+      if show_order
+        alt_names = dn.split('/subjectAltName=')[1].split(',')
+      else
+        alt_names = dn.split('/subjectAltName=')[1].split(Regexp.union([',', '='])).delete_if {|val| val=~ Regexp.union([/email\.\d+/, /DNS\.\d+/])}
+      end
+
+    else
+      alt_names = []
+    end
+    alt_names
+  end
+
+  private
+  def construct_request_hash
+    request_hash = {}
+    request_hash[:body] = self.body
+    request_hash[:csr_type] = self.csr_type
+
+    request_hash[:altnames] = extract_alternative_names(show_order: true)
+    request_hash[:uniqueid] = self.uuid
+
+    request_hash
   end
 end
