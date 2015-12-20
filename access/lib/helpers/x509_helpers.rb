@@ -83,30 +83,73 @@ class X509Helpers
     end
   end
 
+  # Certificate Reader is a class because it has to monitor CRLs as a field as well.
+
+  class CertificateReader
+    attr_reader :certificate_obj
+    def initialize(certificate_body, crl="")
+      if crl != ""
+        crl_body = crl
+      else
+        @certificate_obj = CertificateAuthority::Certificate.from_x509_cert(certificate_body)
+        ca_hash = @certificate_obj.openssl_body.issuer.hash.to_s(base=16)
+        crl_file = Dir.tmpdir + "/" + ca_hash + ".crl"
+        if File.exist?(crl_file) and (Time.now.to_i - open(crl_file).stat.ctime.to_i) < 10
+          crl_body = open(crl_file).read
+        else
+          crl_url = APP_CONFIG['CA']['crl_distribution_point'][ca_hash] || "#{Rails.root}/crl.pem"
+          crl_body = open(crl_url).read
+          tmp_crl = File.open(crl_file, "w")
+          tmp_crl.print crl_body
+          tmp_crl.close
+        end
+      end
+      crl = OpenSSL::X509::CRL.new(crl_body)
+      @serials = Array.new
+      crl.revoked.each do |rev|
+        @serials << rev.serial
+      end
+    end
+
+    def get_certificate_status
+      status = 'valid'
+      @now = Time::now.to_i
+      if @serials.include? @certificate_obj.openssl_body.serial
+        status = 'revoked'
+      elsif @certificate_obj.not_after.to_i < @now
+        status = 'expired'
+      end
+      status
+    end
+
+  end
+
+
   private
   @@signing_profile = {
       "extensions" => {
           "basicConstraints" => {"ca" => false},
-          "crlDistributionPoints" => {"uri" => "#{APP_CONFIG['CA']['crl_distribution_point']}"},
+          "crlDistributionPoints" => {"uri" => "#{APP_CONFIG['CA']['signing']['crl_distribution_point']}"},
           "subjectKeyIdentifier" => {},
           "authorityKeyIdentifier" => {},
-          "authorityInfoAccess" => {"ocsp" => ["#{APP_CONFIG['CA']['ocsp_endpoint']}"]},
-          "keyUsage" => {"usage" => APP_CONFIG['CA']['key_usages']},
-          "extendedKeyUsage" => {"usage" => APP_CONFIG['CA']['extended_key_usages']},
+          "authorityInfoAccess" => {"ocsp" => ["#{APP_CONFIG['CA']['signing']['ocsp_endpoint']}"]},
+          "keyUsage" => {"usage" => APP_CONFIG['CA']['signing']['key_usages']},
+          "extendedKeyUsage" => {"usage" => APP_CONFIG['CA']['signing']['extended_key_usages']},
           "subjectAltName" => {"uris" => [""]},
           "certificatePolicies" => {
-              "policy_identifier" => "#{APP_CONFIG['CA']['policy_id']}", "cps_uris" => APP_CONFIG['CA']['cps_uris'],
+              "policy_identifier" => "#{APP_CONFIG['CA']['signing']['policy_id']}", "cps_uris" => APP_CONFIG['CA']['signing']['cps_uris'],
               "user_notice" => {
-                  "explicit_text" => "#{APP_CONFIG['CA']['user_notice']['explicit_text']}",
-                  "organization" => "#{APP_CONFIG['CA']['user_notice']['organization']}",
-                  "notice_numbers" => "#{APP_CONFIG['CA']['user_notice']['notice_numbers']}"
+                  "explicit_text" => "#{APP_CONFIG['CA']['signing']['user_notice']['explicit_text']}",
+                  "organization" => "#{APP_CONFIG['CA']['signing']['user_notice']['organization']}",
+                  "notice_numbers" => "#{APP_CONFIG['CA']['signing']['user_notice']['notice_numbers']}"
               }
           }
       }
   }
 
-  ######################## Certificate related ########################
-  #####################################################################
+  ######################## Certificate signing related ########################
+  #############################################################################
+
   def self.sign_csr(csr, ca_cert)
     cert_to_sign = CertificateAuthority::SigningRequest.from_x509_csr(csr).to_cert
     cert_to_sign = CertificateAuthority::Certificate.from_x509_cert(ca_cert)
