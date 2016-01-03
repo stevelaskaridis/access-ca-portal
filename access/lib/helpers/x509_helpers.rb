@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class X509Helpers
 
   ############################ CSR related ############################
@@ -91,23 +93,36 @@ class X509Helpers
       if crl != ""
         crl_body = crl
       else
-        @certificate_obj = CertificateAuthority::Certificate.from_x509_cert(certificate_body)
+        # The certificate_openssl var is used as an intermediary step for reading the whole
+        # info ouput saved in the XML record body.
+        certificate_openssl = OpenSSL::X509::Certificate.new(certificate_body)
+        @certificate_obj = CertificateAuthority::Certificate.from_x509_cert(certificate_openssl)
         ca_hash = @certificate_obj.openssl_body.issuer.hash.to_s(base=16)
         crl_file = Dir.tmpdir + "/" + ca_hash + ".crl"
+        check_crl = true
         if File.exist?(crl_file) and (Time.now.to_i - open(crl_file).stat.ctime.to_i) < 10
           crl_body = open(crl_file).read
         else
           crl_url = APP_CONFIG['CA']['crl_distribution_point'][ca_hash] || "#{Rails.root}/crl.pem"
-          crl_body = open(crl_url).read
-          tmp_crl = File.open(crl_file, "w")
-          tmp_crl.print crl_body
-          tmp_crl.close
+          tmp_crl = nil
+          begin
+            crl_body = open(crl_url).read
+            tmp_crl = File.open(crl_file, "w")
+            tmp_crl.print crl_body
+          rescue
+            check_crl = false
+          ensure
+            tmp_crl.close unless tmp_crl.nil?
+          end
         end
       end
-      crl = OpenSSL::X509::CRL.new(crl_body)
-      @serials = Array.new
-      crl.revoked.each do |rev|
-        @serials << rev.serial
+      # Check with CRL
+      if check_crl
+        crl = OpenSSL::X509::CRL.new(crl_body)
+        @serials = Array.new
+        crl.revoked.each do |rev|
+          @serials << rev.serial
+        end
       end
     end
 
