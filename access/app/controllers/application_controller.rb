@@ -4,10 +4,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   before_action :set_locale
 
+  helper_method :current_user
+
   def current_user
     @current_user || Person.find(session[:user_id]) if session[:user_id]
   end
-  helper_method :current_user
 
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale

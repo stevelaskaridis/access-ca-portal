@@ -36,6 +36,7 @@ class PeopleController < ApplicationController
       if @person.save && !invalid_flag
         UserMailer.new_user_registration_confirmation(@person)
         @person.alternative_emails.each { |alt_mail| UserMailer.new_alt_mail_confirmation(alt_mail)}
+        session[:user_id] = @person.id # login as the user after they have been created
         format.html { redirect_to @person, notice: 'Person was successfully created.' }
         format.json { render :show, status: :created, location: @person }
       else
