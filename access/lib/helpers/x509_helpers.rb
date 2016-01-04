@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'helpers/type_helpers'
 
 class X509Helpers
 
@@ -29,14 +30,20 @@ class X509Helpers
     true
   end
 
-  def self.csr_creation(certificate_request, params)
+  def self.csr_creation(certificate_request, params, session)
     begin
       csr = CertificateAuthority::SigningRequest.from_x509_csr(params['certificate_request']['body'])
       dn = DistinguishedName.find_by_subject_dn(csr.distinguished_name.x509_name.to_s)
       unless dn
-        dn = DistinguishedName.new(owner_id: params[:owner_id],
+        type = nil
+        if TypeHelpers::isPerson?(csr.distinguished_name.x509_name.to_s)
+          type = 'Person'
+        elsif TypeHelpers::isHost?(csr.distinguished_name.x509_name.to_s)
+          type = 'Host'
+        end
+        dn = DistinguishedName.new(owner_id: session[:user_id],
                                    subject_dn: csr.distinguished_name.x509_name.to_s.split('/subjectAltName')[0],
-                                   owner_type: 'Person')
+                                   owner_type: type)
         dn.save!()
       end
       certificate_request.owner_dn = dn
