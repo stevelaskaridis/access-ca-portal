@@ -57,4 +57,10 @@ class Person < ActiveRecord::Base
       self.verification_token = SecureRandom.urlsafe_base64.to_s
     end
   end
+
+  def certificate_requests
+    person_csrs = []
+    person_csrs << self.distinguished_names.map { |dn| dn.certificate_requests.to_a }
+    person_csrs
+  end
 end
