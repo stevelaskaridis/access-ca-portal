@@ -1,4 +1,5 @@
 require 'helpers/x509_helpers'
+require 'helpers/type_helpers'
 
 class CsrValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
@@ -26,15 +27,16 @@ class CsrValidator < ActiveModel::EachValidator
   end
 
   def self.valid_person_csr(csr, distinguished_name)
-    email=/([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})/
+    email = /([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})/
+    name = TypeHelpers::PERSON_NAME_REGEX
     if country = APP_CONFIG['registration']['accept_csr_only_from_country']
       unless (X509Helpers.valid_csr?(csr) || X509Helpers.valid_spkac_csr?(csr)) and
-          (distinguished_name =~ /\A(\/C=#{country.upcase}\/O=.*\/OU=.*\..*\/CN=[A-Z][a-z]* [A-Z][a-z]*)(\/subjectAltName=(email.[1-9]\d*=#{email})(,(email.[1-9]\d*=#{email}))*)?\z/) == 0
+          (distinguished_name =~ /\A(\/C=#{country.upcase}\/O=.*\/OU=.*\..*\/CN=#{name})(\/subjectAltName=(email.[1-9]\d*=#{email})(,(email.[1-9]\d*=#{email}))*)?\z/) == 0
         return false
       end
     else
       unless (X509Helpers.valid_csr?(csr) || X509Helpers.valid_spkac_csr?(csr)) and
-          (distinguished_name =~ /\A(\/C=[A-Z]{2}\/O=.*\/OU=.*\..*\/CN=[A-Z][a-z]* [A-Z][a-z]*)(\/subjectAltName=(email.[1-9]\d*=#{email})(,(email.[1-9]\d*=#{email}))*)?\z/) == 0
+          (distinguished_name =~ /\A(\/C=[A-Z]{2}\/O=.*\/OU=.*\..*\/CN=#{name})(\/subjectAltName=(email.[1-9]\d*=#{email})(,(email.[1-9]\d*=#{email}))*)?\z/) == 0
         return false
       end
     end
@@ -42,15 +44,15 @@ class CsrValidator < ActiveModel::EachValidator
   end
 
   def self.valid_host_csr(csr, distinguished_name)
-    hostname = /\A[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix
+    hostname = TypeHelpers::HOSTNAME_REGEX
     if country = APP_CONFIG['registration']['accept_csr_only_from_country']
       unless X509Helpers.valid_csr?(csr) and
-          (distinguished_name =~ /\A(\/C=#{country.upcase}\/O=.*\/OU=.*\..*\/CN=[A-Z][a-z]* [A-Z][a-z]*)(\/subjectAltName=(DNS.[1-9]\d*=#{hostname})(,(DNS.[1-9]\d*=#{hostname}))*)?\z/) == 0
+          (distinguished_name =~ /\A(\/C=#{country.upcase}\/O=.*\/OU=.*\..*\/CN=#{hostname})(\/subjectAltName=(DNS.[1-9]\d*=#{hostname})(,(DNS.[1-9]\d*=#{hostname}))*)?\z/) == 0
         return false
       end
     else
       unless X509Helpers.valid_csr?(csr) and
-          (distinguished_name =~ /\A(\/C=[A-Z]{2}\/O=.*\/OU=.*\..*\/CN=[A-Z][a-z]* [A-Z][a-z]*)(\/subjectAltName=(DNS.[1-9]\d*=#{hostname})(,(DNS.[1-9]\d*=#{hostname}))*)?\z/) == 0
+          (distinguished_name =~ /\A(\/C=[A-Z]{2}\/O=.*\/OU=.*\..*\/CN=#{hostname})(\/subjectAltName=(DNS.[1-9]\d*=#{hostname})(,(DNS.[1-9]\d*=#{hostname}))*)?\z/) == 0
         return false
       end
     end

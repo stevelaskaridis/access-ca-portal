@@ -1,4 +1,5 @@
 require 'helpers/x509_helpers'
+require 'helpers/type_helpers'
 
 class DnValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
@@ -14,14 +15,15 @@ class DnValidator < ActiveModel::EachValidator
   end
 
   def self.is_valid_person_dn?(dn)
+    name = TypeHelpers::PERSON_NAME_REGEX
     if country = APP_CONFIG['registration']['accept_csr_only_from_country']
-      if dn =~ /\A\/C=#{country.upcase}\/O=.*\/OU=.*\..*\/CN=[A-Z][a-z]* [A-Z][a-z]*\z/
+      if dn =~ /\A\/C=#{country.upcase}\/O=.*\/OU=.*\..*\/CN=#{name}\z/
         true
       else
         false
       end
     else
-      if dn =~ /\A\/C=[A-Z]{2}\/O=.*\/OU=.*\..*\/CN=[A-Z][a-z]* [A-Z][a-z]*\z/
+      if dn =~ /\A\/C=[A-Z]{2}\/O=.*\/OU=.*\..*\/CN=#{name}\z/
         true
       else
         false
@@ -30,14 +32,15 @@ class DnValidator < ActiveModel::EachValidator
   end
 
   def self.is_valid_host_dn?(dn)
+    hostname = TypeHelpers::HOSTNAME_REGEX
     if country = APP_CONFIG['registration']['accept_csr_only_from_country']
-      if dn =~ /\A\/C=#{country.upcase}\/O=.*\/OU=.*\..*\/CN=[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?*\z/
+      if dn =~ /\A\/C=#{country.upcase}\/O=.*\/OU=.*\..*\/CN=#{hostname}/
         true
       else
         false
       end
     else
-      if dn =~ /\A\/C=[A-Z]{2}\/O=.*\/OU=.*\..*\/CN=[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?*\z/
+      if dn =~ /\A\/C=[A-Z]{2}\/O=.*\/OU=.*\..*\/CN=#{hostname}/
         true
       else
         false

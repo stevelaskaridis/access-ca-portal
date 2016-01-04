@@ -29,13 +29,14 @@ class CertificateRequestsController < ApplicationController
   def create
     @certificate_request = CertificateRequest.new(certificate_request_params)
     @certificate_request.requestor = current_user
-    X509Helpers.csr_creation(@certificate_request, params)
+    X509Helpers.csr_creation(@certificate_request, params, session)
 
     respond_to do |format|
       if @certificate_request.save
         format.html { redirect_to certificate_requests_url, notice: 'Certificate request was successfully created.' }
         format.json { render :show, status: :created, location: @certificate_request }
       else
+        # The form only shows the CSR body, so all errors have to relate to this field.
         if (@certificate_request.errors['body'])
           @certificate_request.errors.each do |k,v|
             @certificate_request.errors.delete(k) unless k == :body
