@@ -2,6 +2,6 @@
 
 <%= form_tag({action: :upload_certs}, multipart: true) do %>
     <%= label_tag 'Certificates xml file'%>
-    <%= file_field_tag 'certs.xml' %>
+    <%= file_field_tag 'certs.xml', :accept => 'text/xml' %>
     <%= submit_tag 'Upload' %>
 <% end %>

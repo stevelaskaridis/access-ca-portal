@@ -1,0 +1,2 @@
+# Maximum size of a request handled by the application.
+max_request_body_size: 1024

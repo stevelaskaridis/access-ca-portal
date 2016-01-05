@@ -1,6 +1,8 @@
 require 'helpers/x509_helpers'
 
 class CaController < ApplicationController
+  before_filter :authorize!
+
   def list_approved
     @approved_csrs = CertificateRequest.where(status: 'approved')
   end
@@ -49,6 +51,15 @@ class CaController < ApplicationController
 
       # TODO: Send e-mail notification to the user
       render :text=>@cert_hash['records'].size.to_s + " certificates were uploaded\n"
+    end
+  end
+
+  private
+
+  def authorize!
+    super
+    if (current_user && !TmpAdmin.is_admin?(current_user))
+      redirect_to root_url, alert: "#{I18n.t 'controllers.authorization.not_authorized'}"
     end
   end
 end
