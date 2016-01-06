@@ -36,12 +36,21 @@ class X509Helpers
       dn = DistinguishedName.find_by_subject_dn(csr.distinguished_name.x509_name.to_s)
       unless dn
         type = nil
+        owner_id = nil
         if TypeHelpers::isPerson?(csr.distinguished_name.x509_name.to_s)
           type = 'Person'
+          owner_id = session[:user_id]
         elsif TypeHelpers::isHost?(csr.distinguished_name.x509_name.to_s)
           type = 'Host'
+          fqdn = (csr.distinguished_name.x509_name.to_s.match(/CN=(#{TypeHelpers::HOSTNAME_REGEX})/))[1]
+          host = Host.find_by_fqdn(fqdn)
+          if host
+            owner_id = host.id
+          else
+            owner_id = self.construct_host_from_subject_dn(csr.distinguished_name.x509_name.to_s, session[:user_id]).id
+          end
         end
-        dn = DistinguishedName.new(owner_id: session[:user_id],
+        dn = DistinguishedName.new(owner_id: owner_id,
                                    subject_dn: csr.distinguished_name.x509_name.to_s.split('/subjectAltName')[0],
                                    owner_type: type)
         dn.save!()
@@ -148,6 +157,27 @@ class X509Helpers
 
 
   private
+
+    def self.construct_host_from_subject_dn(subject_dn, owner)
+      # Create host
+      hostnames = subject_dn.split(Regexp.union(/\/CN=/, /DNS\.\d+=/))[1..-1]
+      org = Organization.find_by_domain((subject_dn.match /.*OU=(.*)\/CN.*/)[1])
+      host = Host.create(fqdn: hostnames[0],
+                  person_id: owner,
+                  organization: org
+      )
+
+      # Create alternative hostnames
+      hostnames[1..-1].each do |hn|
+        AlternativeHostname.create(
+                               address: hn,
+                               host_id: host.id
+        )
+      end
+
+      host
+    end
+
   @@signing_profile = {
       "extensions" => {
           "basicConstraints" => {"ca" => false},
