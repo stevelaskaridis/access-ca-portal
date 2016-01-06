@@ -17,11 +17,6 @@
     </div>
 
     <div class="field">
-      <%= f.label :person %><br>
-      <%= f.collection_select(:person_id, Person.all, :id, :email) %>
-    </div>
-
-    <div class="field">
       <%= f.label :organization %><br>
       <%= f.collection_select(:organization_id, Organization.all, :id, :name) %>
     </div>

@@ -56,5 +56,6 @@ class CsrValidator < ActiveModel::EachValidator
         return false
       end
     end
+    true
   end
 end
