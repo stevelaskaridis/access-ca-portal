@@ -1,6 +1,6 @@
 class HostsController < ApplicationController
   before_action :set_host, only: [:show, :edit, :update, :destroy]
-  before_filter :authorize!, except: [:create, :new]
+  before_filter :authorize!
 
   # GET /hosts
   # GET /hosts.json
@@ -26,6 +26,7 @@ class HostsController < ApplicationController
   # POST /hosts.json
   def create
     @host = Host.new(host_params)
+    @host.person = current_user
 
     respond_to do |format|
       if @host.save
