@@ -33,5 +33,10 @@ module Access
 
     # How many snapshots PaperTrails to retain
     PaperTrail.config.version_limit = config_for(:access)['snapshot_limit']
+
+    config.active_job.queue_adapter = :sidekiq
+
+    # Enforce SSL in production
+    config.force_ssl = true if Rails.env == 'production'
   end
 end
