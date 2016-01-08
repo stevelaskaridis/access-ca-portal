@@ -34,7 +34,12 @@ module Access
     # How many snapshots PaperTrails to retain
     PaperTrail.config.version_limit = config_for(:access)['snapshot_limit']
 
+    # Job queueing backend - sidekiq
     config.active_job.queue_adapter = :sidekiq
+
+    # Mailer default host
+    config.action_mailer.default_url_options = { host: 'localhost:3000' }
+
 
     # Enforce SSL in production
     config.force_ssl = true if Rails.env == 'production'

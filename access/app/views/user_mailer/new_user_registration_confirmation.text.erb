@@ -2,4 +2,4 @@
 
 <%= I18n.t "mailers.user_mailer.new_user_registration_confirmation_body"%>
 
-<%= verify_email_url(@user.verification_token) %>
+<%= verify_email_url(token: @user.verification_token) %>
