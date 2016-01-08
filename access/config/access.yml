@@ -46,7 +46,7 @@ development:
   <<: *default
   app_confs:
     redis:
-      url: 'redis://localhost:6378' # have different redis db for development
+      url: 'redis://localhost:6379'
 
 production:
   <<: *default
