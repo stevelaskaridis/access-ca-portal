@@ -35,6 +35,11 @@
   tags:
     - selinux_policies
 
+- name: Can network connect for Redis
+  shell: setsebool -P httpd_can_network_connect on
+  tags:
+    - selinux_policies
+
 - name: Applying the SELinux Policy
   shell: restorecon -Rv {{ application_path }}access
   tags:

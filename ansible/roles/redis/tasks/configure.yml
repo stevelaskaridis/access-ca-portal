@@ -1,0 +1,8 @@
+---
+
+- name: Copy Redis configuration
+  template: src=etc/redis.conf.j2 dest=/etc/redis.conf owner=redis group=redis
+            mode=0644 force=yes
+  notify: restart redis
+  tags:
+    - redis_configure
