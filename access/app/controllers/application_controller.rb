@@ -7,7 +7,11 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def current_user
-    @current_user || Person.find(session[:user_id]) if session[:user_id]
+    begin
+      @current_user ||= Person.find(session[:user_id]) if session[:user_id]
+    rescue ActiveRecord::RecordNotFound
+      reset_session
+    end
   end
 
   def set_locale
