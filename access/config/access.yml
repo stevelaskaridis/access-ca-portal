@@ -42,13 +42,17 @@ default: &default
         organization: ""
         notice_numbers: ""
 
-
-###### E-mail ######
 development:
   <<: *default
+  app_confs:
+    redis:
+      url: 'redis://localhost:6378' # have different redis db for development
 
 production:
   <<: *default
+  app_confs:
+    redis:
+      url: 'redis://localhost:6379'
 
 test:
   <<: *default

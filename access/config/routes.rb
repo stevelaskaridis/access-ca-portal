@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
 
   scope "(:locale)", locale: /#{APP_CONFIG['available_locales'].join('|')}/ do
@@ -38,6 +40,9 @@ Rails.application.routes.draw do
     get '/login' => 'sessions#new', as: 'login'
     post '/login' => 'sessions#create'
     get '/logout' => 'sessions#destroy', as: 'logout'
+
+    # Sidekiq Web UI
+    mount Sidekiq::Web => '/sidekiq'
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
