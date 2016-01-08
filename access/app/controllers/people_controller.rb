@@ -1,7 +1,7 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
-  before_filter :authorize!, except: [:create, :new]
   before_filter :check_singed_in, only: [:create, :new]
+  before_filter :authorize!, except: [:create, :new, :verify_email]
   # GET /people
   # GET /people.json
   def index
@@ -35,8 +35,8 @@ class PeopleController < ApplicationController
     end
     respond_to do |format|
       if @person.save && !invalid_flag
-        UserMailer.new_user_registration_confirmation(@person)
-        @person.alternative_emails.each { |alt_mail| UserMailer.new_alt_mail_confirmation(alt_mail)}
+        UserMailer.new_user_registration_confirmation(@person).deliver_later
+        @person.alternative_emails.each { |alt_mail| UserMailer.new_alt_mail_confirmation(alt_mail).deliver_later }
         session[:user_id] = @person.id # login as the user after they have been created
         format.html { redirect_to @person, notice: 'Person was successfully created.' }
         format.json { render :show, status: :created, location: @person }
@@ -61,7 +61,7 @@ class PeopleController < ApplicationController
     end
     respond_to do |format|
       if @person.update(person_params) && !invalid_flag
-        new_mails.each { |alt_mail| UserMailer.new_alt_mail_confirmation(alt_mail)}
+        new_mails.each { |alt_mail| UserMailer.new_alt_mail_confirmation(alt_mail).deliver_later }
         format.html { redirect_to @person, notice: 'Person was successfully updated.' }
         format.json { render :show, status: :ok, location: @person }
       else
@@ -96,8 +96,7 @@ class PeopleController < ApplicationController
       user = Person.find_by_verification_token(params[:token])
       if user
         user.activate_email
-        flash[:success] = 'Your e-mail has been confirmed'
-        redirect_to root_url
+        redirect_to root_url, notice: 'Your e-mail has been confirmed'
         return true
       else
         return false
@@ -108,8 +107,7 @@ class PeopleController < ApplicationController
       user, mail = Person.find_by_alt_verification_token(params[:token])
       if user
         mail.activate_email
-        flash[:success] = 'Your e-mail has been confirmed'
-        redirect_to root_url
+        redirect_to root_url, notice: 'Your e-mail has been confirmed'
         return true
       else
         return false

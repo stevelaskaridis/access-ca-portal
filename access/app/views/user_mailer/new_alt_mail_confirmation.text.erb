@@ -2,4 +2,4 @@
 
 <%= I18n.t "mailers.user_mailer.new_alt_mail_confirmation_body"%>
 
-<%= verify_email_url(@alt_mail.verification_token) %>
+<%= verify_email_url(token: @alt_mail.verification_token) %>

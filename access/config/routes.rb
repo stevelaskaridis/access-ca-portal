@@ -4,11 +4,11 @@ Rails.application.routes.draw do
 
   scope "(:locale)", locale: /#{APP_CONFIG['available_locales'].join('|')}/ do
     root 'site#index'
-    get '/:locale' => 'people#index', as: 'verify_email'
+    get '/:locale' => 'people#index'
     resources :people do
       get 'versions' => 'people_versions#index'
     end
-    get '/people/confirm_email/:token' => 'people#verify_email'
+    get '/people/confirm_email/:token' => 'people#verify_email', as: 'verify_email'
 
     resources :organizations
     resources :hosts do

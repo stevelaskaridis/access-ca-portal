@@ -18,9 +18,9 @@
   <% end %>
 </div>
 
-<p id="notice"><%= notice %></p>
-<p id="alert"><%= flash[:alert] %></p>
-<p id="error"><%= flash[:error] %></p>
+<% flash.each do |key, value| %>
+    <div class="<%= key %>"><%= value %></div>
+<% end %>
 
 <%= yield %>
 
