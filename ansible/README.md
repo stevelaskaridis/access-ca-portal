@@ -35,24 +35,23 @@ More information can be found [here](https://access.redhat.com/documentation/en-
 
 ## Run ansible playbook
 
-The wrapper playbook for all the application and its requirements is **ansible/playbooks/access.yml** which includes the relevant roles.
+The playbook for the application and all its requirements is [ansible/access.yml](access.yml) which includes the relevant roles.
 
-First, make sure you append the target machine hostname or ip inside the **ansible/playbooks/production** file.
+First, make sure you specify the target machine hostname or IP in the [ansible/production](production) inventory file.
 
 To run the playbook, type the following command:
-```
-  ansible-playbook -v playbooks/access.yml
-```
+
+    ansible-playbook -v ansible/access.yml
+
 
 You can also specify task groups to run, by using the `--tags tag0,tag1,...`.
 
 ## Seeding data
 
-After running the ansible playbook, there is one more step to take, before running
-your application; seeding initial data to your database.
+After running the ansible playbook, there is one more step to take, before running your application; seeding initial data to your database.
 
 The aforementioned can be accomplished by running the following command:
-```
-rake db:seed
-```
-from the **access/** directory.
+
+    rake db:seed
+
+from the [access/](../access) directory.
