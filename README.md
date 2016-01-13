@@ -1,4 +1,4 @@
-# Access CA Portal [![Build Status](https://jenkins.argo.grnet.gr/job/access-ca-portal_devel/badge/icon)](https://jenkins.argo.grnet.gr/job/access-ca-portal_devel)
+# Access CA Portal [![Build Status](https://jenkins.argo.grnet.gr/job/access-ca-portal_devel/badge/icon)](https://jenkins.argo.grnet.gr/job/access-ca-portal_devel) [![Test Coverage](http://jenkins.argo.grnet.gr:9913/jenkins/c/http/jenkins.argo.grnet.gr/job/access-ca-portal_devel)](https://jenkins.argo.grnet.gr/job/access-ca-portal_devel/cobertura)
 
 ## Overview
 
