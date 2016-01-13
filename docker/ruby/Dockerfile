@@ -9,6 +9,7 @@ RUN             yum -y install \
                   git \
                   tar \
                   postgresql-devel \
+                  libxml2-devel \
                   epel-release
 RUN             yum clean all
 RUN             yum -y install \
