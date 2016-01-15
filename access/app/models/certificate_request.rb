@@ -33,7 +33,7 @@ class CertificateRequest < ActiveRecord::Base
   validates_inclusion_of :csr_type, in: %w(classic spkac classic_ie vista_ie)
   validates :requestor_id, presence: true
   validates :owner_dn_id, presence: true
-  validates :owner_dn_id, uniqueness: true, if: Proc.new { |a| a.owner_dn.owner_type == 'Person' }
+  validates :owner_dn_id, uniqueness: true, if: Proc.new { |a| a.owner_dn.owner_type == 'Person' unless a.owner_dn.nil? }
   validates :organization_id, presence: true
 
   def self.approve_csr(csr_id)
