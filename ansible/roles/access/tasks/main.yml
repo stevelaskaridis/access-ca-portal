@@ -73,6 +73,28 @@
 
 
 #####################################
+############# DB tasks ##############
+#####################################
+
+- name: Create and change modification rights on SQLite db
+  file: path={{ application_path }}access/db/{{ item }}.sqlite3 state=touch
+        owner={{ application_user }} group={{ application_user }} mode=0660
+  with_items:
+    - development
+    - production
+    - test
+  when: database.type == "sqlite3"
+  tags:
+    - change_db_rights
+
+  name: Change modification rights on SQLite db
+  file: path={{ application_path }}access/db state=directory
+        owner={{ application_user }} group={{ application_user }} mode=0770
+  when: database.type == "sqlite3"
+  tags:
+    - change_db_rights
+
+#####################################
 ########### Rake db tasks ###########
 #####################################
 - name: rake db:migrate
@@ -108,3 +130,23 @@
 
 # tranfer all the data needed (e.g.database.yml)
 # (maybe) run checks
+
+##############################################
+############### Start sidekiq ################
+##############################################
+
+- name: Register ruby version
+  shell: ruby --version | awk -F " " '{ print $2 }' | awk -F "p" '{print $1}'
+  ignore_errors: True
+  register: ruby_version
+  tags:
+   - start_sidekiq
+
+- name: transfer systemd service file
+  template: src=lib/systemd/system/sidekiq_workers.service.j2 dest=/lib/systemd/system/sidekiq_workers.service
+            owner=root group=root mode=0644
+  notify: 
+   - reload systemd
+   - restart sidekiq
+  tags:
+   - start_sidekiq

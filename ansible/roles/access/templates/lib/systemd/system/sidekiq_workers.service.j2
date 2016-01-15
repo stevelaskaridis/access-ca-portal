@@ -1,0 +1,14 @@
+[Unit]
+Description=Sidekiq workers
+
+[Service]
+Type=forking
+User={{ application_user }}
+WorkingDirectory={{ application_path }}/access
+Environment="RAILS_ENV=production" "PATH=/usr/local/rvm/gems/ruby-2.2.3@access-env/bin:/usr/local/rvm/gems/ruby-2.2.3@global/bin:/usr/local/rvm/rubies/ruby-2.2.3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/usr/local/rvm/bin:/root/bin" "GEM_PATH=/usr/local/rvm/gems/ruby-2.2.3@access-env:/usr/local/rvm/gems/ruby-2.2.3@global" "BUNDLE_PATH=/usr/local/rvm/gems/ruby-2.2.3@access-env"
+PIDFile=/var/www/access-ca-portal/access/tmp/sidekiq.pid
+ExecStart={{ application_path }}/access/scripts/sidekiq_start
+ExecStop={{ application_path }}/access/scripts/sidekiq_stop
+
+[Install]
+WantedBy=multi-user.target
