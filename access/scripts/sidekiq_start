@@ -1,0 +1,5 @@
+#!/bin/bash -x
+
+cd /var/www/access-ca-portal/access
+
+/usr/local/rvm/gems/ruby-2.2.3@access-env/bin/bundle exec "sidekiq -e development -p tmp/sidekiq.pid -q default -q mailers -L log/sidekiq.log -d >> log/sidekiq.log 2>&1"

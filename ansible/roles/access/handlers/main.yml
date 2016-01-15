@@ -1,2 +1,8 @@
 - name: restart apache
   service: name=httpd state=restarted enabled=yes
+  
+- name: reload systemd
+  shell: systemctl daemon-reload
+  
+- name: restart sidekiq
+  service: name=sidekiq_workers state=restarted
