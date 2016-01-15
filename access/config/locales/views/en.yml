@@ -80,3 +80,5 @@ en:
       list_orgs: 'List organizations'
       login_or_signup: 'Please log in or create an account.'
       orgs_admin_only: 'You must be logged in as admin to administer organizations.'
+      list_approved_csrs: 'List approved CSRs'
+      upload_certs: 'Upload signed certs'
