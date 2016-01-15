@@ -56,3 +56,6 @@ production:
 
 test:
   <<: *default
+  app_confs:
+    redis:
+      url: 'redis://localhost:6379'
