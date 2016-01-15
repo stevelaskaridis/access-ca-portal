@@ -1,0 +1,5 @@
+#!/bin/bash -x
+
+cd /var/www/access-ca-portal/access
+
+/usr/local/rvm/gems/ruby-2.2.3@access-env/bin/bundle exec "sidekiqctl stop tmp/sidekiq.pid >> log/sidekiq.log 2>&1"
