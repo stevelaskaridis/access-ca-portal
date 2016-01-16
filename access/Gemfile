@@ -63,3 +63,5 @@ end
 
 gem 'simplecov', :require => false, :group => :test
 gem 'simplecov-cobertura', :require => false, :group => :test
+gem 'ci_reporter', :require => false, :group => :test
+gem 'ci_reporter_minitest', :require => false, :group => :test
