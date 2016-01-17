@@ -1,4 +1,5 @@
 require 'socket'
+require 'helpers/type_helpers'
 
 class HostnameValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
@@ -12,7 +13,7 @@ class HostnameValidator < ActiveModel::EachValidator
   end
 
   def self.hostname_format_valid?(hostname)
-    if (hostname =~ /\A[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix).nil?
+    if (hostname =~ /\A#{TypeHelpers::HOSTNAME_REGEX}\z/ix).nil?
       false
     else
       true
