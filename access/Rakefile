@@ -4,3 +4,8 @@
 require File.expand_path('../config/application', __FILE__)
 
 Rails.application.load_tasks
+
+if ENV['GENERATE_REPORTS'] == 'true'
+  require 'ci/reporter/rake/minitest'
+  task :ci_report => 'ci:setup:minitest'
+end
