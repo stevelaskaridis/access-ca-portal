@@ -10,6 +10,8 @@ class Certificate < ActiveRecord::Base
              class_name: 'DistinguishedName',
              foreign_key: 'distinguished_name_id'
 
+  has_many :alternative_names
+
   # Validations
   validates :body, presence: true, cert: true
   validates :status, presence: true

@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+foo_bar_alt_hostname:
+  host: foo_bar_host
+  address: "foo.bar.com"
+
+example_com_alt_hostname:
+  host: example_com_host
+  address: "example.com"

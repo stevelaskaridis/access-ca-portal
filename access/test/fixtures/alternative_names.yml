@@ -4,13 +4,10 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
+alt_name_one:
+  alternative_ident: john_appleseed (Person)
 
-foo_bar_host:
-  person: john_appleseed
-  organization: auth
-  fqdn: "foo.bar.gr"
+alt_name_two:
+  alternative_ident: foo_bar_host (Host)
 
-example_com_host:
-  person: john_stevenson
-  organization: grnet
-  fqdn: "example.gr"
+

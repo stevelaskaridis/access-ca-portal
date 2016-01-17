@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117231304) do
-
+ActiveRecord::Schema.define(version: 20151201222250) do
   create_table "alternative_emails", force: :cascade do |t|
     t.integer  "person_id",                          null: false
     t.string   "email",                              null: false
@@ -23,6 +22,22 @@ ActiveRecord::Schema.define(version: 20151117231304) do
   end
 
   add_index "alternative_emails", ["person_id"], name: "index_alternative_emails_on_person_id"
+
+  create_table "alternative_hostnames", force: :cascade do |t|
+    t.string   "address"
+    t.integer  "host_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "alternative_hostnames", ["host_id"], name: "index_alternative_hostnames_on_host_id"
+
+  create_table "alternative_names", force: :cascade do |t|
+    t.integer  "alternative_ident_id",   null: false
+    t.string   "alternative_ident_type", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "certificate_requests", force: :cascade do |t|
     t.string   "status"

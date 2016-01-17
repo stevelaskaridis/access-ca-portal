@@ -1,4 +1,4 @@
 json.array!(@certificate_requests) do |certificate_request|
-  json.extract! certificate_request, :id, :uuid, :status,
-  json.url certificate_request_url(certificate_request, format: :json)
+  json.partial! 'certificate_requests/csr', certificate_request: certificate_request
+  json.status certificate_request.status
 end

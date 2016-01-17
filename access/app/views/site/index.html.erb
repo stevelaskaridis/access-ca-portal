@@ -42,6 +42,9 @@
   <% if @admin %>
       <li><%= link_to "#{I18n.t "views.homepage.create_org"}", "organizations/new" %></li>
       <li><%= link_to "#{I18n.t "views.homepage.list_orgs"}", organizations_url %></li>
+      <li><%= link_to "#{I18n.t "views.homepage.list_approved_csrs"}(xml)", ca_list_approved_url(format: :xml)  %></li>
+      <li><%= link_to "#{I18n.t "views.homepage.list_approved_csrs"}(json)", ca_list_approved_url(format: :json)  %></li>
+      <li><%= link_to "#{I18n.t "views.homepage.upload_certs"}", ca_upload_certs_url  %></li>
   <% else %>
       <p><%= "#{I18n.t "views.homepage.orgs_admin_only"}" %></p>
   <% end %>
