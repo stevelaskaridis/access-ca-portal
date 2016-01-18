@@ -115,6 +115,7 @@
 - name: Change owner of database
   file: path={{ application_path }}/access/db/development.sqlite3 owner={{ application_user }}
         group={{ application_user }}
+  when: database.type == "sqlite3"
   notify: restart apache
   tags: install_access
 
