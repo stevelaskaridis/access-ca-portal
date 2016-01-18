@@ -2,6 +2,7 @@ git_application_url: https://github.com/grnet/access-ca-portal.git
 application_branch: devel
 
 database:
+  type: sqlite3
   development:
     host: localhost
     name: access-db-development
