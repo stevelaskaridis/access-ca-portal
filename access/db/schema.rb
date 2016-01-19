@@ -12,7 +12,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20151201222250) do
-
   create_table "alternative_emails", force: :cascade do |t|
     t.integer  "person_id",                          null: false
     t.string   "email",                              null: false
