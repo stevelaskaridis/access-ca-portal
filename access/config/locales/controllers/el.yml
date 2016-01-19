@@ -6,3 +6,4 @@ el:
     session:
       welcome: "Καλώς ορίσατε!"
       invalid_email: "Το παρόν e-mail δε βρέθηκε."
+      already_logged_in: "Ήδη συνδεδεμένος."

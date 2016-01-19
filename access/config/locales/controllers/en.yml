@@ -6,3 +6,4 @@ en:
     session:
       welcome: "Welcome!"
       invalid_email: "The current e-mail could not be found."
+      already_logged_in: "Already logged in."

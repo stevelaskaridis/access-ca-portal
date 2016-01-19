@@ -4,11 +4,12 @@
 
 <h3> <%= "#{I18n.t "views.homepage.account_related"}" %></h3>
 <ul>
-  <li><%= link_to "#{I18n.t "views.homepage.create_account"}", signup_url %></li>
   <% if current_user %>
       <li><%= link_to "#{I18n.t "views.homepage.account_details"}", current_user %></li>
       <li><%= link_to "#{I18n.t "views.homepage.delete_account"}", current_user, method: :delete, data: {confirm: I18n.t("views.delete_confirmation")} %></li>
       <li><%= link_to "#{I18n.t "views.homepage.account_changes"}", "/people/#{current_user.id}/versions" %></li>
+  <%else%>
+      <li><%= link_to "#{I18n.t "views.homepage.create_account"}", signup_url %></li>
   <% end %>
 
 </ul>
