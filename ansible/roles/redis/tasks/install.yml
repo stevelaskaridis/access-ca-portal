@@ -11,3 +11,8 @@
   notify: start redis
   tags:
     - install_redis
+    
+- name: Enable redis on startup
+  service: name=redis enabled=yes
+  tags:
+    - install_redis
