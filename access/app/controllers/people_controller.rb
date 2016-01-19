@@ -1,6 +1,7 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
   before_filter :authorize!, except: [:create, :new]
+  before_filter :check_singed_in, only: [:create, :new]
   # GET /people
   # GET /people.json
   def index
@@ -151,6 +152,12 @@ class PeopleController < ApplicationController
       super
       if @person && (@person != current_user) && (!TmpAdmin.is_admin?(current_user))
         redirect_to people_url, alert: "#{I18n.t 'controllers.authorization.not_authorized'}"
+      end
+    end
+
+    def check_singed_in
+      if current_user
+        redirect_to current_user, notice: "#{I18n.t 'controllers.session.already_logged_in'}"
       end
     end
 end
